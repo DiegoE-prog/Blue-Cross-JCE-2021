@@ -6,20 +6,21 @@ interface.
 
 Example:
 
-public class Example () : IRepositoryExample{
-	public void CreateSomething(){
-		//Here lies the implementation
-	};
+	public class Example : IRepositoryExample {
+	
+		public void CreateSomething(){
+			//Here lies the implementation
+		};
 
-	public void UpdateSomething(){
-		//Here lies the implementation
-	};
+		public void UpdateSomething(){
+			//Here lies the implementation
+		};
 
-	public void DeleteSomething(){
-		//Here lies the implementation
-	};
+		public void DeleteSomething(){
+			//Here lies the implementation
+		};
 
-	Something GetSomething(){
-		//Here lies the implementation
-	};
-}
+		Something GetSomething(){
+			//Here lies the implementation
+		};
+	}

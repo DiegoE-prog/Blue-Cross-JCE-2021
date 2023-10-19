@@ -7,9 +7,9 @@ of that contract.
 
 Example:
 
-public interface IServiceExample(){
-	void CreateSomething();
-	void UpdateSomething();
-	void DeleteSomething();
-	Something GetSomething();
-}
+	public interface IServiceExample{
+		void CreateSomething();
+		void UpdateSomething();
+		void DeleteSomething();
+		Something GetSomething();
+	}

@@ -9,20 +9,20 @@ connections or queries should be in the Data layer
 
 Example:
 
-public class Example () : IServiceExample{
-	public void CreateSomething(){
-		//Here lies the implementation
-	};
+	public class ServiceExample : IServiceExample{
+		public void CreateSomething(){
+			//Here lies the implementation
+		};
 
-	public void UpdateSomething(){
-		//Here lies the implementation
-	};
+		public void UpdateSomething(){
+			//Here lies the implementation
+		};
 
-	public void DeleteSomething(){
-		//Here lies the implementation
-	};
+		public void DeleteSomething(){
+			//Here lies the implementation
+		};
 
-	Something GetSomething(){
-		//Here lies the implementation
-	};
-}
+		Something GetSomething(){
+			//Here lies the implementation
+		};
+	}
