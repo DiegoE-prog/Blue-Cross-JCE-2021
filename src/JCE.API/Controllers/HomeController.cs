@@ -16,7 +16,7 @@ namespace JCE.API.Controllers
         // GET: HomeController
         public ActionResult Index()
         {
-            _class1.testConnection();
+            _class1.TestConnection();
             return Ok();
         }
     }

@@ -19,7 +19,7 @@ namespace JCE.Data.Repository
 
         }
 
-        public void testConnection()
+        public void TestConnection()
         {
             using var connection = _context.CreateConnection();
 
