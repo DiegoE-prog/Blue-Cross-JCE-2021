@@ -13,6 +13,7 @@ namespace JCE.API.Controllers
         {
             _class1 = class1;
         }
+
         // GET: HomeController
         public ActionResult Index()
         {
