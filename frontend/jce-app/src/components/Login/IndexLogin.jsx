@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import BlueCrossLogo from "../../logos/BlueCrossLogo.png"
+import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
 
 function Index() {
 	const style = {
@@ -37,7 +37,7 @@ function Index() {
 	return (
 		<div style={style}>
 			<div>
-				<img src={BlueCrossLogo} width={180} height={80} style={{ float: "left" }} alt="Blue Cross Logo" />
+				<img src={BlueCrossLogo} alt="Blue Cross Logo" />
 			</div>
 			<form onSubmit={handleSubmit}>
 				<div>
