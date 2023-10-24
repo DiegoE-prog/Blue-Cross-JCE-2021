@@ -7,6 +7,7 @@ import { routes } from "./routes";
 //Views
 import Home from "./views/home";
 import Test from "./views/test";
+import ClaimPage from "./views/ClaimPage";
 
 function App() {
     return (
@@ -16,7 +17,9 @@ function App() {
   
           <div className="content">
             <Routes>
+
               <Route exact path={routes.HOME} element={<Home />} />
+              <Route path={routes.CLAIMPAGE} element={<ClaimPage />} />
               <Route path={routes.TEST} element={<Test />} />
             </Routes>
           </div>

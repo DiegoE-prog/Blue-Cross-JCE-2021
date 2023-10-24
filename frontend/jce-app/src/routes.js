@@ -1,4 +1,5 @@
 export const routes = {
     HOME: '/',
-    TEST: '/test'
+    CLAIMPAGE: '/ClaimPage',
+   TEST: '/test'
   }
