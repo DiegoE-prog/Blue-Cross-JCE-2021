@@ -24,7 +24,6 @@ function Index() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		alert("This user is a test " + user.username + " " + user.password)
 	}
 
 	const resetFields = () => {
