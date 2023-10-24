@@ -1,13 +1,66 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.header-jce {
+	font-family: Arial;
+	font-size: 12pt;
+	text-align: left;
+	font-weight: bold;
+	text-decoration-line: underline;
+	color: black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.section-jce {
+	font-family: Calibri;
+	font-size: 11pt;
+	text-align: left;
+	font-weight: bold;
+	color: black;
+}
+
+.general-jce {
+	font-family: Calibri;
+	font-size: 11pt !important;
+	text-align: left;
+	color: black;
+}
+
+.btn.btn-blue {
+	font-family: Calibri;
+	font-size: 11pt;
+	background-color: #4ab2f1;
+	border-color: #4ab2f1;
+	text-align: center;
+	color: white;
+}
+
+.btn.btn-menu {
+	font-family: Calibri;
+	font-size: 11pt;
+	background-color: #0890dc;
+	border-color: #0890dc;
+	text-align: center;
+	color: white;
+}
+
+.btn.btn-menu:hover {
+	font-family: Calibri;
+	font-size: 12pt;
+	background-color: #daf1fe;
+	border-color: #daf1fe;
+	text-align: center;
+	color: black;
+}
+
+.headertable {
+	font-family: Arial;
+	font-size: 11;
+	background-color: #0890dc;
+	border-color: black;
+	color: white;
+}
+
+.rowtable {
+	font-family: Calibri;
+	font-size: 11;
+	border-color: black;
+	color: black;
+	background-color: #daf1fe;
 }
