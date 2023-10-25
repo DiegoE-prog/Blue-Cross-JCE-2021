@@ -7,7 +7,9 @@ import { routes } from "./routes";
 //Views
 import Home from "./views/home";
 import Test from "./views/test";
+import Profile from "./views/profile";
 import ClaimPage from "./views/ClaimPage";
+
 
 function App() {
     return (
@@ -17,10 +19,10 @@ function App() {
   
           <div className="content">
             <Routes>
-
-              <Route exact path={routes.HOME} element={<Home />} />
-              <Route path={routes.CLAIMPAGE} element={<ClaimPage />} />
-              <Route path={routes.TEST} element={<Test />} />
+              <Route exact path={routes.HOME} element={<Home title="Home"/>} />
+              <Route path={routes.PROFILE} element={<Profile title="Profile" />} />
+              <Route path={routes.CLAIMPAGE} element={<ClaimPage title="CalimPage" />} />
+              <Route path={routes.TEST} element={<Test title="Test" />} />
             </Routes>
           </div>
   
