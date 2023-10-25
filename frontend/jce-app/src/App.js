@@ -8,13 +8,13 @@ import { routes } from "./routes"
 import Home from "./views/home"
 import Test from "./views/test"
 import Footer from "./nav/Footer/Footer"
+import Header from "./nav/Header/Header"
 
 function App() {
 	return (
 		<>
 			<div className="App">
-				{/*Header*/}
-
+				<Header />
 				<div className="content">
 					<Routes>
 						<Route exact path={routes.HOME} element={<Home />} />
