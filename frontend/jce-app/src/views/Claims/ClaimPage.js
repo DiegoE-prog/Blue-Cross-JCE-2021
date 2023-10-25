@@ -16,53 +16,10 @@ function ClaimPage () {
   
   <div className="col-12 mt-5 pl-5" style={{position:'absolute',top:'50%',left:"50%"}}></div>
    
-  <div className='col-6'>
+  <div className='col-12'>
   &nbsp;&nbsp;&nbsp;
-                <label>Member Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Payor Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Provider Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Claim Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-
-                <label>Diagnosis Dates</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Diagnosis Codes</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Error Section</label>
-              </div>
-              <br></br>
-              <br></br>
-              <br></br>
-
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Search</button>
-              <button style={{ backgroundColor: '#4ab2f1',  color: 'white'}}>Clean</button>
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Reset</button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Submit</button>
-<br></br>
-<div
-        style={{
-          background: 'black',
-          height: '1px',
-        }}
-      />
-      <label style={{textAlign: "left", textDecorationLine: 'underline',fontWeight: 'bold',fontStyle: 'Arial', fontSize: 16}} >Member Information</label>
+                <label style={{textAlign: "left", textDecorationLine: 'underline',fontWeight: 'bold',fontStyle: 'Arial', fontSize: 16}} >Member Information</label>
       <br></br>
       
       <br></br>
@@ -103,20 +60,48 @@ function ClaimPage () {
                 &nbsp;<label>Subscribed Date</label>
                 &nbsp;&nbsp;<input></input>
               </div>
-  
+              <hr></hr>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+                <label>Payor Information</label>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+                <label>Provider Information</label>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+                <label>Claim Information</label>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+
+                <label>Diagnosis Dates</label>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+                <label>Diagnosis Codes</label>
+              </div>
+              <div className='col-6'>
+              &nbsp;&nbsp;&nbsp;
+                <label>Error Section</label>
+              </div>
+              <br></br>
+              <br></br>
+              <br></br>
+
+              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Search</button>
+              <button style={{ backgroundColor: '#4ab2f1',  color: 'white'}}>Clean</button>
+              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Reset</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              
+              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Submit</button>
+<br></br>
+<hr></hr>
       
-<div
-        style={{
-          background: 'black',
-          height: '1px',
-        }}
-      />
-      <div
-        style={{
-          background: 'black',
-          height: '0.5px',
-        }}
-      />
+  
+    
          <br></br>
       <div className="col-12 mt-5 pl-5" style={{position:'absolute',top:'50%',left:"50%"}}>
   
