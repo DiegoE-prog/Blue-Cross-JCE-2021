@@ -1,11 +1,14 @@
-import React from "react"
+import React, { useEffect } from "react";
 
-function Home() {
-	return (
-		<div>
-			<h1>Home Page</h1>
-		</div>
-	)
+function Home(props) {
+  useEffect(() => {
+    document.title = props.title;
+  }, [props.title]);
+  return (
+    <div>
+      <h1>Home Page</h1>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
