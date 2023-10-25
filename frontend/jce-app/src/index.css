@@ -64,3 +64,9 @@
 	color: black;
 	background-color: #daf1fe;
 }
+
+.App {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}

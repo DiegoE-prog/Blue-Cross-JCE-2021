@@ -7,12 +7,12 @@ import { routes } from "./routes"
 //Views
 import Home from "./views/home"
 import Test from "./views/test"
-import Footer from "./nav/Footer"
+import Footer from "./nav/Footer/Footer"
 
 function App() {
 	return (
 		<>
-			<div>
+			<div className="App">
 				{/*Header*/}
 
 				<div className="content">
@@ -21,7 +21,6 @@ function App() {
 						<Route path={routes.TEST} element={<Test />} />
 					</Routes>
 				</div>
-
 				<Footer />
 			</div>
 		</>
