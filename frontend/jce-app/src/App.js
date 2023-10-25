@@ -7,8 +7,7 @@ import { routes } from "./routes";
 //Views
 import Home from "./views/home";
 import Test from "./views/test";
-import ClaimPage from "./views/ClaimPage";
-
+import ClaimPage from "./views/Claims/ClaimPage";
 function App() {
     return (
       <>

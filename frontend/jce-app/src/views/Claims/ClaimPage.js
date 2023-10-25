@@ -62,6 +62,61 @@ function ClaimPage () {
           height: '1px',
         }}
       />
+      <label style={{textAlign: "left", textDecorationLine: 'underline',fontWeight: 'bold',fontStyle: 'Arial', fontSize: 16}} >Member Information</label>
+      <br></br>
+      
+      <br></br>
+      <div className='col-6'>
+      
+  &nbsp;&nbsp;&nbsp;
+                <label>Member ID</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+              </div>
+              <div className='col-10'>
+  &nbsp;&nbsp;&nbsp;
+  
+                <label>Name</label>
+                 {''}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+                &nbsp;<label>Last Name</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+                &nbsp;<label>Sex</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+              </div>
+              <div className='col-10'>
+  &nbsp;&nbsp;&nbsp;
+                <label>Address</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style={{width: "754px"}}></input>
+              </div>
+              <div className='col-10'>
+  &nbsp;&nbsp;&nbsp;
+                <label>ZipCode</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+                &nbsp;<label>State</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+                &nbsp;<label>City</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+              </div>
+              <div className='col-10'>
+  &nbsp;&nbsp;&nbsp;
+                <label>DOB</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
+                &nbsp;<label>Subscribed Date</label>
+                &nbsp;&nbsp;<input></input>
+              </div>
+  
+      
+<div
+        style={{
+          background: 'black',
+          height: '1px',
+        }}
+      />
+      <div
+        style={{
+          background: 'black',
+          height: '0.5px',
+        }}
+      />
          <br></br>
       <div className="col-12 mt-5 pl-5" style={{position:'absolute',top:'50%',left:"50%"}}>
   
@@ -120,9 +175,14 @@ function ClaimPage () {
         </span>
         
       </div>
-
+      <br></br>
+     
      </div>
+
+     
   )
+
+
 
   
 }
