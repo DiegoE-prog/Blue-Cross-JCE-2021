@@ -73,3 +73,7 @@
 	width: 8%;
 	margin: 0 1%;
 }
+
+.spoptions{
+	table-layout: fixed;
+}
