@@ -5,115 +5,240 @@ import React from 'react';
 function ClaimPage () { 
 
   return(
+
+    
   
     <div className="container">
-<div className="col-12 mt-2 pl-2" style={{position:'absolute',top:'50%',left:"90%"}}></div>
-<div className='col-6'>
-                <label style={{textAlign: "left", textDecorationLine: 'underline',fontWeight: 'bold',fontStyle: 'Arial', fontSize: 16}} >Submit Claim</label>
-              </div>
-              <br></br>
-              
-  
-  <div className="col-12 mt-5 pl-5" style={{position:'absolute',top:'50%',left:"50%"}}></div>
-   
-  <div className='col-12'>
-  &nbsp;&nbsp;&nbsp;
-              
-                <label style={{textAlign: "left", textDecorationLine: 'underline',fontWeight: 'bold',fontStyle: 'Arial', fontSize: 16}} >Member Information</label>
-      <br></br>
-      
-      <br></br>
-      <div className='col-6'>
-      
-  &nbsp;&nbsp;&nbsp;
-                <label>Member ID</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-              </div>
-              <div className='col-10'>
-  &nbsp;&nbsp;&nbsp;
-  
-                <label>Name</label>
-                 {''}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-                &nbsp;<label>Last Name</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-                &nbsp;<label>Sex</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-              </div>
-              <div className='col-10'>
-  &nbsp;&nbsp;&nbsp;
-                <label>Address</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style={{width: "754px"}}></input>
-              </div>
-              <div className='col-10'>
-  &nbsp;&nbsp;&nbsp;
-                <label>ZipCode</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-                &nbsp;<label>State</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-                &nbsp;<label>City</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-              </div>
-              <div className='col-10'>
-  &nbsp;&nbsp;&nbsp;
-                <label>DOB</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input></input>
-                &nbsp;<label>Subscribed Date</label>
-                &nbsp;&nbsp;<input></input>
-              </div>
-              <hr></hr>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Payor Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Provider Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Claim Information</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
 
-                <label>Diagnosis Dates</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Diagnosis Codes</label>
-              </div>
-              <div className='col-6'>
-              &nbsp;&nbsp;&nbsp;
-                <label>Error Section</label>
-              </div>
-              <br></br>
-              <br></br>
-              <br></br>
+      <div className='row'>
+        <label className='header-jce'>Submit Claim</label>
+        <br></br>
+        <label className='header-jce'>Member Information</label>
+        <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Member ID</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+          </div>
+        </div>
+        <div className='col-2'>
+         <label className="general-jce">Name</label>
+        </div>
 
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Search</button>
-              <button style={{ backgroundColor: '#4ab2f1',  color: 'white'}}>Clean</button>
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Reset</button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              
-              <button style={{ backgroundColor: '#4ab2f1', color: 'white' }}>Submit</button>
-<br></br>
-<hr></hr>
-      
-  
-    
-         <br></br>
-      <div className="col-12 mt-5 pl-5" style={{position:'absolute',top:'50%',left:"50%"}}>
-  
-       
+        <div className='col-2'>
+         <input className='w-100'></input>
+        </div>
 
+        <div className='col-2'>
+         <label className="general-jce">Last Name</label>
+        </div>
+
+        <div className='col-2'>
+         <input className='w-100'>
+         </input>
+        </div>
+
+        <div className='col-2'>
+         <label className="general-jce">Sex</label> 
+        </div>
+
+        <div className='col-2'>
+         <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+         <label className="general-jce">Address</label>
+        </div>
+
+        <div className='col-10'>
+          <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+          <label className="general-jce">ZipCode</label>
+        </div>
+
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">State</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">City</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">DOB</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">Subscribed Date</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
       </div>
+      
+    <hr></hr>
+    <div className='row'>
+      <label className='header-jce'>Payor Information</label>
+          <div className='col-12'>
+            <div className='row'>
+              <div className='col-2'>
+              <label className="general-jce">Payor ID</label>
+              </div>
+              <div className='col-2'>
+              <input className='w-100'></input>
+              </div>
+              <div className='col-2'>
+          <label className="general-jce">Payor Name</label>
+          </div>
+          <div className='col-2'>
+              <input className='w-100'></input>
+              </div>
+              
+            </div>
+            
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">Address</label>
+          </div>
+
+          <div className='col-10'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">ZipCode</label>
+        </div>
+
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">State</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        <div className='col-2'>
+          <label className="general-jce">City</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+
+        </div>
+        <hr></hr>
+
+              <div className='row'>
+
+              <label className='header-jce'>Provider Information</label>
+        
+        <div className='col-2'>
+          <label className="general-jce">Provider ID</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+          <label className="general-jce">Provider Name</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+          <label className="general-jce">Type</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        
+        <div className='col-2'>
+          <label className="general-jce">Address</label>
+          </div>
+
+          <div className='col-10'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">ZipCode</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+          <label className="general-jce">State</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+
+        <div className='col-2'>
+          <label className="general-jce">City</label>
+        </div>
+        <div className='col-2'>
+          <input className='w-100'></input>
+        </div>
+        
+        </div>
+                <hr></hr>
+
+              
+              <div className='col-6'>
+              
+                <label className='header-jce' >Claim Information</label>
+              </div>
+              <div className='col-6'>
+              
+
+                <label className='header-jce' >Diagnosis Dates</label>
+              </div>
+              <div className='col-6'>
+              
+                <label className='header-jce'>Diagnosis Codes</label>
+              </div>
+              
+              <br></br>
+   
+
+
+              <button className='btn btn-blue m-1'>Search</button>
+              <button className='btn btn-blue m-1'>Clean</button>
+              <button className='btn btn-blue m-1'>Reset</button>
+
+              
+              <button className='btn btn-blue m-5'>Submit</button>
+
+<hr></hr>
+
+     
+<div className='col-6'>
+              
+                <label className='header-jce'>Error Section</label>
+              </div>
+    
       <div className='row'>
         <div className='col-6 '></div>
           <div className='col-6'>
             <div className='row'> 
               <div className='col-6'>
-                <label>Cost for Service</label>
+                <label className="general-jce">Cost for Service</label>
               </div>
               <div className='col-6'>
                 <input></input>
@@ -121,7 +246,7 @@ function ClaimPage () {
             </div>
             <div className='row'> 
               <div className='col-6'>
-                 <label>Cost of Material</label>
+                 <label className="general-jce">Cost of Material</label>
               </div>
               <div className='col-6'>
                 <input></input>
@@ -129,7 +254,7 @@ function ClaimPage () {
             </div>
             <div className='row'> 
               <div className='col-6'>
-                <label>Cost for Medicine</label>
+                <label className="general-jce">Cost for Medicine</label>
               </div>
               <div className='col-6'>
                 <input></input>
@@ -137,7 +262,7 @@ function ClaimPage () {
             </div>
             <div className='row'> 
               <div className='col-6'>
-                <label>Provider Cost</label>
+                <label className="general-jce">Provider Cost</label>
               </div>
               <div className='col-6'>
                 <input></input>
@@ -145,7 +270,7 @@ function ClaimPage () {
             </div>
             <div className='row'> 
               <div className='col-6'>
-                <label>Total Amount</label>
+                <label className="general-jce">Total Amount</label>
               </div>
               <div className='col-6'>
                 <input></input>
@@ -165,6 +290,7 @@ function ClaimPage () {
      </div>
 
      
+    
   )
 
 
