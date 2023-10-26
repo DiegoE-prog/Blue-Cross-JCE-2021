@@ -21,7 +21,7 @@ function App() {
             <Routes>
               <Route exact path={routes.HOME} element={<Home title="Home"/>} />
               <Route path={routes.PROFILE} element={<Profile title="Profile" />} />
-              <Route path={routes.CLAIMPAGE} element={<ClaimPage title="CalimPage" />} />
+              <Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />
               <Route path={routes.TEST} element={<Test title="Test" />} />
             </Routes>
           </div>
