@@ -6,8 +6,8 @@ import { routes } from "./routes"
 
 //Views
 import Home from "./views/home"
-import LoginIndex from "../src/components/Login/LoginIndex"
-import Profile from "./views/profile";
+import LoginIndex from "../src/views/Login/LoginIndex"
+import Profile from "./views/profile"
 import Test from "./views/test"
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
 						<Route path={routes.HOME} element={<Home />} />
-            <Route path={routes.PROFILE} element={<Profile title="Profile" />} />
+						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.TEST} element={<Test />} />
 					</Routes>
 				</div>

@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
-import { Link } from "react-router-dom"
 
 function Index() {
 	const [user, setUser] = useState({
