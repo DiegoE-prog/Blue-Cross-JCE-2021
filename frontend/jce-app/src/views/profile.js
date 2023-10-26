@@ -44,8 +44,6 @@ function Profile(props) {
               
             </div>
 
-            
-
             <div className="col-4">
               <button type="button" className="btn btn-blue mt-2">
                 Save
@@ -78,70 +76,78 @@ function Profile(props) {
 
         <div className="mt-4">
           <h2 className="header-jce">Security Questions</h2>
-              <div className="content squestion">
+              <div className="content">
                 <div className="row mx-4">
 
-                  <div className="col-12">
-                    <h5 className="general-jce">What is the name of your Mother?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
+                  <div className="squestion">
+                    <div className="col-12">
+                      <h5 className="general-jce">What is the name of your Mother?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">Who was your hero in your childhood?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What is the name of the city where you grew up?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What brand was your first car?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What is the name of your University?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What is your favorite Sport?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What is the name of your first boss?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
+
+                    <div className="col-12">
+                      <h5 className="general-jce">What is your favorite band?</h5>
+                      <input className="general-jce" type="text" id="user" name="user"/>
+                      <button type="button" className="btn btn-blue">
+                        Show
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="col-12">
-                    <h5 className="general-jce">Who was your hero in your childhood?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What is the name of the city where you grew up?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What brand was your first car?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What is the name of your University?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What is your favorite Sport?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What is the name of your first boss?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
-                    </button>
-                  </div>
-
-                  <div className="col-12">
-                    <h5 className="general-jce">What is your favorite band?</h5>
-                    <input className="general-jce" type="text" id="user" name="user"/>
-                    <button type="button" className="btn btn-blue">
-                      Show
+                  <div className="col-4">
+                    <button type="button" className="btn btn-blue mt-2">
+                      Save
                     </button>
                   </div>
 
@@ -149,7 +155,6 @@ function Profile(props) {
 
               </div>
         </div>
-        
 
       </div>
     </div>
