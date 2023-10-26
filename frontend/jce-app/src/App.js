@@ -8,22 +8,20 @@ import { routes } from "./routes"
 import Home from "./views/home"
 import LoginIndex from "../src/views/Login/LoginIndex"
 import Profile from "./views/profile"
-import Test from "./views/test"
+import Navbar from "./views/Home/Navbar"
 
 function App() {
 	return (
 		<>
 			<div>
 				<div className="content">
+					<Navbar />
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
 						<Route path={routes.HOME} element={<Home />} />
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
-						<Route path={routes.TEST} element={<Test />} />
 					</Routes>
 				</div>
-
-				{/*Footer*/}
 			</div>
 		</>
 	)

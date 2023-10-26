@@ -1,7 +1,10 @@
 import React, { useState } from "react"
 import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
+import { useNavigate } from "react-router-dom"
 
 function Index() {
+	const navigate = useNavigate()
+
 	const [user, setUser] = useState({
 		username: "",
 		password: ""
@@ -17,6 +20,7 @@ function Index() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		navigate("/home")
 	}
 
 	const resetFields = () => {
