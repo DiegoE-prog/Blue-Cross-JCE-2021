@@ -10,17 +10,17 @@ import Test from "./views/test"
 import Profile from "./views/profile"
 import LoginIndex from "../src/views/Login/LoginIndex"
 import Footer from "./nav/Footer/Footer"
+import Header from "./nav/Header/Header"
 
 function App() {
 	return (
 		<>
 			<div className="App">
-				{/*Header*/}
-
+				<Header />
 				<div className="content">
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
-						<Route exact path={routes.HOME} element={<Home title="Home" />} />
+						<Route exact element={<Home title="Home" />} />
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.TEST} element={<Test title="Test" />} />
 					</Routes>
