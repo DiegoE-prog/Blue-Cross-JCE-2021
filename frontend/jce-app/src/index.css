@@ -64,3 +64,18 @@
 	color: black;
 	background-color: #daf1fe;
 }
+
+.App {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.squestion input {
+	width: 90%;
+}
+
+.squestion button {
+	width: 8%;
+	margin: 0 1%;
+}
