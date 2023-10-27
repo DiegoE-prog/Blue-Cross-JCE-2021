@@ -1,7 +1,7 @@
 export const routes = {
 	LOGIN: "/",
 	HOME: "/home",
-  PROFILE: "/profile",
+	PROFILE: "/profile",
+	CLAIMPAGE: "/ClaimPage",
 	TEST: "/test"
 }
-
