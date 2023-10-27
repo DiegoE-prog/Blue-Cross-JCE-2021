@@ -6,24 +6,26 @@ import { routes } from "./routes"
 
 //Views
 import Home from "./views/home"
-import LoginIndex from "../src/views/Login/LoginIndex"
-import Profile from "./views/profile"
 import Test from "./views/test"
+import Profile from "./views/profile"
+import LoginIndex from "../src/views/Login/LoginIndex"
+import Footer from "./nav/Footer/Footer"
 
 function App() {
 	return (
 		<>
-			<div>
+			<div className="App">
+				{/*Header*/}
+
 				<div className="content">
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
-						<Route path={routes.HOME} element={<Home />} />
+						<Route exact path={routes.HOME} element={<Home title="Home" />} />
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
-						<Route path={routes.TEST} element={<Test />} />
+						<Route path={routes.TEST} element={<Test title="Test" />} />
 					</Routes>
 				</div>
-
-				{/*Footer*/}
+				<Footer />
 			</div>
 		</>
 	)
