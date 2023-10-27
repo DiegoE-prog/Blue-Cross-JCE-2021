@@ -1,7 +1,7 @@
 import React from "react"
 
 //React router
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import { routes } from "./routes"
 
 //Views
@@ -14,11 +14,11 @@ import Footer from "./nav/Footer/Footer"
 import Header from "./nav/Header/Header"
 
 function App() {
+	const location = useLocation()
 	return (
 		<>
 			<div className="App">
-				<Header />
-
+				{location.pathname === routes.LOGIN ? null : <Header />}
 				<div className="content">
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
@@ -28,8 +28,7 @@ function App() {
 						<Route path={routes.TEST} element={<Test title="Test" />} />
 					</Routes>
 				</div>
-
-				<Footer />
+				{location.pathname === routes.LOGIN ? null : <Footer />}
 			</div>
 		</>
 	)
