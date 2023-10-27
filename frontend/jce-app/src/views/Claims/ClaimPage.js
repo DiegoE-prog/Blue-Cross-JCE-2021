@@ -199,13 +199,157 @@ function ClaimPage () {
         </div>
                 <hr></hr>
 
-              
-              <div className='col-6'>
-              
+                
+              <div className='col-2'>
                 <label className='header-jce' >Claim Information</label>
-              </div>
-              <div className='col-6'>
-              
+             </div>
+             <div className='row'>
+             <div className='col-2'>
+          <label className="general-jce">Claim Number</label>
+          </div>
+
+          <div className='col-10'>
+            <input className='w-100'></input>
+          </div>
+            
+          <div className='col-2'>
+          <label className="general-jce">Entry Date</label>
+          </div>
+
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">Discharge Date</label>
+          </div>
+
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">DD/MM/YYYY</label>
+          </div>
+<div className='row'></div>
+          <div className='col-2'>
+          <label className="general-jce">Entry Hour</label>
+          </div>
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">Discharge Hour</label>
+          </div>
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">HH:MM:SS</label>
+          </div>
+          <div className='row'>
+          <div className='col-2'>
+          <label className="general-jce">Institunional Claim Code</label>
+          </div>
+          <div className='col-10'>
+            <input className='w-100'></input>
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">Professional Claim Code</label>
+          </div>
+          <div className='col-10'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+            <label className='general-jce'>Type Of Bill</label>
+          </div>
+
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+            <label className='general-jce'>Referal Num</label>
+          </div>
+          <div className='col-6'>
+            <input className='w-100'></input>
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">Service Code</label>
+          </div>
+
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">Auth Code</label>
+          </div>
+
+          <div className='col-4'>
+            <input className='w-100'></input>
+          </div>
+<div className='row'>
+          <div className='col-2'>
+          <label className="general-jce">Medical Record Number</label>
+          </div>
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+
+          <div className='col-2'>
+          <label className="general-jce">Payer Claim Control Num</label>
+          </div>
+
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+<div className='row'>
+          <div className='col-2'>
+          <label className="general-jce">Auto Accident State</label>
+          </div>
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+          <div className='col-2'>
+          <label className="general-jce">File Inf</label>
+          </div>
+          <div className='col-2'>
+            <input className='w-100'></input>
+          </div>
+          <div className='row'>
+          <div className='col-2'>
+          <label className="general-jce">Claim Note</label>
+          
+          </div>
+          <div className='col-10'>
+            <input className='w-100' style={{height: '50px'}}></input>
+          </div>
+          </div>
+          <div className='row'>
+          <div className='col-2'>
+          <label className="general-jce">Billing Note</label>
+          
+          </div>
+          <div className='col-10'>
+            <input className='w-100' style={{height: '50px'}}></input>
+          </div>
+          </div>
+
+</div>
+  </div>
+          
+          
+
+</div>
+          
+
+
+
+          
+
+            <hr></hr>
 
                 <label className='header-jce' >Diagnosis Dates</label>
               </div>
@@ -227,10 +371,10 @@ function ClaimPage () {
 
 <hr></hr>
 
-     
+   
 <div className='col-6'>
               
-                <label className='header-jce'>Error Section</label>
+
               </div>
     
       <div className='row'>
