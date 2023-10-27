@@ -15,9 +15,6 @@ import Header from "./nav/Header/Header"
 
 function App() {
 	const location = useLocation()
-
-	console.log(location)
-
 	return (
 		<>
 			<div className="App">
