@@ -1,6 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
 
-function Home() {
+function Home(props) {
+	useEffect(() => {
+		document.title = props.title
+	}, [props.title])
 	return (
 		<div>
 			<h1>Home Page</h1>
