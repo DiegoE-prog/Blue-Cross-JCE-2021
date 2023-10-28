@@ -1,7 +1,7 @@
 import React from "react"
 
 //React router
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import { routes } from "./routes"
 
 //Views
@@ -15,10 +15,11 @@ import Header from "./nav/Header/Header"
 import Navbar from "./views/Home/Navbar"
 
 function App() {
+	const location = useLocation()
 	return (
 		<>
 			<div className="App">
-				<Header />
+				{location.pathname === routes.LOGIN ? null : <Header />}
 				<div className="content">
 					<Navbar />
 					<Routes>
@@ -29,8 +30,7 @@ function App() {
 						<Route path={routes.TEST} element={<Test title="Test" />} />
 					</Routes>
 				</div>
-
-				<Footer />
+				{location.pathname === routes.LOGIN ? null : <Footer />}
 			</div>
 		</>
 	)

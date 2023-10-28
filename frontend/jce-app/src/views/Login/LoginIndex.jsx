@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
+import { routes } from "../../routes"
 
 function Index() {
 	const navigate = useNavigate()
@@ -20,7 +21,7 @@ function Index() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		navigate("/home")
+		navigate(routes.HOME)
 	}
 
 	const resetFields = () => {
