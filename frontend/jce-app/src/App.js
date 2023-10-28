@@ -9,7 +9,7 @@ import Home from "./views/home"
 import Test from "./views/test"
 import ClaimPage from "./views/Claims/ClaimPage"
 import Profile from "./views/profile"
-import LoginIndex from "../src/views/Login/LoginIndex"
+import Login from "./views/Login/Login"
 import Footer from "./nav/Footer/Footer"
 import Header from "./nav/Header/Header"
 import Navbar from "./views/Home/Navbar"
@@ -21,9 +21,9 @@ function App() {
 			<div className="App">
 				{location.pathname === routes.LOGIN ? null : <Header />}
 				<div className="content">
-					<Navbar />
+					{location.pathname === routes.LOGIN ? null : <Navbar />}
 					<Routes>
-						<Route exact path={routes.LOGIN} element={<LoginIndex />} />
+						<Route exact path={routes.LOGIN} element={<Login />} />
 						<Route exact element={<Home title="Home" />} />
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />

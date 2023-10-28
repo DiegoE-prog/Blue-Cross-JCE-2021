@@ -1,12 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import { routes } from "../../routes"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 function Navbar() {
-	const [user] = useState({
-		Username: "Diego",
-		U_Ui_Role: "4"
-	})
+	const { role } = useSelector((state) => state.user)
 
 	return (
 		<>
@@ -19,7 +17,7 @@ function Navbar() {
 							</Link>
 						</li>
 
-						{user.U_Ui_Role === "1" || user.U_Ui_Role === "4" ? (
+						{role === "1" || role === "4" ? (
 							<li className="nav-item m-1">
 								<Link className="nav-link btn btn-menu" to="">
 									Provider Finder
@@ -27,15 +25,15 @@ function Navbar() {
 							</li>
 						) : null}
 
-						{user.U_Ui_Role === "2" || user.U_Ui_Role === "4" ? (
+						{role === "2" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to="">
+								<Link className="nav-link btn btn-menu" to={routes.CLAIMPAGE}>
 									Submit Claim
 								</Link>
 							</li>
 						) : null}
 
-						{user.U_Ui_Role === "3" || user.U_Ui_Role === "4" ? (
+						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
 								<Link className="nav-link btn btn-menu" to="">
 									Error Manager
@@ -43,7 +41,7 @@ function Navbar() {
 							</li>
 						) : null}
 
-						{user.U_Ui_Role === "3" || user.U_Ui_Role === "4" ? (
+						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
 								<Link className="nav-link btn btn-menu" to="">
 									Payor Registration
@@ -51,7 +49,7 @@ function Navbar() {
 							</li>
 						) : null}
 
-						{user.U_Ui_Role === "4" ? (
+						{role === "4" ? (
 							<li className="nav-item m-1">
 								<Link className="nav-link btn btn-menu" to="">
 									Users

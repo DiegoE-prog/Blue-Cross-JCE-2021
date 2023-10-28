@@ -12,6 +12,17 @@ builder.Services.AddBusinessServices();
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 builder.Services.Configure<ConnectionString>(builder.Configuration.GetSection(nameof(ConnectionString)));
 
 
@@ -32,5 +43,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();

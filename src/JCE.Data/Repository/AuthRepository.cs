@@ -5,22 +5,22 @@ using JCE.Data.Repository.Interfaces;
 
 namespace JCE.Data.Repository;
 
-public class UserRepository : IUserRepository
+public class AuthRepository : IAuthRepository
 {
     private readonly IDataContext _context;
 
-    public UserRepository(IDataContext context)
+    public AuthRepository(IDataContext context)
     {
         _context = context;
     }
 
-    public async Task<List<User>> GetUsersAsync()
+    public async Task<User> Login(User user)
     {
         using var connection = _context.CreateConnection();
         var sql = $"SELECT * FROM user";
 
         var users = await connection.QueryAsync<User>(sql);
 
-        return users.ToList();
+        return users.FirstOrDefault(e => e.Username == user.Username);
     }
 }

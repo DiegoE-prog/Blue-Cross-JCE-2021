@@ -2,7 +2,7 @@
 
 namespace JCE.Data.Repository.Interfaces;
 
-public interface IUserRepository
+public interface IAuthRepository
 {
-    Task<List<User>> GetUsersAsync();
+    Task<User> Login(User user);
 }
