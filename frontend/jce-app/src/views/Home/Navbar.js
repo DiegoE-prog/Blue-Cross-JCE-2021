@@ -19,9 +19,7 @@ function Navbar() {
 
 						{role === "1" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to="">
-									Provider Finder
-								</Link>
+								<Link className="nav-link btn btn-menu">Provider Finder</Link>
 							</li>
 						) : null}
 
@@ -35,30 +33,24 @@ function Navbar() {
 
 						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to="">
-									Error Manager
-								</Link>
+								<Link className="nav-link btn btn-menu">Error Manager</Link>
 							</li>
 						) : null}
 
 						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to="">
-									Payor Registration
-								</Link>
+								<Link className="nav-link btn btn-menu">Payor Registration</Link>
 							</li>
 						) : null}
 
 						{role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to="">
-									Users
-								</Link>
+								<Link className="nav-link btn btn-menu">Users</Link>
 							</li>
 						) : null}
 
-						<li className="nav-item m-1">
-							<Link className="nav-link btn btn-menu" to={routes.PROFILE}>
+						<li className="nav-item m-1 ">
+							<Link className="nav-link btn btn-menu text-right" to={routes.PROFILE}>
 								Config
 							</Link>
 						</li>

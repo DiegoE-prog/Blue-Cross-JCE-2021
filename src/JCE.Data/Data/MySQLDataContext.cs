@@ -28,7 +28,6 @@ public class MySQLDataContext : IDataContext
     public async Task Init()
     {
         await InitDatabase();
-        await InitTableUsers();
     }
 
 
