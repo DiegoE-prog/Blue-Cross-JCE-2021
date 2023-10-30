@@ -200,6 +200,9 @@ function ClaimPage () {
                 <hr></hr>
 
                 
+
+
+                
               <div className='col-2'>
                 <label className='header-jce' >Claim Information</label>
              </div>
@@ -330,8 +333,7 @@ function ClaimPage () {
           <div className='row'>
           <div className='col-2'>
           <label className="general-jce">Billing Note</label>
-          
-          </div>
+                    </div>
           <div className='col-10'>
             <input className='w-100' style={{height: '50px'}}></input>
           </div>
@@ -353,14 +355,214 @@ function ClaimPage () {
 
                 <label className='header-jce' >Diagnosis Dates</label>
               </div>
+              <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Onset of Symptom</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Initial Treatment</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Last Sent Date</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Acute Manifestation</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Accident</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Last Menstrual Date</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Last X-Ray</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Hearing-Vision Presc</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Disability Dates</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Last Worked</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Authorized Return Work</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Assumed & Relinq</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+            <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Date - Repricer Received </label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">DD/MM/YYY</label>
+            </div>
+            </div>
+            </div>
+
+
+              <hr></hr>
               <div className='col-6'>
               
                 <label className='header-jce'>Diagnosis Codes</label>
               </div>
+
+              
+              
+              <hr></hr>
               
               <br></br>
    
-
 
               <button className='btn btn-blue m-1'>Search</button>
               <button className='btn btn-blue m-1'>Clean</button>
