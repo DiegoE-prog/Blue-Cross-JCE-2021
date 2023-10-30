@@ -2,30 +2,45 @@ import React, { useState } from "react"
 import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
 import { useNavigate } from "react-router"
 import { routes } from "../../routes"
+import { useDispatch } from "react-redux"
+import { setUser } from "../../redux/slices/userSlice"
+import { login } from "../../api/loginapi"
 
-function Index() {
+function Login() {
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
-	const [user, setUser] = useState({
+	const [credentials, setCredentials] = useState({
 		username: "",
 		password: ""
 	})
 
 	const handleChange = (e) => {
 		const value = e.target.value
-		setUser({
-			...user,
+		setCredentials({
+			...credentials,
 			[e.target.name]: value
 		})
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
+
+		// API CALL HERE
+		const response = await login(credentials)
+
+		if (response.data.success) {
+			dispatch(setUser({ username: response.data.data.username, role: response.data.data.role }))
+		} else {
+			alert(response.data.message)
+			return
+		}
+
 		navigate(routes.HOME)
 	}
 
 	const resetFields = () => {
-		setUser({
+		setCredentials({
 			username: "",
 			password: ""
 		})
@@ -49,13 +64,13 @@ function Index() {
 						<label htmlFor="username" className="general-jce col-sm-4" style={{ textAlign: "right" }}>
 							Username
 						</label>
-						<input className="general-jce col-sm-6" type="text" name="username" id="username" value={user.username} onChange={handleChange} />
+						<input className="general-jce col-sm-6" type="text" name="username" id="username" value={credentials.username} onChange={handleChange} />
 					</div>
 					<div className="form-group row mb-3">
 						<label htmlFor="password" className="general-jce col-sm-4" style={{ textAlign: "right" }}>
 							Password
 						</label>
-						<input className="general-jce col-sm-6" type="password" name="password" id="password" value={user.password} onChange={handleChange} />
+						<input className="general-jce col-sm-6" type="password" name="password" id="password" value={credentials.password} onChange={handleChange} />
 					</div>
 					<div className="form-group row text-center">
 						<div className="col-sm-6">
@@ -75,4 +90,4 @@ function Index() {
 	)
 }
 
-export default Index
+export default Login

@@ -6,7 +6,7 @@ import "./index.css"
 
 //Redux Store
 import { Provider } from "react-redux"
-import store from "./store"
+import store from "./redux/store"
 
 //React-Router-DOM
 import { BrowserRouter } from "react-router-dom"

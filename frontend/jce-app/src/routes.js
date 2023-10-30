@@ -5,3 +5,7 @@ export const routes = {
 	CLAIMPAGE: "/ClaimPage",
 	TEST: "/test"
 }
+
+export const apiroutes = {
+	BASEROUTE: "https://localhost:7777"
+}
