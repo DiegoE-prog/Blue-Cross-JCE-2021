@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { routes } from "../../routes"
+import { Link } from "react-router-dom"
 import Paper from '@mui/material/Paper';
 import {
   SortingState,
@@ -95,7 +97,9 @@ function ErrorManager(props) {
           <div className="row">
           <div className="col-1"></div>                    
             <div className="col-4 d-grid gap-2">
-              <button className="btn btn-blue m-1 btn-block">Create New Error</button>
+              <Link className="btn btn-blue m-1 btn-block" to={routes.NEWERROR}>
+                Create New Error
+							</Link>
             </div>        
             <div className="col-3"></div>
             <div className="col-2 d-grid gap-2 align-items-end">
