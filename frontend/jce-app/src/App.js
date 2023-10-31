@@ -13,6 +13,8 @@ import Login from "./views/Login/Login"
 import Footer from "./nav/Footer/Footer"
 import Header from "./nav/Header/Header"
 import Navbar from "./views/Home/Navbar"
+import NewError from "./views/ErrorsViews/NewError"
+import ErrorManager from "./views/ErrorsViews/ErrorManager"
 
 function App() {
 	const location = useLocation()
@@ -28,6 +30,8 @@ function App() {
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />
 						<Route path={routes.TEST} element={<Test title="Test" />} />
+						<Route path={routes.NEWERROR} element={<NewError title="NewError" />} />s
+						<Route path={routes.ERRORMANAGER} element={<ErrorManager title="ErrorManager" />} />
 					</Routes>
 				</div>
 				{location.pathname === routes.LOGIN ? null : <Footer />}

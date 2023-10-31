@@ -33,7 +33,7 @@ function Navbar() {
 
 						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu">Error Manager</Link>
+								<Link className="nav-link btn btn-menu" to={routes.ERRORMANAGER}>Error Manager</Link>
 							</li>
 						) : null}
 

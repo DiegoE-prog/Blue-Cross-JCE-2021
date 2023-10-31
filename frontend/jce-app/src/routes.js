@@ -3,9 +3,12 @@ export const routes = {
 	HOME: "/home",
 	PROFILE: "/profile",
 	CLAIMPAGE: "/ClaimPage",
-	TEST: "/test"
+	TEST: "/test",
+	ERRORMANAGER: "/ErrorManager",
+	NEWERROR: "/NewError"
 }
 
 export const apiroutes = {
 	BASEROUTE: "https://localhost:7777"
+	
 }
