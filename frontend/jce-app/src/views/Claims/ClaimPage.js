@@ -557,19 +557,281 @@ function ClaimPage () {
                 <label className='header-jce'>Diagnosis Codes</label>
               </div>
 
-              
-              
-              <hr></hr>
-              
-              <br></br>
-   
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Principal Diagnosis</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
 
-              <button className='btn btn-blue m-1'>Search</button>
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Admiting Diagnosis</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Patient Reason For Visit</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">External Causes Of Injury</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Diagnosis Related Group</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Other Diagnosis Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+            
+            
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Principal Procedure Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Other Procedure Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Occurrence Spam Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Occurrence Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Value Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Condition Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+            
+            
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-2'>
+             <label className="general-jce">Treatment Code Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+
+            </div>
+            <div className='col-2'>
+             <label className="general-jce">Claim Pricing Info</label>
+            </div>
+            <div className='col-2'>
+            <input className='w-100'></input>
+            </div>
+            </div>
+            </div>
+
+          
+
+            <div className='col-12'>
+        <div className='row'>
+          <div className='col-2'>
+           <label className="general-jce"style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+
+          </div>
+          <div className='col-2'>
+           <label className="general-jce" style={{color: 'red'}}>ERROR MESSAGE AREA</label>
+          </div>
+          <div className='col-2'>
+          
+          </div>
+          </div>
+          </div>
+          
+          
+          
+          
+      <button className='btn btn-blue m-1'>Search</button>
               <button className='btn btn-blue m-1'>Clean</button>
               <button className='btn btn-blue m-1'>Reset</button>
-
-              
               <button className='btn btn-blue m-5'>Submit</button>
+              
 
 <hr></hr>
 
@@ -624,7 +886,10 @@ function ClaimPage () {
             </div>
           </div>
       </div>
+     
 
+              
+              
       <div className='row'>
         <span style={{textAlign:'center'}} className='border border-danger mt-5' >
         <label className='text-danger' class="hidden" ></label>
