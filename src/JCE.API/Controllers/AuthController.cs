@@ -23,6 +23,7 @@ namespace JCE.API.Controllers
             
             try
             {
+                if (authDto.BlockUser == true) await _authService.BlockUser(authDto.Username);
                 var user = await _authService.Login(authDto);
                 response.Success = true;
                 response.Data = user;
@@ -31,11 +32,10 @@ namespace JCE.API.Controllers
             {
                 response.Success = false;
                 response.Message = ex.Message;
-
-                return BadRequest(response);
+                return Unauthorized(response);
             }
 
             return Ok(response);
-        } 
+        }
     }
 }

@@ -21,7 +21,13 @@ public class AuthServiceTests
         var expected = new GetAuthDto { Username = "TestUser", Role="1" };
 
         mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
-            .ReturnsAsync(new User { Username = "TestUser", Role="1"});
+            .ReturnsAsync(new User { 
+                Username = "TestUser", 
+                Password="password", 
+                Role="1",
+                UserStatus = "1",
+                ExpireDate = DateTimeOffset.UtcNow.AddYears(1)
+            });
 
         // Act
         var result = await authService.Login(testAuth);
@@ -33,7 +39,7 @@ public class AuthServiceTests
     }
 
     [Fact]
-    public async Task Should_ReturnAnExceptionWithMessage_WhenAuthDtoIsInvalid()
+    public async Task Should_ReturnAnExceptionWithMessage_WhenAuthDtoHasAnInvalidUser()
     {
         // Arrange
         var mockAuthRepository = new Mock<IAuthRepository>();
@@ -49,7 +55,76 @@ public class AuthServiceTests
             (async () => await authService.Login(testAuth));
 
         // Assert
-        Assert.Equal("User not in the database", result.Message);
+        Assert.Equal("UserName should be valid", result.Message);
     }
 
+    [Fact]
+    public async Task Should_ReturnAnExceptionWithMessage_WhenAuthDtoHasAnInvalidPassword()
+    {
+        // Arrange
+        var mockAuthRepository = new Mock<IAuthRepository>();
+        var authService = new AuthService(mockAuthRepository.Object);
+
+        var testAuth = new AuthDto { Username = "ExistingUser", Password = "NotCorrectPassword" };
+
+        mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
+            .ReturnsAsync(new User { Username = "ExistingUser", Password = "password"});
+
+        // Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await authService.Login(testAuth));
+
+        // Assert
+        Assert.Equal("Password is incorrect", result.Message);
+    }
+
+    [Fact]
+    public async Task Should_ReturnAnExceptionWithMessage_WhenAuthDtoIsValidButUserIsExpired()
+    {
+        // Arrange
+        var mockAuthRepository = new Mock<IAuthRepository>();
+        var authService = new AuthService(mockAuthRepository.Object);
+
+        var testAuth = new AuthDto { Username = "ExistingUser", Password = "password" };
+
+        mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
+            .ReturnsAsync(new User { 
+                Username = "ExistingUser", 
+                Password = "password", 
+                ExpireDate = DateTimeOffset.UtcNow.AddMonths(-2) 
+            });
+
+        // Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await authService.Login(testAuth));
+
+        // Assert
+        Assert.Equal("User has expired, please contact system admin (01800-233-45-63)", result.Message);
+    }
+
+    [Fact]
+    public async Task Should_ReturnAnExceptionWithMessage_WhenAuthDtoIsValidButUserStatusIsBloqued()
+    {
+        // Arrange
+        var mockAuthRepository = new Mock<IAuthRepository>();
+        var authService = new AuthService(mockAuthRepository.Object);
+
+        var testAuth = new AuthDto { Username = "ExistingUser", Password = "password" };
+
+        mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
+            .ReturnsAsync(new User
+            {
+                Username = "ExistingUser",
+                Password = "password",
+                ExpireDate = DateTimeOffset.UtcNow.AddYears(1),
+                UserStatus = "0"
+            });
+
+        // Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await authService.Login(testAuth));
+
+        // Assert
+        Assert.Equal("User is bloqued please contact system admin (01800-233-45-63)", result.Message);
+    }
 }
