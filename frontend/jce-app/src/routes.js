@@ -3,7 +3,8 @@ export const routes = {
 	HOME: "/home",
 	PROFILE: "/profile",
 	CLAIMPAGE: "/ClaimPage",
-	TEST: "/test"
+	TEST: "/test",
+	NEWERROR: "/NewError"
 }
 
 export const apiroutes = {
