@@ -12,6 +12,7 @@ import Profile from "./views/profile"
 import LoginIndex from "../src/views/Login/LoginIndex"
 import Footer from "./nav/Footer/Footer"
 import Header from "./nav/Header/Header"
+import ErrorManager from "./views/ErrorsViews/ErrorManager"
 
 function App() {
 	return (
@@ -26,6 +27,7 @@ function App() {
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />
 						<Route path={routes.TEST} element={<Test title="Test" />} />
+						<Route path={routes.ERRORMANAGER} element={<ErrorManager title="ErrorManager" />} />
 					</Routes>
 				</div>
 
