@@ -6,7 +6,7 @@ function NewError(props) {
   }, [props.title]);
   return (
     <div style={{ margin: "20px" }}>
-      <h1 className="section-jce">Create New Error</h1>
+      <h1 className="header-jce">Create New Error</h1>
       <div style={{ margin: "20px" }}>
         <div className="content mb-4">
           <div className="row">
@@ -150,7 +150,7 @@ function NewError(props) {
           </div><br/>
           <div className="row">
             <div className="col-12">
-              <table className="table table-bordered">
+              <table className="table rowtable table-bordered">
               <thead>
                 <tr>
                   <th scope="col"></th>
@@ -180,14 +180,14 @@ function NewError(props) {
           <hr className="border border-black border-1 opacity-75"></hr>
           <div className="row">
             <div className="col-4">
-              <a class="nav-link btn btn-menu" href="/home">Add Group</a>
+              <a class="nav-link btn btn-blue" href="/home">Add Group</a>
             </div>
             <div className="col-4"></div>
             <div className="col-2">
-                <a class="nav-link btn btn-menu" href="/home">Cancel</a>
+                <a class="nav-link btn btn-blue" href="/home">Cancel</a>
             </div>
             <div className="col-2">
-              <a class="nav-link btn btn-menu" href="/home">Save</a>
+              <a class="nav-link btn btn-blue" href="/home">Save</a>
             </div>
           </div>
 

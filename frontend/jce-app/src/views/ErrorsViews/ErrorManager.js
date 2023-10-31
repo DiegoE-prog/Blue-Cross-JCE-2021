@@ -6,20 +6,31 @@ import {
 } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
 
+const table = (
+  <Table
+    borderColor="red"
+  />
+);
+
+const styles = {
+  '.description-column': {
+    backgroundColor: 'red',
+  },
+};
 
 const columns = [
   { name: '', title: '', visible: false },
   { name: 'error_id', title: 'Error ID' },
   { name: 'message', title: 'Message' },
-  { name: 'description', title: 'Description' },
+  { name: 'description', title: 'Description', className: 'rowtable' },
   { name: 'created_by', title: 'Created By' },
 ];
 const rows = [
-  { '': <button variant="text" color="red">Details</button>, error_id: 123456789, message: 'Invalid Enter Procedure 1', description: 'DevExpress', created_by: 'Luis' },
-  { '': <button variant="text" color="red">Details</button>, error_id: 234567890, message: 'Invalid Enter Procedure 2 ', description: 'DevExpress', created_by: 'Luis Miguel' },
-  { '': <button variant="text" color="red">Details</button>, error_id: 345678901, message: 'Invalid Enter Procedure 3', description: 'DevExpress', created_by: 'Luis' },
-  { '': <button variant="text" color="red">Details</button>, error_id: 4567890123, message: 'Invalid Enter Procedure 4', description: 'DevExpress', created_by: 'Luis Miguel' },
-  { '': <button variant="text" color="red">Details</button>, error_id: 4567890123, message: 'Invalid Enter Procedure 5', description: 'DevExpress', created_by: 'Luis Miguel' },
+  { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 123456789, message: 'Invalid Enter Procedure 1', description: 'DevExpress', created_by: 'Luis' },
+  { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 234567890, message: 'Invalid Enter Procedure 2 ', description: 'DevExpress', created_by: 'Luis Miguel' },
+  { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 345678901, message: 'Invalid Enter Procedure 3', description: 'DevExpress', created_by: 'Luis' },
+  { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 4567890123, message: 'Invalid Enter Procedure 4', description: 'DevExpress', created_by: 'Luis Miguel' },
+  { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 4567890123, message: 'Invalid Enter Procedure 5', description: 'DevExpress', created_by: 'Luis Miguel' },
 ];
 
 
@@ -30,7 +41,7 @@ function ErrorManager(props) {
   }, [props.title]);
   return (
     <div style={{ margin: "20px" }}>
-      <h1 className="section-jce">Error Manager</h1>
+      <h1 className="header-jce">Error Manager</h1>
       <div style={{ margin: "20px" }}>
         <div className="content mb-4">
           <div className="row">
@@ -105,7 +116,7 @@ function ErrorManager(props) {
               defaultSorting={[{ columnName: ['error_id','message','description','created_by'], direction: 'asc' }]}
             />
             <IntegratedSorting />
-              <Table />
+              <Table/>
               <TableHeaderRow showSortingControls />
             </Grid>
             </Paper>
