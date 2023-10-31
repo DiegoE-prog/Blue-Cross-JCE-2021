@@ -824,15 +824,6 @@ function ClaimPage () {
           </div>
           </div>
           
-          
-          
-          
-      <button className='btn btn-blue m-1'>Search</button>
-              <button className='btn btn-blue m-1'>Clean</button>
-              <button className='btn btn-blue m-1'>Reset</button>
-              <button className='btn btn-blue m-5'>Submit</button>
-              
-
 <hr></hr>
 
    
@@ -887,6 +878,11 @@ function ClaimPage () {
           </div>
       </div>
      
+      <button className='btn btn-blue m-1'>Search</button>
+              <button className='btn btn-blue m-1'>Clean</button>
+              <button className='btn btn-blue m-1'>Reset</button>
+              <button className='btn btn-blue m-5'>Submit</button>
+              
 
               
               
