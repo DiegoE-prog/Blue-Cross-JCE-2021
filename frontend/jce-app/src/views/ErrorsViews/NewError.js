@@ -10,19 +10,30 @@ function NewError(props) {
       <div style={{ margin: "20px" }}>
         <div className="content mb-4">
           <div className="row">
-            <div className="col-2">
+             <div className="col-2">
                 <h5 className="general-jce text-end">Error ID</h5>
               </div>
               <div className="col-3">              
-                <input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" />
+                <input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id"  readOnly/>
               </div>
               <div className="col-3">
                 <h5 className="general-jce text-end">Created by</h5>
               </div>
               <div className="col-2">
-              <input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" />
+              <input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by"  disabled/>
               </div>
 
+              <div className="col-2"></div>
+          </div>
+          <div className="row">
+          <div className="col-2">
+                <h5 className="general-jce text-end">Message</h5>
+              </div>
+              <div className="col-3">              
+                <input className="general-jce w-100 text-start" type="text" id="message" name="message"  />
+              </div>
+              <div className="col-3"></div>
+              <div className="col-2"></div>
               <div className="col-2"></div>
           </div>
           <div className="row">
@@ -43,12 +54,12 @@ function NewError(props) {
             </div>
             <div className="col-4"></div>
             <div className="col-4">
-                <h5 className="general-jce text-center">Description</h5>
+                <h5 className="general-jce text-center">Payor List</h5>
             </div>
           </div>
           <div className="row">
             <div className="col-4">
-              <select className="form-select" multiple aria-label="Multiple select example">
+              <select className="form-select text-start" multiple aria-label="Multiple select example">
                 {/* <option selected>Open this select menu</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
@@ -57,14 +68,23 @@ function NewError(props) {
             </div>
             <div className="col-4 text-center">
               <div className="row">
-                <p><a href="#">&lt;&lt; ADD</a></p><br/>
+                <div className="col-3 text-center"></div>
+                <div className="col-6 text-center">
+                  <button class="btn btn-blue btn-sm">&lt;&lt; ADD</button>
+                </div>
+                <div className="col-3 text-center"></div>                
+                <br/><br/>
               </div>
               <div className="row">
-                <p><a href="#">REMOVE &gt;&gt;</a></p>
+              <div className="col-3 text-center"></div>
+                <div className="col-6 text-center">
+                  <button class="btn btn-blue btn-sm">REMOVE &gt;&gt;</button>
+                </div>
+                <div className="col-3 text-center"></div>                                
               </div>
             </div>
             <div className="col-4">
-              <select className="form-select" multiple aria-label="Multiple select example">
+              <select className="form-select text-end" multiple aria-label="Multiple select example">
               </select>
             </div>
           </div><br/>
@@ -75,7 +95,7 @@ function NewError(props) {
                 <h5 className="general-jce text-end">Group</h5>
               </div>
               <div className="col-3">              
-                <select className="form-select" aria-label="Default select example">
+                <select className="form-select general-jce" aria-label="Default select example">
                   <option selected>Meets the following Conditions</option>
                   <option value="1">Doesn't meet the following conditions</option>
                 </select>
@@ -91,40 +111,81 @@ function NewError(props) {
           <div className="row">
             <div className="col-12">
               <table className="table table-bordered">
-              <thead>
+              {/* <thead>
                 <tr>
                   <th scope="col"></th>
                   <th scope="col">Field</th>
                   <th scope="col">Condition</th>
                   <th scope="col">Value</th>
                 </tr>
-              </thead>
+              </thead> */}
               <tbody>
                 <tr>
-                  <th ><p><a href="#">Remove</a></p></th>
+                  <th className="text-center"><p><a href="#">Remove</a></p></th>
                   <td>
-                    <select className="form-select" aria-label="Default select example">
-                      <option value="0">State</option>
-                      <option value="1">Zip Code</option>
-                      <option value="2">Procedure Code</option>
-                    </select>
+                    <div className="row">                      
+                      <div className="col-3">                      
+                        <h5 className="general-jce text-end">Field</h5>
+                      </div>
+                      <div className="col-9 text-start">
+                        <select className="form-select general-jce" aria-label="Default select example">
+                          <option value="0">Member ID</option>
+                          <option value="0">Name</option>
+                          <option value="1">Last Name</option>
+                          <option value="1">Sex</option>
+                          <option value="1">Address</option>
+                          <option value="1">ZipCode</option>
+                          <option value="1">State</option>
+                          <option value="1">City</option>
+                          <option value="1">DOB</option>
+                          <option value="1">Subscribed Date</option>
+                          <option value="1">Payor ID</option>
+                          <option value="1">Payor Name</option>
+                          <option value="1">Provider ID</option>
+                          <option value="1">Provider Name</option>
+                          <option value="1">Type</option>                          
+                          <option value="2">Cost for Service</option>
+                          <option value="2">Cost of Material</option>
+                          <option value="2">Cost for Medicine</option>
+                          <option value="2">Provider Cost</option>
+                          <option value="2">Total Amount</option>
+                          <option value="2">Procedure Code</option>
+                        </select>
+                      </div>
+                    </div>
                   </td>
                   <td>
-                    <select className="form-select" aria-label="Default select example">
-                      <option value="0">Equal to</option>
-                      <option value="1">Doesn't match</option>
-                      <option value="2">Matches</option>
-                      <option value="3">is Less than</option>
-                      <option value="4">Is More than</option>
-                      <option value="5">In List</option>
-                      <option value="6">Starts with</option>
-                      <option value="7">Ends with</option>
-                      <option value="8">Not in List</option>
-                      <option value="9">Is Entered</option>
-                      <option value="10">Is Not Entered</option>
-                    </select>
+                    <div className="row">                      
+                        <div className="col-3">                      
+                          <h5 className="general-jce text-end">Condition</h5>
+                        </div>
+                        <div className="col-9 text-start">
+                          <select className="form-select general-jce" aria-label="Default select example">
+                            <option value="0">Equal to</option>
+                            <option value="1">Doesn't match</option>
+                            <option value="2">Matches</option>
+                            <option value="3">is Less than</option>
+                            <option value="4">Is More than</option>
+                            <option value="5">In List</option>
+                            <option value="6">Starts with</option>
+                            <option value="7">Ends with</option>
+                            <option value="8">Not in List</option>
+                            <option value="9">Is Entered</option>
+                            <option value="10">Is Not Entered</option>
+                          </select>
+                        </div>
+                      </div>
                   </td>
-                  <td><input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" /></td>
+                  <td>
+                  <div className="row">                      
+                        <div className="col-3">                      
+                          <h5 className="general-jce text-end">Value</h5>
+                        </div>
+                        <div className="col-9 text-start">
+                          <input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" />  
+                        </div>
+                      </div>                    
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -133,7 +194,9 @@ function NewError(props) {
           <div className="row">
             <p><a href="#">Add Condition</a></p>
           </div>
+
           <hr className="border border-black border-1 opacity-75"></hr>
+{/* 
           <div className="row">
             <div className="col-2">
                 <h5 className="general-jce text-end">Group</h5>
@@ -177,7 +240,9 @@ function NewError(props) {
           <div className="row">
             <p><a href="#">Add Condition</a></p>
           </div>
-          <hr className="border border-black border-1 opacity-75"></hr>
+
+          <hr className="border border-black border-1 opacity-75"></hr> */}
+
           <div className="row">
             <div className="col-4">
               <a class="nav-link btn btn-blue" href="/home">Add Group</a>
