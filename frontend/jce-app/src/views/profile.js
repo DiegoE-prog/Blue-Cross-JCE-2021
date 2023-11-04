@@ -1,9 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { getUserProfile } from "../api/profileapi";
 
 function Profile(props) {
+
+  //User ID
+  const {userId} = useSelector((state)=> state.user)
+
+  //Personal Information
+  const [personalInfo, setPersonalInfo] = useState({});
+
   useEffect(() => {
     document.title = props.title;
   }, [props.title]);
+
+  useEffect(() => {
+    async function fetchProfile(){
+      try
+      {
+        const response = await getUserProfile(userId)
+        response.data.data.dob = String(response.data.data.dob).substring(0, 10)
+        setPersonalInfo(response.data.data)
+
+      }catch(error)
+      {
+        console.log(error);
+      }
+    
+    }
+
+    //Fetch the user information only if the user is logged in
+    if(userId !== null){
+      fetchProfile()
+    }
+    
+  }, []);
+
   return (
     <div style={{ margin: "20px" }}>
       <h1 className="section-jce">Profile</h1>
@@ -16,29 +48,29 @@ function Profile(props) {
 
             <div className="col-4">
               <h5 className="general-jce">Name</h5>
-              <input className="general-jce w-100" type="text" id="name" name="name"readOnly/>
+              <input className="general-jce w-100" type="text" id="name" name="name" readOnly defaultValue={ personalInfo.name || undefined }/>
             </div>
 
             <div className="col-4">
               <h5 className="general-jce">Last Name</h5>
-              <input className="general-jce w-100" type="text" id="last_name" name="last_name" readOnly/>
+              <input className="general-jce w-100" type="text" id="lastname" name="lastname" readOnly defaultValue={ personalInfo.lastName || undefined }/>
             </div>
 
             <div className="col-4">
               <h5 className="general-jce">DOB</h5>
-              <input className="general-jce w-100" type="date" id="dob" name="dob" readOnly/>
+              <input className="general-jce w-100" type="date" id="dob" name="dob" readOnly defaultValue={ personalInfo.dob|| undefined }/>
             </div>
 
             <div className="col-12 mt-2">
               <div className="row">
                 <div className="col-4">
                   <h5 className="general-jce">Phone Number</h5>
-                  <input className="general-jce w-100" type="number" id="dob"name="dob"/>
+                  <input className="general-jce w-100" type="number" id="phone"name="phone" defaultValue={ personalInfo.phone || undefined }/>
                 </div>
 
                 <div className="col-8">
                   <h5 className="general-jce">E-mail</h5>
-                  <input className="general-jce w-100" type="text" id="dob" name="dob"/>
+                  <input className="general-jce w-100" type="email" id="email" name="email" defaultValue={ personalInfo.email || undefined }/>
                 </div>
               </div>
               

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\JCE.Data\JCE.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dtos\ProfileDtos\" />
+  </ItemGroup>
+
 </Project>
