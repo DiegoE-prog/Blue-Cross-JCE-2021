@@ -17,6 +17,7 @@ public static class DataServiceRegistration
         services.AddSingleton<IDataContext, MySQLDataContext>();                               
         services.AddSingleton<Class1>();
         services.AddScoped<IAuthRepository, AuthRepository>();
+        services.AddScoped<IErrorRepository, ErrorRepository>();
         return services;
     }
 }

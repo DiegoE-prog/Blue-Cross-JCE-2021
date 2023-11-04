@@ -1,7 +1,28 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux"
+import { getlastId } from "../../api/errorapi"
 
 function NewError(props) {
+  const [errorId, setErrorId] = useState(null); // Estado para almacenar el valor de errorid
+  const { role,username } = useSelector((state) => state.user)
+  
   useEffect(() => {
+    const getlastIdApi = async () => {
+      try {
+        const response = await getlastId();
+        if (response.data.success) {
+          setErrorId(response.data.data.errorid);          
+        } else {
+          alert(response.data.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }      
+    };
+
+    getlastIdApi();
+
+
     document.title = props.title;
   }, [props.title]);
   return (
@@ -13,14 +34,14 @@ function NewError(props) {
              <div className="col-2">
                 <h5 className="general-jce text-end">Error ID</h5>
               </div>
-              <div className="col-3">              
-                <input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id"  readOnly/>
+              <div className="col-3">          
+                <input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" value={errorId}  readOnly/>
               </div>
               <div className="col-3">
                 <h5 className="general-jce text-end">Created by</h5>
               </div>
               <div className="col-2">
-              <input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by"  disabled/>
+              <input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" value={username} disabled/>
               </div>
 
               <div className="col-2"></div>
@@ -84,7 +105,7 @@ function NewError(props) {
               </div>
             </div>
             <div className="col-4">
-              <select className="form-select text-end" multiple aria-label="Multiple select example">
+              <select className="form-select text-end general-jce" multiple aria-label="Multiple select example">
               </select>
             </div>
           </div><br/>

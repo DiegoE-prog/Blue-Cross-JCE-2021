@@ -1,7 +1,6 @@
 ﻿using JCE.API.Models;
 using JCE.Business.Dtos.AuthDtos;
 using JCE.Business.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCE.API.Controllers

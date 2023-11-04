@@ -39,7 +39,8 @@ Console.WriteLine(builder.Configuration["ConnectionString.Server"]);
 builder.Services.AddFluentMigratorCore()
     .ConfigureRunner(rb => rb.AddMySql5()
                         .WithGlobalConnectionString(connectionString)
-                        .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations());
+                        .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateNewError).Assembly).For.Migrations());
 
 
 var app = builder.Build();
