@@ -71,6 +71,16 @@
 	flex-direction: column;
 }
 
+.s-message{
+	color: green;
+	font-weight: bold;
+}
+
+.f-message{
+	color: red;
+	font-weight: bold;
+}
+
 .squestion input {
 	width: 90%;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { getUserProfile } from "../api/profileapi";
+import { getUserProfile, updatePhoneAndEmail } from "../api/profileapi";
 
 //List of user Roles
 import { userRoles } from "../userRoles";
@@ -12,6 +12,9 @@ function Profile(props) {
 
   //Personal Information
   const [personalInfo, setPersonalInfo] = useState({});
+
+  //Query messages
+  const [updatePhoneMessage, setUpdatePhoneMessage] = useState();
 
   useEffect(() => {
     document.title = props.title;
@@ -39,6 +42,39 @@ function Profile(props) {
     
   }, []);
 
+  const updateProfileInfo = async(event) => 
+  {
+    event.preventDefault();
+
+    if(userId !== null){
+      //Assign variables for the update
+      const phone = event.target.elements.phone.value;
+      const email = event.target.elements.email.value;
+
+      const updateInfo = 
+      {
+        userId,
+        phone,
+        email
+      }
+
+      //Update the fields
+      try
+      {
+        const response = await updatePhoneAndEmail(updateInfo);
+        if(response.data.data){
+          setUpdatePhoneMessage(<h5 className="general-jce s-message mt-2">Information was saved</h5>);
+        }else{
+          setUpdatePhoneMessage(<h5 className="general-jce f-message mt-2">Error. Information could not be saved</h5>);
+        }
+
+      }catch(error)
+      {
+        setUpdatePhoneMessage(<h5 className="general-jce f-message mt-2">Error. Information could not be saved</h5>);
+      }
+    }
+  }
+
   return (
     <div style={{ margin: "20px" }}>
       <h1 className="section-jce">Profile</h1>
@@ -64,26 +100,34 @@ function Profile(props) {
               <input className="general-jce w-100" type="date" id="dob" name="dob" readOnly defaultValue={ personalInfo.dob|| undefined }/>
             </div>
 
-            <div className="col-12 mt-2">
-              <div className="row">
-                <div className="col-4">
-                  <h5 className="general-jce">Phone Number</h5>
-                  <input className="general-jce w-100" type="number" id="phone"name="phone" defaultValue={ personalInfo.phone || undefined }/>
-                </div>
+            <form onSubmit={updateProfileInfo}>
+              <div className="col-12 mt-2">
+                <div className="row">
+                  <div className="col-4">
+                    <h5 className="general-jce">Phone Number</h5>
+                    <input className="general-jce w-100" type="number" id="phone"name="phone" defaultValue={ personalInfo.phone || undefined }/>
+                  </div>
 
-                <div className="col-8">
-                  <h5 className="general-jce">E-mail</h5>
-                  <input className="general-jce w-100" type="email" id="email" name="email" defaultValue={ personalInfo.email || undefined }/>
+                  <div className="col-8">
+                    <h5 className="general-jce">E-mail</h5>
+                    <input className="general-jce w-100" type="email" id="email" name="email" defaultValue={ personalInfo.email || undefined }/>
+                  </div>
                 </div>
+                
               </div>
-              
-            </div>
 
-            <div className="col-4">
-              <button type="button" className="btn btn-blue mt-2">
-                Save
-              </button>
-            </div>
+              <div className="col-12">
+                {updatePhoneMessage}
+              </div>
+
+              <div className="col-4">
+                <button type="submit" className="btn btn-blue mt-2">
+                  Save
+                </button>
+              </div>
+            </form>
+
+            
 
           </div>
 

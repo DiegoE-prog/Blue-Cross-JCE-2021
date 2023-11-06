@@ -1,5 +1,6 @@
 ﻿using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services.Interfaces;
+using JCE.Data.Entities;
 using JCE.Data.Repository.Interfaces;
 
 namespace JCE.Business.Services;
@@ -25,5 +26,12 @@ public class ProfileService : IProfileService
             Email = user.Email
         };
 
+    }
+
+    public async Task<bool> updatePhoneAndEmail(UpdatePhoneAndEmailDto update)
+    {
+        var success = await _profileRepository.UpdatePhoneAndEmail(new User { UserId = update.UserId, Phone = update.Phone, Email = update.Email});
+
+        return success;
     }
 }

@@ -21,4 +21,15 @@ public class ProfileRepository : IProfileRepository
 
         return await connection.QueryFirstAsync<User>(sql, new {userid});
     }
+
+    public async Task<bool> UpdatePhoneAndEmail(User update)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"UPDATE user SET phone = {update.Phone}, email = '{update.Email}' WHERE userid = {update.UserId}";
+
+        var affectedRows = await connection.ExecuteAsync(sql);
+
+        return affectedRows > 0;
+    }
 }

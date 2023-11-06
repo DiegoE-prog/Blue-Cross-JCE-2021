@@ -18,7 +18,7 @@ namespace JCE.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserProfile/{userid}")]
+        [Route("{userid}")]
         public async Task<ActionResult<Response<GetProfileDto>>> GetUserProfile(int userid)
         {
             var response = new Response<GetProfileDto>();
@@ -38,5 +38,33 @@ namespace JCE.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpPatch]
+        [Route("phone-email")]
+        public async Task<ActionResult<Response<bool>>> UpdatePhoneAndEmail(UpdatePhoneAndEmailDto update)
+        {
+            var response = new Response<bool>();
+
+            try
+            {
+                var profileUpdate = await _profileService.updatePhoneAndEmail(update);
+                response.Data = profileUpdate;
+                response.Success = profileUpdate;
+
+                if(!profileUpdate){
+                    response.Message = "Failed to update the phone and email of the user";
+                    return BadRequest(response);
+                }
+
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+        
     }
 }
