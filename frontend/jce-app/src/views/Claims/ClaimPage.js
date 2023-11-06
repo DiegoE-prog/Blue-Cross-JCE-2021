@@ -13,7 +13,7 @@ function ClaimPage () {
       <div className='row'>
         <label className='header-jce'>Submit Claim</label>
         <br></br>
-        <label className='header-jce'>Member Information</label>
+        <label className='section-jce'>Member Information</label>
         <div className='col-12'>
           <div className='row'>
             <div className='col-2'>
@@ -92,7 +92,7 @@ function ClaimPage () {
       
     <hr></hr>
     <div className='row'>
-      <label className='header-jce'>Payor Information</label>
+      <label className='section-jce'>Payor Information</label>
           <div className='col-12'>
             <div className='row'>
               <div className='col-2'>
@@ -144,7 +144,7 @@ function ClaimPage () {
 
               <div className='row'>
 
-              <label className='header-jce'>Provider Information</label>
+              <label className='section-jce'>Provider Information</label>
         
         <div className='col-2'>
           <label className="general-jce">Provider ID</label>
@@ -204,7 +204,7 @@ function ClaimPage () {
 
                 
               <div className='col-2'>
-                <label className='header-jce' >Claim Information</label>
+                <label className='section-jce' >Claim Information</label>
              </div>
              <div className='row'>
              <div className='col-2'>
@@ -353,7 +353,7 @@ function ClaimPage () {
 
             <hr></hr>
 
-                <label className='header-jce' >Diagnosis Dates</label>
+                <label className='section-jce' >Diagnosis Dates</label>
               </div>
               <div className='col-12'>
           <div className='row'>
@@ -554,7 +554,7 @@ function ClaimPage () {
               <hr></hr>
               <div className='col-6'>
               
-                <label className='header-jce'>Diagnosis Codes</label>
+                <label className='section-jce'>Diagnosis Codes</label>
               </div>
 
           <div className='col-12'>
@@ -878,10 +878,10 @@ function ClaimPage () {
           </div>
       </div>
      
-      <button className='btn btn-blue m-1'>Search</button>
-              <button className='btn btn-blue m-1'>Clean</button>
-              <button className='btn btn-blue m-1'>Reset</button>
-              <button className='btn btn-blue m-5'>Submit</button>
+<br></br>
+<br></br>
+<br></br>
+     
               
 
               
@@ -893,7 +893,11 @@ function ClaimPage () {
         
       </div>
       <br></br>
-     
+      <button className='btn btn-blue m-1'>Search</button>
+              <button className='btn btn-blue m-1'>Clean</button>
+              <button className='btn btn-blue m-1'>Reset</button>
+              <button className='btn btn-blue m-4'>Submit</button>
+              <hr></hr>
      </div>
 
      
