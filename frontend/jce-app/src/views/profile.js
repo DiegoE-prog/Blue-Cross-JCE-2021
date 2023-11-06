@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { getUserProfile } from "../api/profileapi";
 
+//List of user Roles
+import { userRoles } from "../userRoles";
+
 function Profile(props) {
 
   //User ID
-  const {userId} = useSelector((state)=> state.user)
+  const {userId, username, role} = useSelector((state)=> state.user)
 
   //Personal Information
   const [personalInfo, setPersonalInfo] = useState({});
@@ -93,12 +96,12 @@ function Profile(props) {
 
                   <div className="col-4">
                     <h5 className="general-jce">User</h5>
-                    <input className="general-jce w-100" type="text" id="user" name="user" readOnly/>
+                    <input className="general-jce w-100" type="text" id="user" name="user" readOnly defaultValue={username || undefined}/>
                   </div>
 
                   <div className="col-4">
                     <h5 className="general-jce">Role</h5>
-                    <input className="general-jce w-100" type="text" id="role" name="role" readOnly/>
+                    <input className="general-jce w-100" type="text" id="role" name="role" readOnly defaultValue={role != null ? userRoles[role] : undefined}/>
                   </div>
 
                 </div>
