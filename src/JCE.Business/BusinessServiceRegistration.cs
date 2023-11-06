@@ -10,6 +10,7 @@ public static class BusinessServiceRegistration
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IErrorService, ErrorService>();
+        services.AddScoped<IPayorService, PayorService>();
         return services;
     }
 }

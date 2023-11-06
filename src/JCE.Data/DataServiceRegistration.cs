@@ -18,6 +18,7 @@ public static class DataServiceRegistration
         services.AddSingleton<Class1>();
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IErrorRepository, ErrorRepository>();
+        services.AddScoped<IPayorRepository, PayorRepository>();
         return services;
     }
 }

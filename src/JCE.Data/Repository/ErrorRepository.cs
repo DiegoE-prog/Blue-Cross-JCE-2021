@@ -24,4 +24,13 @@ public class ErrorRepository : IErrorRepository
         return errors.First();
     }
 
+    public async Task<List<Field>> GetListField()
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"Select * From field where status = 1";
+
+        var fields = await connection.QueryAsync<Field>(sql);
+
+        return fields.ToList();
+    }
 }

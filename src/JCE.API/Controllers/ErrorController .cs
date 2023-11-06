@@ -37,6 +37,29 @@ namespace JCE.API.Controllers
             }
 
             return Ok(response);
-        } 
+        }
+
+        [HttpGet]
+        [Route("GetListField")]
+        public async Task<ActionResult<Response<GetFieldDto>>> GetListField()
+        {
+            var response = new Response<List<GetFieldDto>>();
+
+            try
+            {
+                var fields = await _errorService.GetListField();
+                response.Success = true;
+                response.Data = fields;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }
