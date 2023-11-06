@@ -23,6 +23,7 @@ public class AuthService : IAuthService
 
         return new GetAuthDto
             {
+                UserId = user.UserId,
                 Username = user.Username,
                 Role = user.Role,
             };  

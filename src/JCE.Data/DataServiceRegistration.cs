@@ -12,13 +12,14 @@ namespace JCE.Data;
 
 public static class DataServiceRegistration
 {
-    public static IServiceCollection AddDataServices(this IServiceCollection services)
-    {
-        services.AddSingleton<IDataContext, MySQLDataContext>();                               
-        services.AddSingleton<Class1>();
-        services.AddScoped<IAuthRepository, AuthRepository>();
-        services.AddScoped<IErrorRepository, ErrorRepository>();
-        services.AddScoped<IPayorRepository, PayorRepository>();
-        return services;
-    }
+        public static IServiceCollection AddDataServices(this IServiceCollection services)
+        {
+                services.AddSingleton<IDataContext, MySQLDataContext>();
+                services.AddSingleton<Class1>();
+                services.AddScoped<IAuthRepository, AuthRepository>();
+                services.AddScoped<IErrorRepository, ErrorRepository>();
+                services.AddScoped<IPayorRepository, PayorRepository>();
+                services.AddScoped<IProfileRepository, ProfileRepository>();
+                return services;
+        }
 }
