@@ -6,6 +6,10 @@ using JCE.Data.Data.Interfaces;
 using FluentMigrator.Runner;
 using JCE.Data.Data.Migrations;
 using Microsoft.Extensions.DependencyInjection;
+using JCE.Data.Data.Migrations;
+using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +43,22 @@ Console.WriteLine(builder.Configuration["ConnectionString.Server"]);
 builder.Services.AddFluentMigratorCore()
     .ConfigureRunner(rb => rb.AddMySql5()
                         .WithGlobalConnectionString(connectionString)
-                        .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations());
+                        .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateNewError).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreatePayors).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateNewErrorFix).Assembly).For.Migrations()
+                        );
+
+//// ... otros servicios que puedas necesitar
+
+//var serviceProvider = builder.Services.BuildServiceProvider();
+
+//// Ejecución del rollback
+//using var scope = serviceProvider.CreateScope();
+//var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+
+//// Ejecutar el rollback para una migración específica
+//runner.MigrateDown(1); // Revierte una migración
 
 
 var app = builder.Build();
