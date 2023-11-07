@@ -21,7 +21,7 @@ public class AuthRepository : IAuthRepository
 
         var users = await connection.QueryAsync<User>(sql);
 
-        return users.FirstOrDefault(e => e.Username == user.Username);
+        return users.FirstOrDefault(e => e.Username.ToLower() == user.Username.ToLower());
     }
 
     public async Task<bool> BlockUser(string username)
