@@ -353,7 +353,7 @@ function ClaimPage () {
 
             <hr></hr>
 
-                <label className='section-jce' >Diagnosis Dates</label>
+                <label className='section-jce' >Diagnostic Dates</label>
               </div>
               <div className='col-12'>
           <div className='row'>

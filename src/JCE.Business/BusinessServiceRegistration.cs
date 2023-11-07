@@ -11,6 +11,8 @@ public static class BusinessServiceRegistration
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IErrorService, ErrorService>();
         services.AddScoped<IPayorService, PayorService>();
+        services.AddScoped<IProviderService, ProviderService>();
+        services.AddScoped<IMemberService, MemberService>();
         return services;
     }
 }

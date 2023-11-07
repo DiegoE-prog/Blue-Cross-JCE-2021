@@ -19,6 +19,8 @@ public static class DataServiceRegistration
         services.AddScoped<IAuthRepository, AuthRepository>();
         services.AddScoped<IErrorRepository, ErrorRepository>();
         services.AddScoped<IPayorRepository, PayorRepository>();
+        services.AddScoped<IProviderRepository, ProviderRepository>();
+        services.AddScoped<IMemberRepository, MemberRepository>();
         return services;
     }
 }

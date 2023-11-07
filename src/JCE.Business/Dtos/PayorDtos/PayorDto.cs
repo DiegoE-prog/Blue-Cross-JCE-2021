@@ -1,4 +1,4 @@
-﻿namespace JCE.Business.Dtos.PayorDto;
+﻿namespace JCE.Business.Dtos.PayorDtos;
 
 public class PayorDto
 {
