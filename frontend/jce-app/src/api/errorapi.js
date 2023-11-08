@@ -11,4 +11,7 @@ const getListField = async () => {
 	return response
 }
 
-export { getlastId, getListField }
+const saveNewError = async (newError) => {
+	return await axios.post(`${apiroutes.BASEROUTE}/api/error/AddNewError`, newError)
+}
+export { getlastId, getListField, saveNewError }

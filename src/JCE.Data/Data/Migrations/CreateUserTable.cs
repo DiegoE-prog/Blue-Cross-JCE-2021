@@ -2,7 +2,7 @@
 
 namespace JCE.Data.Data.Migrations;
 
-[Migration(3010202301)]
+[Migration(3010202302)]
 //3010202301
 public class CreateUserTable : Migration
 {
