@@ -3,6 +3,6 @@
 namespace JCE.Business.Services.Interfaces;
 public interface ISecurityQuestionsService
 {
-    Task<GetSecurityQuestionsDto> getSecurityQuestions(int userid);
-    Task<bool> updateSecurityQuestions(UpdateSecurityQuestionsDto update);
+    Task<GetSecurityQuestionsDto> GetSecurityQuestions(int userid);
+    Task<bool> UpdateSecurityQuestions(UpdateSecurityQuestionsDto update);
 }

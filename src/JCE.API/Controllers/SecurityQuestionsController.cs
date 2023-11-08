@@ -23,7 +23,7 @@ namespace JCE.API.Controllers
             var response = new Response<GetSecurityQuestionsDto>();
 
             try{
-                var squestions = await _securityQuestionsService.getSecurityQuestions(userid);
+                var squestions = await _securityQuestionsService.GetSecurityQuestions(userid);
                 response.Success = true;
                 response.Data = squestions;
             }
@@ -44,7 +44,7 @@ namespace JCE.API.Controllers
             var response = new Response<bool>();
 
             try{
-                var squestionsUpdate = await _securityQuestionsService.updateSecurityQuestions(update);
+                var squestionsUpdate = await _securityQuestionsService.UpdateSecurityQuestions(update);
                 response.Data = squestionsUpdate;
                 response.Success = squestionsUpdate;
                 

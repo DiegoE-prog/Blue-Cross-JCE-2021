@@ -12,7 +12,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
     {
         _securityQuestionsRepository = securityQuestionsRepository;
     }
-    public async Task<GetSecurityQuestionsDto> getSecurityQuestions(int userid)
+    public async Task<GetSecurityQuestionsDto> GetSecurityQuestions(int userid)
     {
         var squestions = await _securityQuestionsRepository.GetSecurityQuestions(userid);
 
@@ -30,7 +30,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
         };
     }
 
-    public async Task<bool> updateSecurityQuestions(UpdateSecurityQuestionsDto update)
+    public async Task<bool> UpdateSecurityQuestions(UpdateSecurityQuestionsDto update)
     {
         var success = await _securityQuestionsRepository.UpdateSecurityQuestions(new SecurityQuestions {
             Userid = update.UserId,
