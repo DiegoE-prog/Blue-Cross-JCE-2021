@@ -69,6 +69,17 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	overflow-x: hidden;
+}
+
+.s-message {
+	color: green;
+	font-weight: bold;
+}
+
+.f-message {
+	color: red;
+	font-weight: bold;
 }
 
 .squestion input {
@@ -80,6 +91,6 @@
 	margin: 0 1%;
 }
 
-.spoptions{
+.spoptions {
 	table-layout: fixed;
 }

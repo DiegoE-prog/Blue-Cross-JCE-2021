@@ -114,12 +114,6 @@ function ClaimPage() {
 		console.log(claim)
 	}
 
-	
-
-
-
-
-	
 	return (
 		<div className="container">
 			<MemberInformation member={member} setMember={setMember} />

@@ -8,4 +8,9 @@ public class User
     public string Role { get; set; }
     public DateTimeOffset ExpireDate { get; set; }
     public string UserStatus { get; set; }
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public DateTimeOffset Dob { get; set; }
+    public string Phone { get; set; }
+    public string Email { get; set; }
 }
