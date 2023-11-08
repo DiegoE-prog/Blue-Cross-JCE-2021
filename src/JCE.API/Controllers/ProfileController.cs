@@ -25,7 +25,7 @@ namespace JCE.API.Controllers
 
             try
             {
-                var profile = await _profileService.getUserProfile(userid);
+                var profile = await _profileService.GetUserProfile(userid);
                 response.Success = true;
                 response.Data = profile;
 
@@ -47,7 +47,7 @@ namespace JCE.API.Controllers
 
             try
             {
-                var profileUpdate = await _profileService.updatePhoneAndEmail(update);
+                var profileUpdate = await _profileService.UpdatePhoneAndEmail(update);
                 response.Data = profileUpdate;
                 response.Success = profileUpdate;
 

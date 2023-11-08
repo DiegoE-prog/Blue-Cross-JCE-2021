@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { getUserProfile, updatePhoneAndEmail } from "../api/profileapi";
+
+//Profile Components
+import SecurityQuestions from "./SecurityQuestions";
 
 //List of user Roles
-import { userRoles } from "../userRoles";
+import { userRoles } from "../../userRoles";
+
+//API calls
+import { getUserProfile, updatePhoneAndEmail } from "../../api/profileapi";
+
 
 function Profile(props) {
 
-  //User ID
-  const {userId, username, role} = useSelector((state)=> state.user)
-
-  //Personal Information
-  const [personalInfo, setPersonalInfo] = useState({});
-
-  //Query messages
-  const [updatePhoneMessage, setUpdatePhoneMessage] = useState();
-
+  //Page title
   useEffect(() => {
     document.title = props.title;
   }, [props.title]);
 
+  //User ID
+  const {userId, username, role} = useSelector((state)=> state.user)
+
+  //Personal Information and Security Questions
+  const [personalInfo, setPersonalInfo] = useState({});
+
+  //Query messages
+  const [updatePhoneMessage, setUpdatePhoneMessage] = useState();
+  const [updateQuestionsMessage, setUpdateQuestionsMessage] = useState();
+
+  //Profile information
   useEffect(() => {
     async function fetchProfile(){
       try
@@ -40,6 +49,7 @@ function Profile(props) {
       fetchProfile()
     }
     
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateProfileInfo = async(event) => 
@@ -75,9 +85,30 @@ function Profile(props) {
     }
   }
 
+  //Security Questions functionality
+
+  const updateQuestionsStatus = (status)=>
+  {
+    if(status === true){
+      setUpdateQuestionsMessage(<h5 className="general-jce s-message mt-2">Security information successfuly updated</h5>)
+    }else{
+      setUpdateQuestionsMessage(<h5 className="general-jce f-message mt-2">Error. Security information could not be updated</h5>);
+    }
+    
+  }
+
+  // Automatically scrolls to top when the updateQuestionsMessage changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [updateQuestionsMessage]);
+
   return (
     <div style={{ margin: "20px" }}>
       <h1 className="section-jce">Profile</h1>
+
+      <div>
+        {updateQuestionsMessage}
+      </div>
 
       <div style={{ margin: "20px" }}>
         <h2 className="header-jce">Personal Information</h2>
@@ -153,87 +184,7 @@ function Profile(props) {
               </div>
         </div>
 
-        <div className="mt-4">
-          <h2 className="header-jce">Security Questions</h2>
-              <div className="content">
-                <div className="row mx-4">
-
-                  <div className="squestion">
-                    <div className="col-12">
-                      <h5 className="general-jce">What is the name of your Mother?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">Who was your hero in your childhood?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What is the name of the city where you grew up?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What brand was your first car?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What is the name of your University?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What is your favorite Sport?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What is the name of your first boss?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-
-                    <div className="col-12">
-                      <h5 className="general-jce">What is your favorite band?</h5>
-                      <input className="general-jce" type="text"/>
-                      <button type="button" className="btn btn-blue">
-                        Show
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="col-4">
-                    <button type="button" className="btn btn-blue mt-2">
-                      Save
-                    </button>
-                  </div>
-
-                </div>
-
-              </div>
-        </div>
+        <SecurityQuestions onQuestionsUpdate={updateQuestionsStatus}/>
 
         <div className="mt-4">
           <h2 className="header-jce">Special Options</h2>

@@ -20,6 +20,7 @@ public static class DataServiceRegistration
                 services.AddScoped<IErrorRepository, ErrorRepository>();
                 services.AddScoped<IPayorRepository, PayorRepository>();
                 services.AddScoped<IProfileRepository, ProfileRepository>();
+                services.AddScoped<ISecurityQuestionsRepository, SecurityQuestionsRepository>();
                 return services;
         }
 }

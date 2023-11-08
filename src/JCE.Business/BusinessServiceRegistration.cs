@@ -12,6 +12,7 @@ public static class BusinessServiceRegistration
                 services.AddScoped<IErrorService, ErrorService>();
                 services.AddScoped<IPayorService, PayorService>();
                 services.AddScoped<IProfileService, ProfileService>();
+                services.AddScoped<ISecurityQuestionsService, SecurityQuestionsService>();
                 return services;
         }
 }
