@@ -6,6 +6,7 @@ import ClaimInformation from "./ClaimInformation"
 import DiagnosisDates from "./DiagnosisDates"
 import DiagnosisCodes from "./DiagnosisCodes"
 import CostSection from "./CostSection"
+import { handleValidations } from "../../validations/errorManagerValidations"
 
 function ClaimPage() {
 	const [member, setMember] = useState({
@@ -100,6 +101,18 @@ function ClaimPage() {
 		totalAmount: ""
 	})
 
+	const [errorMessage, setErrorMessage] = useState({
+		title: "",
+		description: ""
+	})
+
+	const resetErrorMessage = () => {
+		setErrorMessage({
+			title: "",
+			description: ""
+		})
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const claim = {
@@ -111,7 +124,14 @@ function ClaimPage() {
 			diagnosisCodes: diagnosisCodes,
 			costs: costs
 		}
-		console.log(claim)
+
+		resetErrorMessage()
+		const error = handleValidations(claim)
+		if (error !== undefined)
+			setErrorMessage({
+				title: error.title,
+				description: error.description
+			})
 	}
 
 	return (
@@ -134,7 +154,9 @@ function ClaimPage() {
 			<br></br>
 			<div className="row">
 				<span style={{ textAlign: "center" }} className="border border-danger mt-5">
-					<label className="text-danger"></label>
+					<label className="text-danger">{errorMessage.title}</label>
+					<br />
+					<label className="text-danger">{errorMessage.description}</label>
 				</span>
 			</div>
 			<br></br>
