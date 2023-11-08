@@ -1,6 +1,10 @@
-﻿using JCE.Business.Dtos.ErrorDtos;
+﻿using JCE.Business.Dtos.AuthDtos;
+using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Services.Interfaces;
+using JCE.Data.Entities;
+using JCE.Data.Repository;
 using JCE.Data.Repository.Interfaces;
+using Microsoft.VisualBasic;
 
 namespace JCE.Business.Services;
 
@@ -43,5 +47,21 @@ public class ErrorService : IErrorService
         }
 
         throw new Exception(message: "No se encontraron fields en la base de datos");
+    }
+
+    async Task<bool> IErrorService.SaveError(ErrorSaveDto errorSaveDto)
+    {
+        var success = await _errorRepository.SaveError(new ErrorSave 
+                                                                    { 
+                                                                        ErrorId = errorSaveDto.ErrorId,
+                                                                        UserId = errorSaveDto.UserId,
+                                                                        CreatedBy = errorSaveDto.CreatedBy,
+                                                                        Message = errorSaveDto.Message,
+                                                                        Description = errorSaveDto.Description,
+                                                                        Payors = errorSaveDto.Payors,
+                                                                        Condition = errorSaveDto.Condition
+                                                                      });
+        return success;
+
     }
 }

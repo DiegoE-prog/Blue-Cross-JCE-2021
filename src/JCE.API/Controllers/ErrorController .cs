@@ -1,5 +1,7 @@
 ﻿using JCE.API.Models;
 using JCE.Business.Dtos.ErrorDtos;
+using JCE.Business.Dtos.ProfileDtos;
+using JCE.Business.Services;
 using JCE.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +59,35 @@ namespace JCE.API.Controllers
                 response.Success = false;
                 response.Message = ex.Message;
                 return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("AddNewError")]
+        public async Task<ActionResult<Response<bool>>> AddNewError(ErrorSaveDto errorSaveDto)
+        {
+            var response = new Response<bool>();
+
+            try
+            {
+                var save = await _errorService.SaveError(errorSaveDto);
+                response.Data = save;
+                response.Success = save;
+
+                if (!save)
+                {
+                    response.Message = "Failed to update the phone and email of the user";
+                    return BadRequest(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
             }
 
             return Ok(response);
