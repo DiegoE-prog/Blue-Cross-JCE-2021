@@ -6,8 +6,6 @@ using JCE.Data.Data.Interfaces;
 using FluentMigrator.Runner;
 using JCE.Data.Data.Migrations;
 using Microsoft.Extensions.DependencyInjection;
-using JCE.Data.Data.Migrations;
-using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -46,6 +44,8 @@ builder.Services.AddFluentMigratorCore()
                         .ScanIn(typeof(CreateUserTable).Assembly).For.Migrations()
                         .ScanIn(typeof(CreateNewError).Assembly).For.Migrations()
                         .ScanIn(typeof(CreatePayors).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateProviders).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateMembers).Assembly).For.Migrations()
                         .ScanIn(typeof(CreateNewErrorFix).Assembly).For.Migrations()
                         );
 
