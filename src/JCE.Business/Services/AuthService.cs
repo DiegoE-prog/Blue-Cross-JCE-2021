@@ -18,8 +18,9 @@ public class AuthService : IAuthService
     {
         var user = await _userRepository.Login(new User { Username = authDto.Username }) ?? throw new Exception(message: "UserName should be valid");
         if (user.UserStatus == "0") throw new Exception(message: "User is bloqued please contact system admin (01800-233-45-63)");
-        if (!PasswordIsValid(user, authDto.Password)) throw new Exception(message: "Password is incorrect");
         if (user.ExpireDate <= DateTimeOffset.UtcNow) throw new Exception(message: "User has expired, please contact system admin (01800-233-45-63)");
+        if (!PasswordIsValid(user, authDto.Password)) throw new Exception(message: "Password is incorrect");
+        
 
         return new GetAuthDto
             {
