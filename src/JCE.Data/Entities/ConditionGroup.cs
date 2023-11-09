@@ -3,6 +3,7 @@
 public class ConditionGroup
 {
     public int Conditiongroupid { get; set; }
-    public int Idfield { get; set; }
-    public string Value { get; set; }
+    public int selectedField { get; set; }
+    public int selectedValue { get; set; }
+    public string fieldValue { get; set; }
 }

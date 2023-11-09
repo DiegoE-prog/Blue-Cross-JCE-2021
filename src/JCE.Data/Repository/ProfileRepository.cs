@@ -26,9 +26,9 @@ public class ProfileRepository : IProfileRepository
     {
         using var connection = _context.CreateConnection();
 
-        var sql = $"UPDATE user SET phone = {update.Phone}, email = '{update.Email}' WHERE userid = {update.UserId}";
+        var sql = $"UPDATE user SET phone = @phone, email = @email WHERE userid = @userid";
 
-        var affectedRows = await connection.ExecuteAsync(sql);
+        var affectedRows = await connection.ExecuteAsync(sql, new {userid = update.UserId, phone = update.Phone, email = update.Email});
 
         return affectedRows > 0;
     }

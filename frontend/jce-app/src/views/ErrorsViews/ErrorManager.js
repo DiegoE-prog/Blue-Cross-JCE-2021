@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 import { routes } from "../../routes"
 import { Link } from "react-router-dom"
 import Paper from '@mui/material/Paper';
@@ -7,6 +8,8 @@ import {
   IntegratedSorting,
 } from '@devexpress/dx-react-grid';
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
+import { useSelector } from "react-redux";
+
 
 const table = (
   <Table
@@ -35,9 +38,11 @@ const rows = [
   { '': <button  className="btn btn-blue" variant="text" color="red">Details</button>, error_id: 4567890123, message: 'Invalid Enter Procedure 5', description: 'DevExpress', created_by: 'Luis Miguel' },
 ];
 
-
-
 function ErrorManager(props) {
+  const location = useLocation();
+  const newData = location.state ? location.state.newData : null;
+  const {status,msn} = useSelector((state) => state.error)
+
   useEffect(() => {
     document.title = props.title;
   }, [props.title]);
@@ -110,6 +115,19 @@ function ErrorManager(props) {
             </div>
           </div>
           <br/><br/>
+          <div className="row">
+            <div className="col-4">
+              <h1 className="header-jce">Result</h1>
+            </div>
+            <div className="col-4 text-center">
+              {status === 200 && (
+                <p className="fw-normal text-success">The Error was saved</p>
+              )}
+              {/* <p className="fw-normal text-danger">Error</p> */}              
+            </div>
+            <div className="col-4"></div>            
+          </div>
+          <br/>
           <div className="row">
             <Paper>
             <Grid

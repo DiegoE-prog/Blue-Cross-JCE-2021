@@ -12,7 +12,7 @@ public class ProfileService : IProfileService
     {
         _profileRepository = profileRepository;
     }
-    public async Task<GetProfileDto> getUserProfile(int userid)
+    public async Task<GetProfileDto> GetUserProfile(int userid)
     {
         var user = await _profileRepository.GetUserProfile(userid);
 
@@ -28,7 +28,7 @@ public class ProfileService : IProfileService
 
     }
 
-    public async Task<bool> updatePhoneAndEmail(UpdatePhoneAndEmailDto update)
+    public async Task<bool> UpdatePhoneAndEmail(UpdatePhoneAndEmailDto update)
     {
         var success = await _profileRepository.UpdatePhoneAndEmail(new User { UserId = update.UserId, Phone = update.Phone, Email = update.Email});
 
