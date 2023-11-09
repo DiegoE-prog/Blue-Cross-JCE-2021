@@ -7,4 +7,5 @@ public interface IErrorRepository
     Task<Error> GetLastId();
     Task<List<Field>> GetListField();
     Task<bool> SaveError(ErrorSave errorSave);
+    Task<List<SearchError>> GetListSearchError(SearchConditonError searchConditonError);
 }
