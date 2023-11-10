@@ -63,5 +63,12 @@ public class ErrorRepository : IErrorRepository
 
         return true;
     }
+    public async Task<List<SearchError>> GetListSearchError(SearchConditonError searchConditonError)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"select DISTINCT * From (select errorid, username, message, description from error Where errorid = {searchConditonError.ErrorId} UNION ALL select errorid, username, message, description from error Where message = '{searchConditonError.Message}'  UNION ALL select errorid, username, message, description from error Where description = '{searchConditonError.Description}' UNION ALL select errorid, username, message, description from error Where username = '{searchConditonError.CreateBy}'  UNION ALL  select err.errorid, err.username, err.message, err.description from error err inner join grouperror gro on err.errorid = gro.errorid inner join conditiongroup cg on gro.grouperrorid = cg.grouperrorid inner join field fi on fi.fieldid = cg.fieldid Where fi.name = '{searchConditonError.Field}' UNION ALL  select err.errorid, err.username, err.message, err.description from error err inner join payor pa on err.errorid = pa.payorid Where pa.payor_id_table in ('{searchConditonError.Payor}'))AS CombinedData";
+        var searchErrors = await connection.QueryAsync<SearchError>(sql);
+        return searchErrors.ToList();
+    }
 
 }

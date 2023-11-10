@@ -64,4 +64,31 @@ public class ErrorService : IErrorService
         return success;
 
     }
+
+    public async Task<List<GetSearchErrorDto>> GetListSearchError(SearchConditonErrorDto conditonErrorDto)
+    {
+        var searchError = await _errorRepository.GetListSearchError(new SearchConditonError {
+                                                                        ErrorId = conditonErrorDto.ErrorId,
+                                                                        Payor = conditonErrorDto.Payor,
+                                                                        Message = conditonErrorDto.Message,
+                                                                        Field = conditonErrorDto.Field, 
+                                                                        Description = conditonErrorDto.Description,
+                                                                        CreateBy = conditonErrorDto.CreateBy
+                                                                        });
+
+        if (searchError.Any())
+        {
+            List<GetSearchErrorDto> searchErrorDtos = searchError.Select(field => new GetSearchErrorDto
+            {
+               ErrorId = field.ErrorId,
+               UserName = field.UserName,
+               Message  = field.Message,
+               Description  = field.Description,
+            }).ToList();
+
+            return searchErrorDtos;
+         }
+
+         throw new Exception(message: "No se encontraron searchError en la base de datos");
+    }
 }
