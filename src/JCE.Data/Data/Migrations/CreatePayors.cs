@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 
 namespace JCE.Data.Data.Migrations;
 
-[Migration(101120231234)]
+[Migration(031120230219)]
 public class CreatePayors : Migration
 {
     public override void Up()
