@@ -1,5 +1,6 @@
 const handleValidations = (claim) => {
 	const errorHandler = {
+		5887000047: handlingClaimsInMemberStateCT,
 		5887000048: handlingClaimsProcedureCodeCOVID2,
 		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim),
 		5887000050: handlingClaimsProcedureCodeCOVID2,
@@ -66,6 +67,17 @@ const handlingClaimsProcedureCodeCOVID2 = (claim) => {
 		return {
 			title: "Required field is empty.",
 			description: "For this procedure code is mandatory to include the Authorized Return work Date."
+		}
+	}
+}
+
+const handlingClaimsInMemberStateCT = (claim) => {
+	if (claim.member.state === "CT" &&
+		claim.diagnosisCodes.principalDiagnosis === "ABA3466" &&
+		claim.diagnosisCodes.treatmentCodeInfo === "") {
+		return {
+			title: "Treatment Code is Mandatory",
+			description: "When State is CT then Treatment Code Info is Mandatory, if you have questions, please contact us in www.antem.com/chat or by phone 800-345-22-12"
 		}
 	}
 }
