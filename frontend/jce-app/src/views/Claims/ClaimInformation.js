@@ -9,7 +9,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 		})
 	}
 
-	return (
+return (
 		<>
 			<div className="col-2">
 				<label className="section-jce">Claim Information</label>

@@ -26,7 +26,7 @@ public class MemberService : IMemberService
                 membername = member.membername,
                 lastname= member.lastname,
                 sex = member.sex,
-                memberaddress = member.sex,
+                memberaddress = member.memberaddress,
                 zipcode = member.zipcode,
                 state = member.state,
                 city = member.city,

@@ -7,6 +7,10 @@ import DiagnosisDates from "./DiagnosisDates"
 import DiagnosisCodes from "./DiagnosisCodes"
 import CostSection from "./CostSection"
 import { handleValidations } from "../../validations/errorManagerValidations"
+import { useEffect } from "react"
+import { GetAllMembers } from "../../api/memberapi"
+import { getListPayors } from "../../api/payorapi"
+import { GetAllProviders } from "../../api/providerapi"
 
 function ClaimPage() {
 	const [member, setMember] = useState({
@@ -27,9 +31,10 @@ function ClaimPage() {
 		name: "",
 		address: "",
 		zipCode: "",
-		state: ""
+		state: "",
+		city: ""
 	})
-
+	
 	const [provider, setProvider] = useState({
 		id: "",
 		name: "",
@@ -133,14 +138,58 @@ function ClaimPage() {
 				description: error.description
 			})
 	}
+	const [responseFromMemberAPI,setResponseFromMemberAPI]=useState();
+	useEffect(()=>{
+		async function fetchMember(){
+			try{
+			  const response=await GetAllMembers();
+			  setResponseFromMemberAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchMember();
+	},[])
+
+	const [responseFromPayorAPI,setResponseFromPayorAPI]=useState();
+	useEffect(()=>{
+		async function fetchPayor(){
+			try{
+			  const response=await getListPayors();
+			  setResponseFromPayorAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchPayor();
+	},[])
+
+	const [responseFromProviderAPI,setResponseFromProviderAPI]=useState();
+	useEffect(()=>{
+		async function fetchProvider(){
+			try{
+			  const response=await GetAllProviders();
+			  setResponseFromProviderAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchProvider();
+	},[])
 
 	return (
 		<div className="container">
-			<MemberInformation member={member} setMember={setMember} />
+			<MemberInformation member={member} setMember={setMember} members={responseFromMemberAPI} />
 			<hr />
-			<PayorInformation payor={payor} setPayor={setPayor} />
+			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI}/>
 			<hr />
-			<ProviderInformation provider={provider} setProvider={setProvider} />
+			<ProviderInformation provider={provider} setProvider={setProvider} providers={responseFromProviderAPI} />
 			<hr />
 			<ClaimInformation claimInformation={claimInformation} setClaimInformation={setClaimInformation} />
 			<hr />
