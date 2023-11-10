@@ -10,9 +10,9 @@ const handleValidations = (claim) => {
 		5887000054: handlingClaimsProcedureCodeCOVID2,
 		5887000055: handlingClaimsProcedureCodeCOVID2,
 		5887000056: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
-		5887000057: handlingClaimsProcedureCodeCOVID2,
-		5887000058: handlingClaimsProcedureCodeCOVID2,
-		5887000059: handlingClaimsProcedureCodeCOVID2,
+		5887000057: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
+		5887000058: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
+		5887000059: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
 		5887000063: handlingClaimsProcedureCodeCOVID1
 	}
 
@@ -79,6 +79,19 @@ const handlingClaimsInMemberStateCT = (claim) => {
 			title: "Treatment Code is Mandatory",
 			description: "When State is CT then Treatment Code Info is Mandatory, if you have questions, please contact us in www.antem.com/chat or by phone 800-345-22-12"
 		}
+	}
+}
+
+const handlingClaimsInProviderStateOH = (claim) => {
+	if (claim.provider.state === "OH" &&
+		claim.diagnosisCodes.principalDiagnosis === "" &&
+		(claim.provider.zipCode !== "43001" &&
+		 claim.provider.zipCode !== "43002" )) {
+		return {
+			
+			title: "Principal Diagnosis Code is Mandatory",
+			description: "Principal Diagnosis Code is Mandatory in Ohio, please contact MDX Services if you have any question (800-366-4451)"
+		}	
 	}
 }
 
