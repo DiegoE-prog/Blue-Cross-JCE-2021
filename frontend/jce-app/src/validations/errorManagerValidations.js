@@ -3,7 +3,7 @@ const handleValidations = (claim) => {
 		5887000047: handlingClaimsInMemberStateCT,
 		5887000048: handlingClaimsProcedureCodeCOVID2,
 		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim),
-		5887000050: handlingClaimsProcedureCodeCOVID2,
+		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim),
 		5887000051: handlingClaimsProcedureCodeCOVID2,
 		5887000052: handlingClaimsProcedureCodeCOVID2,
 		5887000053: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
@@ -88,10 +88,26 @@ const handlingClaimsInProviderStateOH = (claim) => {
 		(claim.provider.zipCode !== "43001" &&
 		 claim.provider.zipCode !== "43002" )) {
 		return {
-			
 			title: "Principal Diagnosis Code is Mandatory",
 			description: "Principal Diagnosis Code is Mandatory in Ohio, please contact MDX Services if you have any question (800-366-4451)"
 		}	
+	}
+}
+
+const checkCodeRange = (code) => {
+	var numericPart = parseInt(code.substring(3), 10)
+	return numericPart >= 100 && numericPart <= 999
+}
+
+const handlingClaimsInMemberStateWA = (claim) => {
+	if (claim.member.state === "WA" &&
+		(claim.diagnosisCodes.otherDiagnosisInfo === "SD22DD" ||
+			(checkCodeRange(claim.diagnosisCodes.otherDiagnosisInfo))) &&
+		claim.diagnosisDates.lastXRay === "") {
+		return {
+			title: "Last X-Ray Date is required for this code",
+			description: "Date - Last X-Ray is required for procedure code SD22DD or from SDF100 to SDF999, please check with your Payor."
+		}
 	}
 }
 
