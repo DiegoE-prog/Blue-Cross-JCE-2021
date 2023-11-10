@@ -1,15 +1,27 @@
 const handleValidations = (claim) => {
-	switch (claim.payor.id) {
-		case "5887000049":
-			return handlingClaimsInCO(claim)
-		case "5887000056":
-			return handlingClaimsInCO2(claim)
-		case "5887000053":
-			return handlingClaimsInCO2(claim)
-		case "5887000063":
-			return handlingClaimsProcedureCodeCOVID1(claim)
-		default:
-			return
+	const errorHandler = {
+		5887000048: handlingClaimsProcedureCodeCOVID2,
+		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim),
+		5887000050: handlingClaimsProcedureCodeCOVID2,
+		5887000051: handlingClaimsProcedureCodeCOVID2,
+		5887000052: handlingClaimsProcedureCodeCOVID2,
+		5887000053: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
+		5887000054: handlingClaimsProcedureCodeCOVID2,
+		5887000055: handlingClaimsProcedureCodeCOVID2,
+		5887000056: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
+		5887000057: handlingClaimsProcedureCodeCOVID2,
+		5887000058: handlingClaimsProcedureCodeCOVID2,
+		5887000059: handlingClaimsProcedureCodeCOVID2,
+		5887000063: handlingClaimsProcedureCodeCOVID1
+	}
+
+	const handler = errorHandler[claim.payor.id]
+
+	if (handler) {
+		return handler(claim)
+	}
+	else {
+		return
 	}
 }
 
@@ -40,6 +52,16 @@ const handlingClaimsInCO2 = (claim) => {
 const handlingClaimsProcedureCodeCOVID1 = (claim) => {
 	if (claim.payor.state === "NY" &&
 		claim.diagnosisCodes.principalProcedureInfo === "COVID1" &&
+		claim.diagnosisDates.authorizedReturnWork === "") {
+		return {
+			title: "Required field is empty.",
+			description: "For this procedure code is mandatory to include the Authorized Return work Date."
+		}
+	}
+}
+
+const handlingClaimsProcedureCodeCOVID2 = (claim) => {
+	if (claim.diagnosisCodes.principalProcedureInfo === "COVID2" &&
 		claim.diagnosisDates.authorizedReturnWork === "") {
 		return {
 			title: "Required field is empty.",
