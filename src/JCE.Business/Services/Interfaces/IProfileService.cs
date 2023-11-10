@@ -3,6 +3,8 @@
 namespace JCE.Business.Services.Interfaces;
 public interface IProfileService
 {
-    Task<GetProfileDto> GetUserProfile(int userid);
+    Task<GetProfileDto> GetUserProfileById(int userid);
+    Task<List<GetProfileDto>> GetUserProfilesByFilter(GetProfileDto filter);
     Task<bool> UpdatePhoneAndEmail(UpdatePhoneAndEmailDto update);
+    Task<bool> DeleteUserProfile(int userid);
 }

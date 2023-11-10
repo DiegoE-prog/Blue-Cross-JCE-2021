@@ -25,9 +25,31 @@ namespace JCE.API.Controllers
 
             try
             {
-                var profile = await _profileService.GetUserProfile(userid);
+                var profile = await _profileService.GetUserProfileById(userid);
                 response.Success = true;
                 response.Data = profile;
+
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public async Task<ActionResult<Response<GetProfileDto>>> GetUserProfilesByFilter([FromQuery] GetProfileDto filter)
+        {
+            var response = new Response<List<GetProfileDto>>();
+            System.Diagnostics.Debug.WriteLine(filter);
+            try
+            {
+                var users = await _profileService.GetUserProfilesByFilter(filter);
+                response.Success = true;
+                response.Data = users;
 
             }catch(Exception ex)
             {
@@ -53,6 +75,33 @@ namespace JCE.API.Controllers
 
                 if(!profileUpdate){
                     response.Message = "Failed to update the phone and email of the user";
+                    return BadRequest(response);
+                }
+
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDeleteAttribute]
+        [Route("{userid}")]
+        public async Task<ActionResult<Response<bool>>> DeleteUserProfile(int userid )
+        {
+            var response = new Response<bool>();
+
+            try
+            {
+                var profileUpdate = await _profileService.DeleteUserProfile(userid);
+                response.Data = profileUpdate;
+                response.Success = profileUpdate;
+
+                if(!profileUpdate){
+                    response.Message = "Failed to delete the user";
                     return BadRequest(response);
                 }
 
