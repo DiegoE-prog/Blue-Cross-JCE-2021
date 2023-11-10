@@ -88,7 +88,7 @@ namespace JCE.API.Controllers
             return Ok(response);
         }
 
-        [HttpDeleteAttribute]
+        [HttpDelete]
         [Route("{userid}")]
         public async Task<ActionResult<Response<bool>>> DeleteUserProfile(int userid )
         {
