@@ -18,6 +18,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
 
         return new GetSecurityQuestionsDto
         {
+            UserId = squestions.Userid,
             Q1Answer = squestions.Q1Answer,
             Q2Answer = squestions.Q2Answer,
             Q3Answer = squestions.Q3Answer,
