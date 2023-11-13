@@ -2,7 +2,7 @@ const handleValidations = (claim) => {
 	const errorHandler = {
 		5887000047: handlingClaimsInMemberStateCT,
 		5887000048: handlingClaimsProcedureCodeCOVID2,
-		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim),
+		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateNY(claim),
 		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim),
 		5887000051: handlingClaimsProcedureCodeCOVID2,
 		5887000052: handlingClaimsProcedureCodeCOVID2,
@@ -13,7 +13,8 @@ const handleValidations = (claim) => {
 		5887000057: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
 		5887000058: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
 		5887000059: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
-		5887000063: handlingClaimsProcedureCodeCOVID1
+		5887000060: handlingClaimsInMemberStateNY,
+		5887000063: (claim) => handlingClaimsProcedureCodeCOVID1(claim) || handlingClaimsInMemberStateNY(claim)
 	}
 
 	const handler = errorHandler[claim.payor.id]
@@ -107,6 +108,19 @@ const handlingClaimsInMemberStateWA = (claim) => {
 		return {
 			title: "Last X-Ray Date is required for this code",
 			description: "Date - Last X-Ray is required for procedure code SD22DD or from SDF100 to SDF999, please check with your Payor."
+		}
+	}
+}
+
+const handlingClaimsInMemberStateNY = (claim) => {
+	var pattern = /^[A-Za-z]{2}\d{2}[A-Za-z]{2}$/
+	var patternIsIncorrect = !pattern.test(claim.diagnosisCodes.principalDiagnosis)
+	var zipCodeIsDifferent = claim.member.zipCode !== "10001" && claim.member.zipCode !== "10008" && claim.member.zipCode !== "10031" && claim.member.zipCode !== "10044" && claim.member.zipCode !== "10055"	
+	
+	if (claim.member.state === "NY" && zipCodeIsDifferent && patternIsIncorrect) {
+		return {
+			title: "Invalid Procedure Diagnosis Code",
+			description: "The format for Principal Diagnosis code should be AA##AA where A represents an Alpha character (from a to z in upper or lower case) and # a numeric character (from 0 to 9)"
 		}
 	}
 }
