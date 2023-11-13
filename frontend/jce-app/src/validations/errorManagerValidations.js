@@ -125,4 +125,20 @@ const handlingClaimsInMemberStateNY = (claim) => {
 	}
 }
 
+const handlingClaimsInUTandNY = (claim) => {
+	var procedureCodeIsEqual = claim.diagnosisCodes.principalProcedureInfo === "DESS30" || claim.diagnosisCodes.principalProcedureInfo === "DESS31" || claim.diagnosisCodes.principalProcedureInfo === "DESS32" || claim.diagnosisCodes.principalProcedureInfo === "DESS33"
+	if ((claim.provider.state === "NY" || claim.provider.state === "UT") &&
+		claim.claimInformation.serviceCode === "126633" &&
+		procedureCodeIsEqual 
+	) {
+		var pattern = /^[A-Za-z]{2}\d{3}[A-Za-z]{1}$/
+		if (!pattern.test(claim.diagnosisCodes.conditionInfo)) {
+			return {
+				title: "Invalid Condition Information",
+				description: "Invalid Condition Information, please review payor documentation or call to support center (223-554-6784)."
+			}
+		}
+	}
+}
+
 export { handleValidations }
