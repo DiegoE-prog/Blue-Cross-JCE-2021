@@ -1,13 +1,50 @@
 import React from "react"
 
-function MemberInformation({ member, setMember }) {
+function MemberInformation({ member, setMember, members }) {
 	const handleChange = (e) => {
+		
 		const value = e.target.value
 		setMember({
 			...member,
 			[e.target.name]: value
 		})
 	}
+	const onKeyDown = (e) => {
+		if (e.key === "Tab" || e.key==="Enter") {
+			e.preventDefault();
+			//console.log("Tab");
+			//console.log(members[0].member_id_table);
+			//console.log(member.id);
+			
+			members.forEach(memberInArray => {
+				console.log(memberInArray);
+				if(member.id === memberInArray.member_id_table)
+				 {
+	 
+			  setMember({
+				
+
+				  city: memberInArray.city,
+                  dob: memberInArray.dob,
+                  lastName: memberInArray.lastname,
+                  id:memberInArray.member_id_table,
+                  address: memberInArray.memberaddress,
+                  name: memberInArray.membername,
+                  sex: memberInArray.sex,
+                  state: memberInArray.state,
+                  subscribedDate: memberInArray.subscribedDate,
+                  zipCode: memberInArray.zipcode
+			  
+			  })
+			}
+			});	
+		
+		}
+		
+	}
+		
+		  
+		  
 
 	return (
 		<div className="row">
@@ -20,7 +57,7 @@ function MemberInformation({ member, setMember }) {
 						<label className="general-jce">Member ID</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="id" id="id" value={member.id} onChange={handleChange}></input>
+						<input className="w-100" name="id" id="id" value={member.id} onChange={handleChange} onKeyDown={onKeyDown}></input>
 					</div>
 				</div>
 			</div>
@@ -90,5 +127,5 @@ function MemberInformation({ member, setMember }) {
 		</div>
 	)
 }
-
+	
 export default MemberInformation
