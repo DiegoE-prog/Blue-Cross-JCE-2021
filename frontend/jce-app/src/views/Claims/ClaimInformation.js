@@ -1,13 +1,27 @@
-import React from "react"
+import React, {useState} from "react"
 
 function ClaimInformation({ claimInformation, setClaimInformation }) {
+	const [dateError, setDateError] = useState('');
+  
 	const handleChange = (e) => {
-		const value = e.target.value
-		setClaimInformation({
-			...claimInformation,
-			[e.target.name]: value
-		})
+	  const value = e.target.value;
+	  setClaimInformation({
+		...claimInformation,
+		[e.target.name]: value,
+	  });
+	};
+  
+	const dateValidation = (e) => {
+	  const inputDate = e.target.value;
+	  const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+      if(inputDate!==""){
+	  if (dateRegex.test(inputDate)) {
+		setDateError('');
+	  } else {
+		setDateError('Error in Date Format DD/MM/YYYY');
+	  }
 	}
+	};
 
 return (
 		<>
@@ -20,7 +34,7 @@ return (
 				</div>
 
 				<div className="col-10">
-					<input className="w-100" name="claimNumber" id="claimNumber" value={claimInformation.claimNumber} onChange={handleChange}></input>
+					<input className="w-100" name="claimNumber" id="claimNumber" value={claimInformation.claimNumber} onChange={handleChange} readOnly></input>
 				</div>
 
 				<div className="col-2">
@@ -28,7 +42,11 @@ return (
 				</div>
 
 				<div className="col-2">
-					<input className="w-100" name="entryDate" id="entryDate" value={claimInformation.entryDate} onChange={handleChange}></input>
+					<input className="w-100" name="entryDate" id="entryDate" value={claimInformation.entryDate} onChange={handleChange}onBlur={dateValidation}></input>
+				
+   {dateError ? <div style={{ color: 'red' }}>{dateError}</div>  : null}
+  
+
 				</div>
 
 				<div className="col-2">
@@ -36,10 +54,11 @@ return (
 				</div>
 
 				<div className="col-2">
-					<input className="w-100" name="dischargeDate" id="dischargeDate" value={claimInformation.dischargeDate} onChange={handleChange}></input>
+					<input className="w-100" name="dischargeDate" id="dischargeDate" value={claimInformation.dischargeDate} onChange={handleChange}onBlur={dateValidation}></input>
+					{dateError ? <div style={{ color: 'red' }}>{dateError}</div>  : null}
 				</div>
 
-				<div className="col-2">
+			<div className="col-2">
 					<label className="general-jce">DD/MM/YYYY</label>
 				</div>
 				<div className="row"></div>
