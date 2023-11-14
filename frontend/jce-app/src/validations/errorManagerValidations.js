@@ -1,20 +1,22 @@
 const handleValidations = (claim) => {
 	const errorHandler = {
-		5887000047: (claim) => handlingClaimsInMemberStateCT(claim) || handlingClaimsInProviderStateTX(claim),
-		5887000048: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim),
-		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateNY(claim) || handlingClaimsInProviderStateTX(claim),
-		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim) || handlingClaimsInProviderStateTX(claim),
-		5887000051: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim),
-		5887000052: handlingClaimsProcedureCodeCOVID2,
-		5887000053: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
-		5887000054: handlingClaimsProcedureCodeCOVID2,
-		5887000055: handlingClaimsProcedureCodeCOVID2,
-		5887000056: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
-		5887000057: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
-		5887000058: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
-		5887000059: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim),
-		5887000060: handlingClaimsInMemberStateNY,
-		5887000063: (claim) => handlingClaimsProcedureCodeCOVID1(claim) || handlingClaimsInMemberStateNY(claim)
+		5887000047: (claim) => handlingClaimsInMemberStateCT(claim) || handlingClaimsInProviderStateTX(claim) || handlingClaimsInUTandNY(claim),
+		5887000048: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim) || handlingClaimsInUTandNY(claim),
+		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateNY(claim) || handlingClaimsInProviderStateTX(claim) || handlingClaimsInUTandNY(claim),
+		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim) || handlingClaimsInProviderStateTX(claim) || handlingClaimsInUTandNY(claim),
+		5887000051: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim) || handlingClaimsInUTandNY(claim),
+		5887000052: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInUTandNY(claim),
+		5887000053: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInUTandNY(claim),
+		5887000054: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInUTandNY(claim),
+		5887000055: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInUTandNY(claim),
+		5887000056: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInUTandNY(claim),
+		5887000057: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim) || handlingClaimsInUTandNY(claim),
+		5887000058: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim) || handlingClaimsInUTandNY(claim),
+		5887000059: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateOH(claim) || handlingClaimsInUTandNY(claim),
+		5887000060: (claim) => handlingClaimsInMemberStateNY(claim) || handlingClaimsInUTandNY(claim),
+		5887000061: (claim) => handlingClaimsInUTandNY(claim),
+		5887000062: (claim) => handlingClaimsInUTandNY(claim),
+		5887000063: (claim) => handlingClaimsProcedureCodeCOVID1(claim) || handlingClaimsInMemberStateNY(claim) || handlingClaimsInUTandNY(claim)
 	}
 
 	const handler = errorHandler[claim.payor.id]
@@ -116,7 +118,7 @@ const handlingClaimsInMemberStateNY = (claim) => {
 	var pattern = /^[A-Za-z]{2}\d{2}[A-Za-z]{2}$/
 	var patternIsIncorrect = !pattern.test(claim.diagnosisCodes.principalDiagnosis)
 	var zipCodeIsDifferent = claim.member.zipCode !== "10001" && claim.member.zipCode !== "10008" && claim.member.zipCode !== "10031" && claim.member.zipCode !== "10044" && claim.member.zipCode !== "10055"	
-	
+	console.log(zipCodeIsDifferent)
 	if (claim.member.state === "NY" && zipCodeIsDifferent && patternIsIncorrect) {
 		return {
 			title: "Invalid Procedure Diagnosis Code",
