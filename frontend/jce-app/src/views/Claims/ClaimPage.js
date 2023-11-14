@@ -7,6 +7,9 @@ import DiagnosisDates from "./DiagnosisDates"
 import DiagnosisCodes from "./DiagnosisCodes"
 import CostSection from "./CostSection"
 import { handleValidations } from "../../validations/errorManagerValidations"
+import { handleConditions, test } from "../../validations/errorManagerConditions"
+import { getListConditionPayor } from "../../api/errorapi";
+
 
 function ClaimPage() {
 	const [member, setMember] = useState({
@@ -106,6 +109,11 @@ function ClaimPage() {
 		description: ""
 	})
 
+	const [errorMessageConditions, setErrorMessageConditions] = useState({
+		title: "",
+		description: ""
+	})
+
 	const resetErrorMessage = () => {
 		setErrorMessage({
 			title: "",
@@ -113,7 +121,7 @@ function ClaimPage() {
 		})
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const claim = {
 			member: member,
@@ -126,12 +134,32 @@ function ClaimPage() {
 		}
 
 		resetErrorMessage()
-		const error = handleValidations(claim)
+		const error = handleValidations(claim)		
 		if (error !== undefined)
 			setErrorMessage({
 				title: error.title,
 				description: error.description
 			})
+
+		try {
+			console.log(claim.payor.id);
+			const response = await getListConditionPayor('5887000064');
+			
+			const errorcondition = handleConditions(claim,response)	
+				
+			if (errorcondition !== undefined)
+				setErrorMessageConditions({
+					title: errorcondition.title,
+					description: errorcondition.description
+				})	
+			
+		} catch (error) {
+			alert('Validate Payor Information please...');
+		}
+		
+
+
+			
 	}
 
 	return (
@@ -157,6 +185,11 @@ function ClaimPage() {
 					<label className="text-danger">{errorMessage.title}</label>
 					<br />
 					<label className="text-danger">{errorMessage.description}</label>
+					<br />
+					<label className="text-danger">{errorMessageConditions.title}</label>
+					<br />
+					<label className="text-danger">{errorMessageConditions.description}</label>
+					<br />
 				</span>
 			</div>
 			<br></br>

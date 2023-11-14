@@ -14,4 +14,9 @@ const getListField = async () => {
 const saveNewError = async (newError) => {
 	return await axios.post(`${apiroutes.BASEROUTE}/api/error/AddNewError`, newError)
 }
-export { getlastId, getListField, saveNewError }
+
+const getListConditionPayor = async (payorId) => {	
+	return await axios.get(`${apiroutes.BASEROUTE}/api/error/GetListConditionPayor/${payorId}`)
+}
+
+export { getlastId, getListField, saveNewError, getListConditionPayor }

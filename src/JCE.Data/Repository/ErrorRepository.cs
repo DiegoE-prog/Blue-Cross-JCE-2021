@@ -15,7 +15,7 @@ public class ErrorRepository : IErrorRepository
     {
         _context = context;
     }
-    
+
     public async Task<Error> GetLastId()
     {
         using var connection = _context.CreateConnection();
@@ -64,4 +64,13 @@ public class ErrorRepository : IErrorRepository
         return true;
     }
 
+    public async Task<List<ConditionPayor>> GetConditionPayor(string payorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"select DISTINCT f.name fieldClaim, c.name nameCondition, cg.value value from grouperror gp inner join conditiongroup cg on gp.grouperrorid = cg.grouperrorid inner join field f on  cg.fieldid = f.fieldid inner join `condition` c on c.conditionid = cg.conditionid Where gp.errorid in (select pl.errorid from payorlist pl inner join payor p on p.payorid = pl.payorid Where p.payor_id_table = '{payorId}') ";
+
+        var conditions = await connection.QueryAsync<ConditionPayor>(sql);
+
+        return conditions.ToList();
+    }
 }
