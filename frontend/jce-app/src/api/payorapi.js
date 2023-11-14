@@ -2,7 +2,7 @@ import axios from "axios"
 import { apiroutes } from "../routes"
 
 const getListPayors = async () => {
-		return await axios.get(`${apiroutes.BASEROUTE}/api/payor/getlist`)
+	const response = await axios.get(`${apiroutes.BASEROUTE}/api/payor/getlist`)	
+	return response
 }
-
 export { getListPayors }
