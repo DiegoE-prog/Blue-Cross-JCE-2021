@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 
 //API calls
 import { getUserProfilesByFilter, deleteUserProfile } from "../../api/profileapi";
@@ -9,6 +10,7 @@ import {
     DialogActions,
     DialogTitle,
   } from "@mui/material";
+import { routes } from "../../routes";
 
 function SpecialOptions(props) {
 
@@ -263,9 +265,9 @@ function SpecialOptions(props) {
                             <div className="row text-center">
 
                                 <div className="col-4">
-                                    <button type="button" className="btn btn-blue mt-2">
-                                    Add User
-                                    </button>
+                                    <Link className="btn btn-blue mt-2" to={routes.ADDUSER}>
+                                        Add User
+                                    </Link>
                                 </div>
                                 
                                 <div className="col-4">
