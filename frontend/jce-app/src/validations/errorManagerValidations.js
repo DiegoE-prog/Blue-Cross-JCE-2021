@@ -1,10 +1,10 @@
 const handleValidations = (claim) => {
 	const errorHandler = {
-		5887000047: handlingClaimsInMemberStateCT,
-		5887000048: handlingClaimsProcedureCodeCOVID2,
-		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateNY(claim),
-		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim),
-		5887000051: handlingClaimsProcedureCodeCOVID2,
+		5887000047: (claim) => handlingClaimsInMemberStateCT(claim) || handlingClaimsInProviderStateTX(claim),
+		5887000048: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim),
+		5887000049: (claim) => handlingClaimsInCO(claim) || handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateNY(claim) || handlingClaimsInProviderStateTX(claim),
+		5887000050: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInMemberStateWA(claim) || handlingClaimsInProviderStateTX(claim),
+		5887000051: (claim) => handlingClaimsProcedureCodeCOVID2(claim) || handlingClaimsInProviderStateTX(claim),
 		5887000052: handlingClaimsProcedureCodeCOVID2,
 		5887000053: (claim) => handlingClaimsInCO2(claim) || handlingClaimsProcedureCodeCOVID2(claim),
 		5887000054: handlingClaimsProcedureCodeCOVID2,
@@ -137,6 +137,21 @@ const handlingClaimsInUTandNY = (claim) => {
 				title: "Invalid Condition Information",
 				description: "Invalid Condition Information, please review payor documentation or call to support center (223-554-6784)."
 			}
+		}
+	}
+}
+
+const handlingClaimsInProviderStateTX = (claim) => {
+	var zipCodeIsInRange = parseInt(claim.provider.zipCode) >= 75014 && parseInt(claim.provider.zipCode) <= 75314
+	console.log(claim.provider.zipCode === "75006" || zipCodeIsInRange)
+	if (claim.provider.state === "TX" &&
+		(claim.provider.zipCode === "75006" || zipCodeIsInRange) &&
+		claim.diagnosisCodes.principalDiagnosis === "TXE400" &&
+		claim.member.sex === "F" &&
+		claim.diagnosisDates.lastMenstrualDate === "") {
+		return {
+			title: "Last Menstrual Date is mandatory.",
+			description: "Last Menstrual Date is required when Principal Diagnosis Code is TXE400, please contact JCE Support if you have doubts (234-778-6654)"
 		}
 	}
 }
