@@ -17,6 +17,25 @@ public class ErrorService : IErrorService
         _errorRepository = errorRepository;
     }
 
+    public async Task<List<GetConditionPayorDto>> GetConditionPayor(string payorId)
+    {
+        var conditionPayor = await _errorRepository.GetConditionPayor(payorId);
+
+        if (conditionPayor.Any())
+        {
+            List<GetConditionPayorDto> conditionPayorDtos = conditionPayor.Select(field => new GetConditionPayorDto
+            {
+                FieldClaim = field.FieldClaim,
+                NameCondition = field.NameCondition,
+                Value = field.Value
+            }).ToList();
+
+            return conditionPayorDtos;
+        };
+
+        throw new Exception(message: "ConditionPayor not in the database");
+    }
+
     public async Task<GetErrorDto> GetLastId() 
     {
         var error = await _errorRepository.GetLastId();

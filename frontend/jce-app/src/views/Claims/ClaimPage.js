@@ -11,6 +11,9 @@ import { useEffect } from "react"
 import { GetAllMembers } from "../../api/memberapi"
 import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
+import { handleConditions, test } from "../../validations/errorManagerConditions"
+import { getListConditionPayor } from "../../api/errorapi";
+
 
 function ClaimPage() {
 	const [member, setMember] = useState({
@@ -111,6 +114,11 @@ function ClaimPage() {
 		description: ""
 	})
 
+	const [errorMessageConditions, setErrorMessageConditions] = useState({
+		title: "",
+		description: ""
+	})
+
 	const resetErrorMessage = () => {
 		setErrorMessage({
 			title: "",
@@ -118,7 +126,7 @@ function ClaimPage() {
 		})
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const claim = {
 			member: member,
@@ -131,12 +139,26 @@ function ClaimPage() {
 		}
 
 		resetErrorMessage()
-		const error = handleValidations(claim)
+		const error = handleValidations(claim)		
 		if (error !== undefined)
 			setErrorMessage({
 				title: error.title,
 				description: error.description
 			})
+			
+		try {
+			const response = await getListConditionPayor(claim.payor.id);			
+			const errorcondition = handleConditions(claim,response)		
+			if (errorcondition !== undefined)
+				setErrorMessageConditions({
+					title: errorcondition.title,
+					description: errorcondition.description
+				})	
+			
+		} catch (error) {
+			alert('Validate Payor Information please...');
+		}
+			
 	}
 	const [responseFromMemberAPI,setResponseFromMemberAPI]=useState();
 	useEffect(()=>{
@@ -203,9 +225,10 @@ function ClaimPage() {
 			<br></br>
 			<div className="row">
 				<span style={{ textAlign: "center" }} className="border border-danger mt-5">
-					<label className="text-danger">{errorMessage.title}</label>
+					<label className="text-danger">{errorMessage.title}{errorMessageConditions.title}</label>
 					<br />
-					<label className="text-danger">{errorMessage.description}</label>
+					<label className="text-danger">{errorMessage.description}{errorMessageConditions.description}</label>
+					<br />
 				</span>
 			</div>
 			<br></br>

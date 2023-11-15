@@ -114,5 +114,28 @@ namespace JCE.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("GetListConditionPayor/{payorId}")]
+        public async Task<ActionResult<Response<GetConditionPayorDto>>> GetListConditionPayor(String payorId)
+        {
+            var response = new Response<List<GetConditionPayorDto>>();
+
+            try
+            {
+                var conditionPayor = await _errorService.GetConditionPayor(payorId);
+                response.Success = true;
+                response.Data = conditionPayor;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }
