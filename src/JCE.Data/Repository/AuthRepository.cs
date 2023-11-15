@@ -17,7 +17,7 @@ public class AuthRepository : IAuthRepository
     public async Task<User> Login(User user)
     {
         using var connection = _context.CreateConnection();
-        var sql = $"SELECT * FROM user";
+        var sql = $"SELECT * FROM user WHERE isDeleted = 0";
 
         var users = await connection.QueryAsync<User>(sql);
 
@@ -30,7 +30,7 @@ public class AuthRepository : IAuthRepository
 
         var userToUpdate = await GetUserAsync(username);
 
-        var sql = $"UPDATE user SET userstatus = 0 WHERE userid = @userid";
+        var sql = $"UPDATE user SET userstatus = 0 WHERE userid = @userid AND isDeleted = 0";
 
         var affectedRows = await connection.ExecuteAsync(sql, new {userid = userToUpdate.UserId});
 
@@ -41,7 +41,7 @@ public class AuthRepository : IAuthRepository
     {
         using var connection = _context.CreateConnection();
         
-        var sql = $"SELECT * FROM user WHERE username = @username";
+        var sql = $"SELECT * FROM user WHERE username = @username AND isDeleted = 0";
 
         return await connection.QueryFirstAsync<User>(sql, new {username});
     }

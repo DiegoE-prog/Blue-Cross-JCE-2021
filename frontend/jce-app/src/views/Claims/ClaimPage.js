@@ -7,6 +7,10 @@ import DiagnosisDates from "./DiagnosisDates"
 import DiagnosisCodes from "./DiagnosisCodes"
 import CostSection from "./CostSection"
 import { handleValidations } from "../../validations/errorManagerValidations"
+import { useEffect } from "react"
+import { GetAllMembers } from "../../api/memberapi"
+import { getListPayors } from "../../api/payorapi"
+import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi";
 
@@ -30,9 +34,10 @@ function ClaimPage() {
 		name: "",
 		address: "",
 		zipCode: "",
-		state: ""
+		state: "",
+		city: ""
 	})
-
+	
 	const [provider, setProvider] = useState({
 		id: "",
 		name: "",
@@ -140,7 +145,7 @@ function ClaimPage() {
 				title: error.title,
 				description: error.description
 			})
-
+			
 		try {
 			const response = await getListConditionPayor(claim.payor.id);			
 			const errorcondition = handleConditions(claim,response)		
@@ -153,18 +158,60 @@ function ClaimPage() {
 		} catch (error) {
 			alert('Validate Payor Information please...');
 		}
-
-
 			
 	}
+	const [responseFromMemberAPI,setResponseFromMemberAPI]=useState();
+	useEffect(()=>{
+		async function fetchMember(){
+			try{
+			  const response=await GetAllMembers();
+			  setResponseFromMemberAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchMember();
+	},[])
+
+	const [responseFromPayorAPI,setResponseFromPayorAPI]=useState();
+	useEffect(()=>{
+		async function fetchPayor(){
+			try{
+			  const response=await getListPayors();
+			  setResponseFromPayorAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchPayor();
+	},[])
+
+	const [responseFromProviderAPI,setResponseFromProviderAPI]=useState();
+	useEffect(()=>{
+		async function fetchProvider(){
+			try{
+			  const response=await GetAllProviders();
+			  setResponseFromProviderAPI(response.data.data);
+			 
+			}catch(error){
+				console.log(error);
+
+			}
+		}
+		fetchProvider();
+	},[])
 
 	return (
 		<div className="container">
-			<MemberInformation member={member} setMember={setMember} />
+			<MemberInformation member={member} setMember={setMember} members={responseFromMemberAPI} />
 			<hr />
-			<PayorInformation payor={payor} setPayor={setPayor} />
+			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI}/>
 			<hr />
-			<ProviderInformation provider={provider} setProvider={setProvider} />
+			<ProviderInformation provider={provider} setProvider={setProvider} providers={responseFromProviderAPI} />
 			<hr />
 			<ClaimInformation claimInformation={claimInformation} setClaimInformation={setClaimInformation} />
 			<hr />

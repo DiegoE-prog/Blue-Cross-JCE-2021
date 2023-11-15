@@ -1,6 +1,6 @@
 import React from "react"
 
-function ProviderInformation({ provider, setProvider }) {
+function ProviderInformation({ provider, setProvider, providers }) {
 	const handleChange = (e) => {
 		const value = e.target.value
 		setProvider({
@@ -8,6 +8,37 @@ function ProviderInformation({ provider, setProvider }) {
 			[e.target.name]: value
 		})
 	}
+
+	const onKeyDown = (e) => {
+		if (e.key === "Tab" || e.key==="Enter") {
+			e.preventDefault();
+			//console.log("Tab");
+			//console.log(members[0].member_id_table);
+			//console.log(member.id);
+			
+			providers.forEach(providerInArray => {
+				console.log(providerInArray);
+				if(provider.id === providerInArray.provider_id_table)
+				 {
+	 
+			  setProvider({
+				
+
+				  id: providerInArray.provider_id_table,
+				  name: providerInArray.providername,
+				  address: providerInArray.provideraddress,
+				  zipCode:providerInArray.zipcode,
+				  state: providerInArray.state,
+				  city: providerInArray.city,
+			      type:providerInArray.type
+			 
+			  })
+			}
+		});	
+	
+	}
+	
+}
 
 	return (
 		<div className="row">
@@ -17,7 +48,7 @@ function ProviderInformation({ provider, setProvider }) {
 				<label className="general-jce">Provider ID</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="id" id="id" value={provider.id} onChange={handleChange}></input>
+				<input className="w-100" name="id" id="id" value={provider.id} onChange={handleChange} onKeyDown={onKeyDown}></input>
 			</div>
 
 			<div className="col-2">

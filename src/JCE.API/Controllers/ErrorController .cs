@@ -78,7 +78,7 @@ namespace JCE.API.Controllers
 
                 if (!save)
                 {
-                    response.Message = "Failed to update the phone and email of the user";
+                    response.Message = "Failed";
                     return BadRequest(response);
                 }
 
@@ -88,6 +88,28 @@ namespace JCE.API.Controllers
                 response.Success = false;
                 response.Message = ex.Message;
                 return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetListSearchError")]
+        public async Task<ActionResult<Response<GetSearchErrorDto>>> GetListSearchError(SearchConditonErrorDto conditonErrorDto)
+        {
+            var response = new Response<List<GetSearchErrorDto>>();
+            try
+            {
+                var getSearchErrors = await _errorService.GetListSearchError(conditonErrorDto);
+                response.Success = true;
+                response.Data = getSearchErrors;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
             }
 
             return Ok(response);
