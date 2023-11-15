@@ -1,6 +1,8 @@
 import React from "react"
+import { useState } from "react";
 
 function PayorInformation({ payor, setPayor, payors }) {
+	const [idSeted,setId]=useState('');
 	const handleChange = (e) => {
 		const value = e.target.value
 		setPayor({
@@ -11,15 +13,16 @@ function PayorInformation({ payor, setPayor, payors }) {
 		const onKeyDown = (e) => {
 			if (e.key === "Tab" || e.key==="Enter") {
 				e.preventDefault();
+				
+				
 				//console.log("Tab");
 				//console.log(members[0].member_id_table);
 				//console.log(member.id);
-				
-				payors.forEach(payorInArray => {
+	       payors.forEach(payorInArray => {
 					console.log(payorInArray);
 					if(payor.id === payorInArray.payor_id_table)
 					 {
-		 
+		 setId('hola')
 				  setPayor({
 					
 	
@@ -54,7 +57,7 @@ function PayorInformation({ payor, setPayor, payors }) {
 						<label className="general-jce">Payor Name</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="name" id="name" value={payor.name} onChange={handleChange}></input>
+						<input className="w-100" name="name" id="name" value={payor.name} onChange={handleChange} readOnly={payor.name}></input>
 					</div>
 				</div>
 			</div>
@@ -63,7 +66,7 @@ function PayorInformation({ payor, setPayor, payors }) {
 			</div>
 
 			<div className="col-10">
-				<input className="w-100" name="address" id="address" value={payor.address} onChange={handleChange}></input>
+				<input className="w-100" name="address" id="address" value={payor.address} onChange={handleChange} readOnly={payor.address}></input>
 			</div>
 
 			<div className="col-2">
@@ -71,19 +74,19 @@ function PayorInformation({ payor, setPayor, payors }) {
 			</div>
 
 			<div className="col-2">
-				<input className="w-100" name="zipCode" id="zipCode" value={payor.zipCode} onChange={handleChange}></input>
+				<input className="w-100" name="zipCode" id="zipCode" value={payor.zipCode} onChange={handleChange} readOnly={payor.zipCode}></input>
 			</div>
 			<div className="col-2">
 				<label className="general-jce">State</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="state" id="state" value={payor.state} onChange={handleChange}></input>
+				<input className="w-100" name="state" id="state" value={payor.state} onChange={handleChange} readOnly={payor.state}></input>
 			</div>
 			<div className="col-2">
 				<label className="general-jce">City</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="city" id="city" value={payor.city} onChange={handleChange}></input>
+				<input className="w-100" name="city" id="city" value={payor.city} onChange={handleChange} readOnly={payor.city}></input>
 			</div>
 		</div>
 	)
