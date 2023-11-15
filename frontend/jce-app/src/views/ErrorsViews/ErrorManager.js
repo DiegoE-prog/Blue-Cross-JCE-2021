@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { 
   getListSearchError
 } from "../../api/errorapi"
+import { setStatus } from "../../redux/slices/errorSlice"
+import { useDispatch } from "react-redux"
 
 const table = (
   <Table
@@ -25,6 +27,8 @@ const styles = {
   },
 };
 
+
+
 const columns = [
   // { name: '', title: '', visible: true },
   { name: undefined, title: undefined, visible: false},
@@ -36,6 +40,7 @@ const columns = [
 
 
 function ErrorManager(props) {
+  const dispatch = useDispatch();
   const [errorMsn, setErrorMsn] = useState(0);
   const location = useLocation();
   const newData = location.state ? location.state.newData : null;
@@ -57,15 +62,18 @@ function ErrorManager(props) {
 		})
 	}
 
-  const handleClearError = () => {
+  const handleClearError = async () => {
     setErrorManager({
-      errorid: null,
+      errorid: "",
       payor: "",
       message: "",
       field: "",
       description: "",          
       createdby: ""
     });
+    dispatch(setStatus({status: 0, msn: ''}))   
+    setErrorMsn(''); 
+    setData(null);
   };
 
   useEffect(() => {
@@ -80,10 +88,6 @@ function ErrorManager(props) {
   };
   const searchError = async () => {
     try {
-      // if (!validateErrorManager(errorManager)) {
-      //   setErrorMsn(404);
-      //   return;
-      // }
       const response = await getListSearchError(errorManager);
       // if (!response.data.success) {            
       //   setErrorMsn(404);
