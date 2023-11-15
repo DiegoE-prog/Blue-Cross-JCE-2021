@@ -142,11 +142,8 @@ function ClaimPage() {
 			})
 
 		try {
-			console.log(claim.payor.id);
-			const response = await getListConditionPayor('5887000064');
-			
-			const errorcondition = handleConditions(claim,response)	
-				
+			const response = await getListConditionPayor(claim.payor.id);			
+			const errorcondition = handleConditions(claim,response)		
 			if (errorcondition !== undefined)
 				setErrorMessageConditions({
 					title: errorcondition.title,
@@ -156,7 +153,6 @@ function ClaimPage() {
 		} catch (error) {
 			alert('Validate Payor Information please...');
 		}
-		
 
 
 			
@@ -182,13 +178,9 @@ function ClaimPage() {
 			<br></br>
 			<div className="row">
 				<span style={{ textAlign: "center" }} className="border border-danger mt-5">
-					<label className="text-danger">{errorMessage.title}</label>
+					<label className="text-danger">{errorMessage.title}{errorMessageConditions.title}</label>
 					<br />
-					<label className="text-danger">{errorMessage.description}</label>
-					<br />
-					<label className="text-danger">{errorMessageConditions.title}</label>
-					<br />
-					<label className="text-danger">{errorMessageConditions.description}</label>
+					<label className="text-danger">{errorMessage.description}{errorMessageConditions.description}</label>
 					<br />
 				</span>
 			</div>

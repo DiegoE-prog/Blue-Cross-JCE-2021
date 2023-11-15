@@ -2,12 +2,12 @@
 
 public class ErrorSave
 {
-    public int ErrorId { get; set; }
-    public int UserId { get; set; }
-    public string CreatedBy { get; set; }
-    public string Message { get; set; }
-    public string Description { get; set; }
-    public List<int> Payors { get; set; }
-    public List<ConditionGroup> Condition { get; set; }
+    public int ErrorId { get; set; } = 0;
+    public int UserId { get; set; } = 0;
+    public string CreatedBy { get; set; } = string.Empty;   
+    public string Message { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public List<int> Payors { get; set; } = new List<int>();
+    public List<ConditionGroup> Condition { get; set; } = new List<ConditionGroup>();
 
 }
