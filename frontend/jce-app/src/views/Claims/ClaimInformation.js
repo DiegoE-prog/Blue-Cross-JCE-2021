@@ -1,3 +1,4 @@
+import { Time } from "phaser";
 import React, {useState} from "react"
 
 
@@ -177,7 +178,7 @@ return (
 				</div>
 
 				<div className="col-2">
-					<input className="w-100" name="entryDate" id="entryDate" value={claimInformation.entryDate} onChange={handleChange}onKeyUp={entryDateValidation} onBlur={entryDateValidation}></input>
+					<input className="w-100" name="entryDate" id="entryDate" value={claimInformation.entryDate} onChange={handleChange}onKeyUp={entryDateValidation} onBlur={entryDateValidation} type='date'></input>
 				</div>
 				
 				<div className="col-2">
@@ -185,7 +186,7 @@ return (
 				</div>
 
 				<div className="col-2">
-					<input className="w-100" name="dischargeDate" id="dischargeDate" value={claimInformation.dischargeDate} onChange={handleChange}onKeyUp={dischargeDateValidation}onBlur={dischargeDateValidation} ></input>
+					<input className="w-100" name="dischargeDate" id="dischargeDate" value={claimInformation.dischargeDate} onChange={handleChange}onKeyUp={dischargeDateValidation}onBlur={dischargeDateValidation} type='date' ></input>
 					
 				</div>
 				
@@ -200,13 +201,13 @@ return (
 					<label className="general-jce">Entry Hour</label>
 				</div>
 				<div className="col-2">
-					<input className="w-100" name="entryHour" id="entryHour" value={claimInformation.entryHour} onChange={handleChange} onKeyUp={entryHourValidation}onBlur={entryHourValidation}></input>
+					<input className="w-100" name="entryHour" id="entryHour" value={claimInformation.entryHour} onChange={handleChange} onKeyUp={entryHourValidation}onBlur={entryHourValidation} type='time'></input>
 				</div>
 				<div className="col-2">
 					<label className="general-jce">Discharge Hour</label>
 				</div>
 				<div className="col-2">
-					<input className="w-100" name="dischargeHour" id="dischargeHour" value={claimInformation.dischargeHour} onChange={handleChange} onKeyUp={dischargeHourValidation}onBlur={dischargeHourValidation}></input>
+					<input className="w-100" name="dischargeHour" id="dischargeHour" value={claimInformation.dischargeHour} onChange={handleChange} onKeyUp={dischargeHourValidation}onBlur={dischargeHourValidation} type='time'></input>
 				</div>
 				<div className="col-2">
 					<label className="general-jce">HH:MM:SS</label>
