@@ -93,7 +93,7 @@ if(inputValue.length==4){
   
 	const entryDateValidation = (e) => {
 	  const inputDate = e.target.value;
-	  const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+	  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
       if(inputDate!==""){
 	  if (dateRegex.test(inputDate)) {
 		setEntryDateError('');
@@ -107,7 +107,7 @@ if(inputValue.length==4){
 
 	const dischargeDateValidation = (e) => {
 		const inputDate = e.target.value;
-		const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+		const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 		if(inputDate!==""){
 
 		if (dateRegex.test(inputDate)) {
@@ -122,6 +122,7 @@ if(inputValue.length==4){
 	  };
 
 	  const entryHourValidation = (e) => {
+		  console.log(e.target.value)
 		const inputDate = e.target.value;
 		const dateRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 		const hhmmRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
@@ -201,13 +202,13 @@ return (
 					<label className="general-jce">Entry Hour</label>
 				</div>
 				<div className="col-2">
-					<input className="w-100" name="entryHour" id="entryHour" value={claimInformation.entryHour} onChange={handleChange} onKeyUp={entryHourValidation}onBlur={entryHourValidation} type='time'></input>
+					<input className="w-100" name="entryHour" id="entryHour" value={claimInformation.entryHour} onChange={handleChange} onKeyUp={entryHourValidation}onBlur={entryHourValidation} type='time' step="1"></input>
 				</div>
 				<div className="col-2">
 					<label className="general-jce">Discharge Hour</label>
 				</div>
 				<div className="col-2">
-					<input className="w-100" name="dischargeHour" id="dischargeHour" value={claimInformation.dischargeHour} onChange={handleChange} onKeyUp={dischargeHourValidation}onBlur={dischargeHourValidation} type='time'></input>
+					<input className="w-100" name="dischargeHour" id="dischargeHour" value={claimInformation.dischargeHour} onChange={handleChange} onKeyUp={dischargeHourValidation}onBlur={dischargeHourValidation} type='time' step="1"></input>
 				</div>
 				<div className="col-2">
 					<label className="general-jce">HH:MM:SS</label>
