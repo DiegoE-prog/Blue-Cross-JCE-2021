@@ -56,6 +56,24 @@ public class ProfileService : IProfileService
 
     }
 
+    public async Task<bool> CreateUserProfile(CreateProfileDto user)
+    {
+        var success = await _profileRepository.CreateUserProfile(new User 
+        {
+            Username = user.Username, 
+            Password = user.Password, 
+            Role = user.Role, 
+            ExpireDate = user.ExpireDate, 
+            Name = user.Name, 
+            LastName = user.LastName, 
+            Dob = user.Dob, 
+            Phone = user.Phone, 
+            Email = user.Email
+        });
+
+        return success;
+    }
+
     public async Task<bool> UpdatePhoneAndEmail(UpdatePhoneAndEmailDto update)
     {
         var success = await _profileRepository.UpdatePhoneAndEmail(new User { UserId = update.UserId, Phone = update.Phone, Email = update.Email});

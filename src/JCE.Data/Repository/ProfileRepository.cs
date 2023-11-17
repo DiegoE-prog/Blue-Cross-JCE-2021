@@ -47,6 +47,22 @@ public class ProfileRepository : IProfileRepository
         return users.ToList();
     }
 
+    public async Task<bool> CreateUserProfile(User user)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $@"INSERT INTO user (username, password, role, expiredate, name, lastname, dob, phone, email) VALUES
+        (@username, @password, @role, @expiredate, @name, @lastname, @dob, @phone, @email)
+        ";
+
+        var affectedRows = await connection.ExecuteAsync(sql, new {
+            username = user.Username, password = user.Password, role = user.Role, 
+            expiredate = user.ExpireDate,  name = user.Name,  lastname = user.LastName,  
+            dob = user.Dob, phone = user.Phone, email = user.Email});
+
+        return affectedRows > 0;
+    }
+
     public async Task<bool> UpdatePhoneAndEmail(User update)
     {
         using var connection = _context.CreateConnection();

@@ -122,7 +122,7 @@ function Profile(props) {
             </div>
 
             <div className="col-4">
-              <h5 className="general-jce">Last Name</h5>
+              <h5 className="general-jce">Last name</h5>
               <input className="general-jce w-100" type="text" id="lastname" name="lastname" readOnly defaultValue={ personalInfo.lastName || undefined }/>
             </div>
 
@@ -135,7 +135,7 @@ function Profile(props) {
               <div className="col-12 mt-2">
                 <div className="row">
                   <div className="col-4">
-                    <h5 className="general-jce">Phone Number</h5>
+                    <h5 className="general-jce">Phone number</h5>
                     <input className="general-jce w-100" type="number" id="phone"name="phone" defaultValue={ personalInfo.phone || undefined }/>
                   </div>
 
