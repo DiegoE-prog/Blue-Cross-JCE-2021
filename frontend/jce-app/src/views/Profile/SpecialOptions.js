@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import { arrayEquals } from "../../validations/objectArrayEquals";
 
 //API calls
 import { getUserProfilesByFilter, deleteUserProfile } from "../../api/profileapi";
@@ -42,31 +43,6 @@ function SpecialOptions(props) {
 			[e.target.name]: value
 		})
 	}
-
-    //Array equality function to check if all search fields are empty
-    function areDeeplyEqual(obj1, obj2) {
-        if (obj1 === obj2) return true;
-        return false; 
-      }
-
-    function arrayEquals(obj1, obj2) {
-        if(typeof obj1 === "object" && typeof obj2 === "object" && obj1 !== null && obj2 !== null) {
-            if(Array.isArray(obj1) || Array.isArray(obj2)) return false;
-            
-            const keys1 = Object.keys(obj1)
-            const keys2 = Object.keys(obj2)
-        
-            if(keys1.length !== keys2.length || !keys1.every(key => keys2.includes(key))) return false;
-              
-            for(let key in obj1) {
-               let isEqual = areDeeplyEqual(obj1[key], obj2[key])
-               if (!isEqual) { return false; }
-            }
-        
-            return true;
-          
-        }
-    }
 
     const searchUsersProfiles = async (event) =>
     {

@@ -10,8 +10,11 @@ import {
 import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
 import { useSelector } from "react-redux";
 import { 
-  getListSearchError
+  getListSearchError,
+  getListAllErrors
 } from "../../api/errorapi"
+import { setStatus } from "../../redux/slices/errorSlice"
+import { useDispatch } from "react-redux"
 
 const table = (
   <Table
@@ -25,6 +28,8 @@ const styles = {
   },
 };
 
+
+
 const columns = [
   // { name: '', title: '', visible: true },
   { name: undefined, title: undefined, visible: false},
@@ -36,6 +41,7 @@ const columns = [
 
 
 function ErrorManager(props) {
+  const dispatch = useDispatch();
   const [errorMsn, setErrorMsn] = useState(0);
   const location = useLocation();
   const newData = location.state ? location.state.newData : null;
@@ -49,6 +55,9 @@ function ErrorManager(props) {
     createdby: ""
   });
   const [data, setData] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageIndex, setPageIndex] = useState(0);
+
   const handleChange = (e) => {
 		const value = e.target.value
 		setErrorManager({
@@ -57,19 +66,44 @@ function ErrorManager(props) {
 		})
 	}
 
-  const handleClearError = () => {
+  const handleClearError = async () => {
     setErrorManager({
-      errorid: null,
+      errorid: "",
       payor: "",
       message: "",
       field: "",
       description: "",          
       createdby: ""
     });
+    dispatch(setStatus({status: 0, msn: ''}))   
+    setErrorMsn(''); 
+    setData([]);
   };
 
   useEffect(() => {
-    document.title = props.title;
+    document.title = props.title;    
+    const searchError = async () => {
+      try {
+        const response = await getListAllErrors();
+        if (response.data.success) {
+          const data = response.data.data;            
+          for (const row of data) {
+            row.undefined = (
+              <button className="btn btn-blue" variant="text" color="red">
+                Details
+              </button>
+            );
+          }
+          setData(data);
+        } else {
+          console.log(response.data.message);
+        }
+      } catch (error) {
+        setErrorMsn(404);
+        return;
+      }      
+    };
+    searchError();
   }, [props.title]);
 
   const validateErrorManager = (errorManager) => {
@@ -80,20 +114,10 @@ function ErrorManager(props) {
   };
   const searchError = async () => {
     try {
-      // if (!validateErrorManager(errorManager)) {
-      //   setErrorMsn(404);
-      //   return;
-      // }
+      dispatch(setStatus({status: 0, msn: ''}))   
+      setErrorMsn(''); 
       const response = await getListSearchError(errorManager);
-      // if (!response.data.success) {            
-      //   setErrorMsn(404);
-      //   return;
-      // }
       if (response.data.success) {
-        // if (data.length === 0) {
-        //     setErrorMsn(404);
-        //     return;
-        // }
         const data = response.data.data;  
         console.log(data);
         for (const row of data) {
@@ -113,6 +137,9 @@ function ErrorManager(props) {
     }      
   };
   
+  const handlePageChange = (e) => {
+    setPageIndex(e.pageIndex);
+  };
 
   return (
     <div style={{ margin: "20px" }}>
@@ -199,23 +226,15 @@ function ErrorManager(props) {
           </div>
           <br/>
           <div className="row">
-            {/* <Paper>
-            <Grid
-              rows={rows}
-              columns={columns}
-            >      
-            <SortingState
-              defaultSorting={[{ columnName: ['error_id','message','description','created_by'], direction: 'asc' }]}
-            />
-            <IntegratedSorting />
-              <Table/>
-              <TableHeaderRow showSortingControls />
-            </Grid>
-            </Paper> */}
             <Paper>
               <Grid
-                rows={data} 
+                rows={data}
                 columns={columns}
+                paging={{
+                  pageSize: pageSize,
+                  pageIndex: pageIndex,
+                  onPageChange: handlePageChange,
+                }}
               >
                 <SortingState
                   defaultSorting={[{ columnName: ['errorId', 'message', 'description', 'userName'], direction: 'asc' }]}
@@ -224,7 +243,7 @@ function ErrorManager(props) {
                 <Table />
                 <TableHeaderRow showSortingControls />
               </Grid>
-            </Paper>            
+            </Paper>           
           </div>
         </div>
       </div>

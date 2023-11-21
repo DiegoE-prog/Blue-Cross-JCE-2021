@@ -68,7 +68,7 @@ public class AuthServiceTests
         var testAuth = new AuthDto { Username = "ExistingUser", Password = "NotCorrectPassword" };
 
         mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
-            .ReturnsAsync(new User { Username = "ExistingUser", Password = "password"});
+            .ReturnsAsync(new User { Username = "ExistingUser", Password = "password", ExpireDate = DateTimeOffset.Now.AddYears(2)});
 
         // Act
         var result = await Assert.ThrowsAsync<Exception>

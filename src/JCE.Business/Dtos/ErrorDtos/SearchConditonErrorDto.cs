@@ -2,7 +2,7 @@
 
 public class SearchConditonErrorDto
 {
-    public int ErrorId { get; set; }
+    public int? ErrorId { get; set; } = 0;
     public string Payor { get; set; }
     public string Message { get; set; }
     public string Field { get; set; }

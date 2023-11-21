@@ -55,14 +55,14 @@ function ProviderInformation({ provider, setProvider, providers }) {
 				<label className="general-jce">Provider Name</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="name" id="name" value={provider.name} onChange={handleChange}></input>
+				<input className="w-100" name="name" id="name" value={provider.name} onChange={handleChange} readOnly={provider.name}></input>
 			</div>
 
 			<div className="col-2">
 				<label className="general-jce">Type</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="type" id="type" value={provider.type} onChange={handleChange}></input>
+				<input className="w-100" name="type" id="type" value={provider.type} onChange={handleChange} readOnly={provider.type}></input>
 			</div>
 
 			<div className="col-2">
@@ -70,28 +70,28 @@ function ProviderInformation({ provider, setProvider, providers }) {
 			</div>
 
 			<div className="col-10">
-				<input className="w-100" name="address" id="address" value={provider.address} onChange={handleChange}></input>
+				<input className="w-100" name="address" id="address" value={provider.address} onChange={handleChange} readOnly={provider.address}></input>
 			</div>
 
 			<div className="col-2">
 				<label className="general-jce">ZipCode</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="zipCode" id="zipCode" value={provider.zipCode} onChange={handleChange}></input>
+				<input className="w-100" name="zipCode" id="zipCode" value={provider.zipCode} onChange={handleChange} readOnly={provider.zipCode}></input>
 			</div>
 
 			<div className="col-2">
 				<label className="general-jce">State</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="state" id="state" value={provider.state} onChange={handleChange}></input>
+				<input className="w-100" name="state" id="state" value={provider.state} onChange={handleChange} readOnly={provider.state}></input>
 			</div>
 
 			<div className="col-2">
 				<label className="general-jce">City</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="city" id="city" value={provider.city} onChange={handleChange}></input>
+				<input className="w-100" name="city" id="city" value={provider.city} onChange={handleChange} readOnly={provider.city}></input>
 			</div>
 		</div>
 	)
