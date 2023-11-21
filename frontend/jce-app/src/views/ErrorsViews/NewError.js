@@ -130,6 +130,11 @@ const moveToLeft = () => {
   }
 };
 ///// End List Payor /////
+const handleRemoveRow = (index) => {
+  const updatedConditionRows = [...conditionRows];
+  updatedConditionRows.splice(index, 1);
+  setConditionRows(updatedConditionRows);
+};
 ///// Start New Tr  /////
 const [conditionRows, setConditionRows] = useState([{ fieldValue: '', selectedValue:1, selectedField:1 }]);
 const addConditionRow = () => {
@@ -192,6 +197,7 @@ const submitNewError = async () => {
 const cancelErrorManager = async () => {
   navigate(routes.ERRORMANAGER);
 }
+
   return (
     <div style={{ margin: "20px" }}>
       <h1 className="header-jce">Create New Error</h1>
@@ -304,7 +310,11 @@ const cancelErrorManager = async () => {
               <tbody id="tbodydata" ref={tbodyRef}>
                  {conditionRows.map((row, index) => (
                   <tr key={index}>
-                    <th className="text-center"><p><a href="#">Remove</a></p></th>
+                  <th className="text-center">
+                    <p>
+                      {!row.isRemovable && <a href="#tbodydata" onClick={() => handleRemoveRow(index)}>Remove</a>}
+                    </p>
+                  </th>
                     <td>
                       <div className="row">                      
                         <div className="col-3">                      

@@ -137,5 +137,28 @@ namespace JCE.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("GetListAllErrors")]
+        public async Task<ActionResult<Response<GetSearchErrorDto>>> GetListAllErrors()
+        {
+            var response = new Response<List<GetSearchErrorDto>>();
+
+            try
+            {
+                var allErrors = await _errorService.GetListAllError();
+                response.Success = true;
+                response.Data = allErrors;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

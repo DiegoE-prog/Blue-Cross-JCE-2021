@@ -1,4 +1,3 @@
-
 using JCE.Business.Dtos.ErrorDtos;
 
 namespace JCE.Business.Services.Interfaces;
@@ -11,4 +10,5 @@ public interface IErrorService
 
     Task<List<GetSearchErrorDto>> GetListSearchError(SearchConditonErrorDto conditonErrorDto);
     Task<List<GetConditionPayorDto>> GetConditionPayor(String payorId);
+    Task<List<GetSearchErrorDto>> GetListAllError();
 }
