@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 //React router
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import { routes } from "./routes"
 
 //Views
@@ -16,8 +16,18 @@ import Header from "./nav/Header/Header"
 import Navbar from "./views/Home/Navbar"
 import NewError from "./views/ErrorsViews/NewError"
 import ErrorManager from "./views/ErrorsViews/ErrorManager"
+import { useSelector } from "react-redux"
 
 function App() {
+	const navigate = useNavigate()
+	const { isAuthenticated } = useSelector((state) => state.user)
+	
+	useEffect(() => {
+		if (!isAuthenticated) {
+			navigate(routes.LOGIN)
+		}
+	}, [])
+
 	const location = useLocation()
 	return (
 		<>
