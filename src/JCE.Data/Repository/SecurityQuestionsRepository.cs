@@ -38,7 +38,7 @@ public class SecurityQuestionsRepository : ISecurityQuestionsRepository
         WHERE userid = @userid";
 
         var affectedRows = await connection.ExecuteAsync(sql, new {
-            userid = update.Userid,
+            userid = update.UserId,
             q1answer = update.Q1Answer,
             q2answer = update.Q2Answer,
             q3answer = update.Q3Answer,

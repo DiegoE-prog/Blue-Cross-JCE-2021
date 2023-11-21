@@ -2,7 +2,7 @@
 public class SecurityQuestions
 {
     public int SecurityQuestionsId { get; set; }
-    public int Userid { get; set; }
+    public int UserId { get; set; }
     public string Q1Answer { get; set; }
     public string Q2Answer { get; set; }
     public string Q3Answer { get; set; }

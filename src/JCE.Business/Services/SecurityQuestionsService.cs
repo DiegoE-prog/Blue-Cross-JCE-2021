@@ -18,7 +18,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
 
         return new GetSecurityQuestionsDto
         {
-            UserId = squestions.Userid,
+            UserId = squestions.UserId,
             Q1Answer = squestions.Q1Answer,
             Q2Answer = squestions.Q2Answer,
             Q3Answer = squestions.Q3Answer,
@@ -34,7 +34,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
     public async Task<bool> UpdateSecurityQuestions(UpdateSecurityQuestionsDto update)
     {
         var success = await _securityQuestionsRepository.UpdateSecurityQuestions(new SecurityQuestions {
-            Userid = update.UserId,
+            UserId = update.UserId,
             Q1Answer = update.Q1Answer,
             Q2Answer = update.Q2Answer,
             Q3Answer = update.Q3Answer,

@@ -13,13 +13,15 @@ public class ProfileRepository : IProfileRepository
         _context = context;
     }
 
-    public async Task<User> GetUserProfileById(int userid)
+    public async Task<User?> GetUserProfileById(int userid)
     {
         using var connection = _context.CreateConnection();
 
         var sql = $"SELECT * FROM user WHERE userid = @userid AND isdeleted = 0";
 
-        return await connection.QueryFirstAsync<User>(sql, new {userid});
+        var param = new {userid};
+
+        return await connection.QueryFirstOrDefaultAsync<User>(sql, new {userid});
     }
 
     public async Task<List<User>> GetUserProfilesByFilter(User filter)
