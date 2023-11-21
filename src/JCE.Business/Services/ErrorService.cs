@@ -110,4 +110,24 @@ public class ErrorService : IErrorService
 
          throw new Exception(message: "No se encontraron searchError en la base de datos");
     }
+
+    public async Task<List<GetSearchErrorDto>> GetListAllError()
+    {
+        var fields = await _errorRepository.GetListAllError();
+
+        if (fields.Any())
+        {
+            List<GetSearchErrorDto> fieldDtos = fields.Select(field => new GetSearchErrorDto
+            {
+                ErrorId = field.ErrorId,
+                UserName = field.UserName,
+                Message = field.Message,
+                Description = field.Description
+            }).ToList();
+
+            return fieldDtos;
+        }
+
+        throw new Exception(message: "No se encontraron Errores en la base de datos");
+    }
 }

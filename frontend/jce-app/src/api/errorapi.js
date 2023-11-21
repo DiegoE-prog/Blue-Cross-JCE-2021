@@ -25,4 +25,8 @@ const getListConditionPayor = async (payorId) => {
 	return await axios.get(`${apiroutes.BASEROUTE}/api/error/GetListConditionPayor/${payorId}`)
 }
 
-export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError}
+const getListAllErrors = async () => {	
+	return await axios.get(`${apiroutes.BASEROUTE}/api/error/GetListAllErrors`)
+}
+
+export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError,getListAllErrors}
