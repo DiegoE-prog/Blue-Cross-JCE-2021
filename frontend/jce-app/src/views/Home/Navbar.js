@@ -5,7 +5,6 @@ import { useSelector } from "react-redux"
 
 function Navbar() {
 	const { role } = useSelector((state) => state.user)
-
 	return (
 		<>
 			<nav className="navbar navbar-expand-lg">
@@ -47,14 +46,14 @@ function Navbar() {
 
 						{role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to={routes.PROFILE}>
-									Users
-								</Link>
+								<Link className="nav-link btn btn-menu">Users</Link>
 							</li>
 						) : null}
 
 						<li className="nav-item m-1 ">
-							<Link className="nav-link btn btn-menu text-right">Config</Link>
+							<Link className="nav-link btn btn-menu text-right" to={routes.PROFILE}>
+								Config
+							</Link>
 						</li>
 					</ul>
 				</div>
