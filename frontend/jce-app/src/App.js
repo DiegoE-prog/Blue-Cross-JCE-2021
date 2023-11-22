@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 //React router
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
@@ -16,19 +17,34 @@ import Header from "./nav/Header/Header"
 import Navbar from "./views/Home/Navbar"
 import NewError from "./views/ErrorsViews/NewError"
 import ErrorManager from "./views/ErrorsViews/ErrorManager"
-import { useSelector } from "react-redux"
+import NotFoundPage from "./views/Home/NotFoundPage"
+
 
 function App() {
 	const navigate = useNavigate()
-	const { isAuthenticated } = useSelector((state) => state.user)
+	const location = useLocation()
+	const { isAuthenticated, role } = useSelector((state) => state.user)
 	
 	useEffect(() => {
 		if (!isAuthenticated) {
 			navigate(routes.LOGIN)
 		}
+
+		if (location.pathname === routes.CLAIMPAGE && 
+			(role !== "2" && role !== "4")) {
+			navigate(routes.NOTFOUND)
+		}
+
+		if (location.pathname === routes.ADDUSER && role != "4"){
+			navigate(routes.NOTFOUND)
+		}
+
+		if ((location.pathname === routes.ERRORMANAGER || location.pathname === routes.NEWERROR) &&
+			(role !== "3" && role !== "4")) {
+				navigate(routes.NOTFOUND)
+		}
 	}, [])
 
-	const location = useLocation()
 	return (
 		<>
 			<div className="App">
@@ -37,13 +53,19 @@ function App() {
 					{location.pathname === routes.LOGIN ? null : <Navbar />}
 					<Routes>
 						<Route exact path={routes.LOGIN} element={<Login />} />
+
 						<Route exact element={<Home title="Home" />} />
+
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.ADDUSER} element={<AddUser title="Create User" />} />
+
 						<Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />
-						<Route path={routes.TEST} element={<Test title="Test" />} />
-						<Route path={routes.NEWERROR} element={<NewError title="NewError" />} />s
+						
+
+						<Route path={routes.NEWERROR} element={<NewError title="NewError" />} />
 						<Route path={routes.ERRORMANAGER} element={<ErrorManager title="ErrorManager" />} />
+
+						<Route path={routes.NOTFOUND} element={<NotFoundPage title="NotFound" />} />
 					</Routes>
 				</div>
 				{location.pathname === routes.LOGIN ? null : <Footer />}

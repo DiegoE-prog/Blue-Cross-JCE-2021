@@ -33,7 +33,9 @@ function Navbar() {
 
 						{role === "3" || role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu" to={routes.ERRORMANAGER}>Error Manager</Link>
+								<Link className="nav-link btn btn-menu" to={routes.ERRORMANAGER}>
+									Error Manager
+								</Link>
 							</li>
 						) : null}
 
@@ -45,14 +47,14 @@ function Navbar() {
 
 						{role === "4" ? (
 							<li className="nav-item m-1">
-								<Link className="nav-link btn btn-menu">Users</Link>
+								<Link className="nav-link btn btn-menu" to={routes.PROFILE}>
+									Users
+								</Link>
 							</li>
 						) : null}
 
 						<li className="nav-item m-1 ">
-							<Link className="nav-link btn btn-menu text-right" to={routes.PROFILE}>
-								Config
-							</Link>
+							<Link className="nav-link btn btn-menu text-right">Config</Link>
 						</li>
 					</ul>
 				</div>

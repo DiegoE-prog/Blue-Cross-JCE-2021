@@ -6,7 +6,8 @@ export const routes = {
 	CLAIMPAGE: "/ClaimPage",
 	TEST: "/test",
 	ERRORMANAGER: "/ErrorManager",
-	NEWERROR: "/NewError"
+	NEWERROR: "/NewError",
+	NOTFOUND : "/NotFound"
 }
 
 export const apiroutes = {

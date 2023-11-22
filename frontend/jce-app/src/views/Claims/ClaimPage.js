@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import MemberInformation from "./MemberInformation"
 import PayorInformation from "./PayorInformation"
 import ProviderInformation from "./ProviderInformation"
@@ -13,9 +15,10 @@ import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi";
+import { routes } from "../../routes"
 
 
-function ClaimPage() {
+function ClaimPage(props) {
 	const [member, setMember] = useState({
 		id: "",
 		name: "",
@@ -203,7 +206,9 @@ function ClaimPage() {
 			}
 		}
 		fetchProvider();
-	},[])
+	}, [])
+	
+
 
 	return (
 		<div className="container">
