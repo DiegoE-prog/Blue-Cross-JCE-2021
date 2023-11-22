@@ -97,7 +97,7 @@ public class SecurityQuestionsRepositoryTests
     }
 
     [Fact]
-    public async Task Should_ReturnFalse_WhenSecurityQuestionsAreUpdatedSuccessfully()
+    public async Task Should_ReturnFalse_WhenSecurityQuestionsUpdateFails()
     {
         //Arrange
         var mockDataContext = new Mock<IDataContext>();
