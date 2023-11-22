@@ -27,7 +27,9 @@ public class ErrorService : IErrorService
             {
                 FieldClaim = field.FieldClaim,
                 NameCondition = field.NameCondition,
-                Value = field.Value
+                Value = field.Value,
+                Message = field.Message,
+                Description = field.Description
             }).ToList();
 
             return conditionPayorDtos;

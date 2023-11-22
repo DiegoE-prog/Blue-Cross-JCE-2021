@@ -29,7 +29,7 @@ public class ErrorRepository : IErrorRepository
     public async Task<List<Field>> GetListField()
     {
         using var connection = _context.CreateConnection();
-        var sql = $"Select * From field where status = 1";
+        var sql = $"Select * From field where status = 1 ORDER BY name Asc";
 
         var fields = await connection.QueryAsync<Field>(sql);
 
@@ -104,7 +104,7 @@ public class ErrorRepository : IErrorRepository
     public async Task<List<ConditionPayor>> GetConditionPayor(string payorId)
     {
         using var connection = _context.CreateConnection();
-        var sql = $"select DISTINCT f.name fieldClaim, c.name nameCondition, cg.value value from grouperror gp inner join conditiongroup cg on gp.grouperrorid = cg.grouperrorid inner join field f on  cg.fieldid = f.fieldid inner join `condition` c on c.conditionid = cg.conditionid Where gp.errorid in (select pl.errorid from payorlist pl inner join payor p on p.payorid = pl.payorid Where p.payor_id_table = '{payorId}') ";
+        var sql = $"select DISTINCT f.name fieldClaim, c.name nameCondition, cg.value value, er.message message, er.description description from grouperror gp inner join error er on gp.errorid = er.errorid inner join conditiongroup cg on gp.grouperrorid = cg.grouperrorid inner join field f on  cg.fieldid = f.fieldid inner join `condition` c on c.conditionid = cg.conditionid Where gp.errorid in (select pl.errorid from payorlist pl inner join payor p on p.payorid = pl.payorid Where p.payor_id_table = '{payorId}') ";
 
         var conditions = await connection.QueryAsync<ConditionPayor>(sql);
 
