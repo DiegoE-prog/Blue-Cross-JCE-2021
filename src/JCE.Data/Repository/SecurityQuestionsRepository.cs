@@ -13,14 +13,16 @@ public class SecurityQuestionsRepository : ISecurityQuestionsRepository
         _context = context;
     }
 
-    public async Task<SecurityQuestions> GetSecurityQuestions(int userid)
+    #nullable enable
+    public async Task<SecurityQuestions?> GetSecurityQuestions(int userid)
     {
         using var connection = _context.CreateConnection();
 
         var sql = $"SELECT * FROM securityquestions WHERE userid = @userid";
 
-        return await connection.QueryFirstAsync<SecurityQuestions>(sql, new {userid});
+        return await connection.QueryFirstOrDefaultAsync<SecurityQuestions>(sql, new {userid});
     }
+    #nullable disable
 
     public async Task<bool> UpdateSecurityQuestions(SecurityQuestions update)
     {

@@ -1,4 +1,5 @@
-﻿using JCE.Business.Dtos.SecurityQuestionsDtos;
+﻿using System.Reflection;
+using JCE.Business.Dtos.SecurityQuestionsDtos;
 using JCE.Business.Services.Interfaces;
 using JCE.Data.Entities;
 using JCE.Data.Repository.Interfaces;
@@ -14,7 +15,7 @@ public class SecurityQuestionsService : ISecurityQuestionsService
     }
     public async Task<GetSecurityQuestionsDto> GetSecurityQuestions(int userid)
     {
-        var squestions = await _securityQuestionsRepository.GetSecurityQuestions(userid);
+        var squestions = await _securityQuestionsRepository.GetSecurityQuestions(userid) ?? throw new Exception(message: "The User with Id '" + userid + "' does not exist");
 
         return new GetSecurityQuestionsDto
         {
@@ -33,6 +34,16 @@ public class SecurityQuestionsService : ISecurityQuestionsService
 
     public async Task<bool> UpdateSecurityQuestions(UpdateSecurityQuestionsDto update)
     {
+        //Validate the userid
+        if(update.UserId == 0)
+            throw new Exception(message: "UserId is missing");
+
+        //Validate that every question field has a value
+        foreach(PropertyInfo field in update.GetType().GetProperties()){
+            if(field.GetValue(update) == null)
+                throw new Exception(message: field.Name + " is a mandatory field");
+        }
+
         var success = await _securityQuestionsRepository.UpdateSecurityQuestions(new SecurityQuestions {
             UserId = update.UserId,
             Q1Answer = update.Q1Answer,
@@ -44,7 +55,13 @@ public class SecurityQuestionsService : ISecurityQuestionsService
             Q7Answer = update.Q7Answer,
             Q8Answer = update.Q8Answer,
         });
+        
+        //Validate if the update was succesful
+        if(success){
+            return success;
+        }else{
+            throw new Exception(message: "Failed to update security questions");
+        }
 
-        return success;
     }
 }

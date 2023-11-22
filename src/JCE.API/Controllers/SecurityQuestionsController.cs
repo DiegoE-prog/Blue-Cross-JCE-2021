@@ -47,12 +47,6 @@ namespace JCE.API.Controllers
                 var squestionsUpdate = await _securityQuestionsService.UpdateSecurityQuestions(update);
                 response.Data = squestionsUpdate;
                 response.Success = squestionsUpdate;
-                
-                if(!squestionsUpdate){
-                    response.Message = "Failed to update security questions";
-                    return BadRequest(response);
-                }
-                
             }
             catch(Exception ex)
             {

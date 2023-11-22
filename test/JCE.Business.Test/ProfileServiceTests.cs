@@ -58,7 +58,7 @@ public class ProfileServiceTests
         var nonExistantUserid = 254; //Userid
 
         mockProfileRepository.Setup(repo => repo.GetUserProfileById(It.IsAny<int>()))
-            .ReturnsAsync((User)null);
+            .ReturnsAsync((User?)null);
 
         //Act
         var result = await Assert.ThrowsAsync<Exception>
@@ -164,7 +164,6 @@ public class ProfileServiceTests
         var mockProfileRepository = new Mock<IProfileRepository>();
         var profileService = new ProfileService(mockProfileRepository.Object);
 
-        //The test uses the parameters name and phone
         var testNewUser = new CreateProfileDto 
         { 
             Username = "T.Stark85267",
@@ -229,7 +228,7 @@ public class ProfileServiceTests
     }
 
     [Fact]
-    public async Task Should_ReturnBool_WhenTheUserIsUpdatedSuccessfully()
+    public async Task Should_ReturnTrue_WhenTheUserIsUpdatedSuccessfully()
     {
         //Arrange
         var mockProfileRepository = new Mock<IProfileRepository>();
@@ -242,9 +241,6 @@ public class ProfileServiceTests
             Email = "updated@mail.com"
         };
 
-        //Expected values
-        var expected = true;
-
         mockProfileRepository.Setup(repo => repo.UpdatePhoneAndEmail(It.IsAny<User>()))
             .ReturnsAsync(true);
 
@@ -252,7 +248,7 @@ public class ProfileServiceTests
         var result = await profileService.UpdatePhoneAndEmail(testUpdateUser);
 
         //Assert
-        Assert.Equal(expected, result);
+        Assert.True(result);
     }
 
     [Fact]
@@ -280,7 +276,7 @@ public class ProfileServiceTests
     }
 
     [Fact]
-    public async Task Should_ReturnAnExceptionWithMessage_WhenUserToBeUpdatedWithTheUseridSpecifiedDoesntExist()
+    public async Task Should_ReturnAnExceptionWithMessage_WhenUserLinkedToTheUseridSpecifiedDoesntExist()
     {
         //Arrange
         var mockProfileRepository = new Mock<IProfileRepository>();
@@ -305,16 +301,38 @@ public class ProfileServiceTests
     }
 
     [Fact]
-    public async Task Should_ReturnBool_WhenTheUserIsDeletedSuccessfully()
+    public async Task Should_ReturnAnExceptionWithMessage_WhenPhoneOrEmailFieldIsMissing()
+    {
+        //Arrange
+        var mockProfileRepository = new Mock<IProfileRepository>();
+        var profileService = new ProfileService(mockProfileRepository.Object);
+
+        var testUpdateUser = new UpdatePhoneAndEmailDto 
+        { 
+            UserId = 255,
+            //Phone = "4773329754",   
+            Email = "updated@mail.com"
+        };
+
+        mockProfileRepository.Setup(repo => repo.UpdatePhoneAndEmail(It.IsAny<User>()))
+            .ReturnsAsync(false);
+
+        //Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await profileService.UpdatePhoneAndEmail(testUpdateUser));
+
+        //Assert
+        Assert.Equal("Phone is a mandatory field", result.Message);
+    }
+
+    [Fact]
+    public async Task Should_ReturnTrue_WhenTheUserIsDeletedSuccessfully()
     {
         //Arrange
         var mockProfileRepository = new Mock<IProfileRepository>();
         var profileService = new ProfileService(mockProfileRepository.Object);
 
         var existingUserid = 5;
-
-        //Expected values
-        var expected = true;
 
         mockProfileRepository.Setup(repo => repo.DeleteUserProfile(It.IsAny<int>()))
             .ReturnsAsync(true);
@@ -323,7 +341,7 @@ public class ProfileServiceTests
         var result = await profileService.DeleteUserProfile(existingUserid);
 
         //Assert
-        Assert.Equal(expected, result);
+        Assert.True(result);
     }
 
     [Fact]

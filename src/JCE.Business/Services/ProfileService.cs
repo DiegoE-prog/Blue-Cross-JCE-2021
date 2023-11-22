@@ -57,17 +57,8 @@ public class ProfileService : IProfileService
 
     }
 
-    public async Task<SuccesfulCreatedProfileDto> CreateUserProfile(CreateProfileDto user)
+    private string GenerateAutoPassword(string Name, string LastName, string Phone)
     {
-        //Validate that every field has a value
-        foreach(PropertyInfo field in user.GetType().GetProperties()){
-            
-            if(field.GetValue(user) == null)
-                throw new Exception(message: field.Name + " is a mandatory field");
-        }
-        
-        //Establish the values of password and expireDate before calling the repository
-
         //Set Initial Password
         Random rnd = new Random();
         int randomCharIndex = rnd.Next(0,5);
@@ -91,7 +82,22 @@ public class ProfileService : IProfileService
             default: randomChar = "@";
             break;
         }
-        string autoPassword = "Temp" + user.Name[0] + user.LastName[0] + randomChar + user.Phone.Substring(6);
+        
+        string autoPassword = "Temp" + Name[0] + LastName[0] + randomChar + Phone.Substring(6);
+
+        return autoPassword;
+    }
+
+    public async Task<SuccesfulCreatedProfileDto> CreateUserProfile(CreateProfileDto user)
+    {
+        //Validate that every field has a value
+        foreach(PropertyInfo field in user.GetType().GetProperties()){
+            if(field.GetValue(user) == null)
+                throw new Exception(message: field.Name + " is a mandatory field");
+        }
+
+        //Set Initial Password
+        string autoPassword = GenerateAutoPassword(user.Name, user.LastName, user.Phone);
 
         //Set Expiration date. The current set value is a year after the date the user is created
         DateTime autoExpireDate = DateTime.Now.AddYears(1);
@@ -126,6 +132,12 @@ public class ProfileService : IProfileService
         //Validate the userid
         if(update.UserId == 0)
             throw new Exception(message: "UserId is missing");
+
+        //Validate that phone an email have a value
+        foreach(PropertyInfo field in update.GetType().GetProperties()){
+            if(field.GetValue(update) == null)
+                throw new Exception(message: field.Name + " is a mandatory field");
+        }
 
         var success = await _profileRepository.UpdatePhoneAndEmail(new User { UserId = update.UserId, Phone = update.Phone, Email = update.Email});
 
