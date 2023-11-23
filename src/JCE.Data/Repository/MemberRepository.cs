@@ -14,6 +14,8 @@ public class MemberRepository : IMemberRepository
         _context = context;
     }
 
+    public object jceappdb { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
     public async Task<List<Member>> GetList()
     {
         using var connection = _context.CreateConnection();

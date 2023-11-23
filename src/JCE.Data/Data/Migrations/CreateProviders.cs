@@ -20,7 +20,7 @@ public class CreateProviders : Migration
             .WithColumn("city").AsString(100).Nullable()
             .WithColumn("status").AsBoolean().WithDefaultValue(1).Nullable();
 
-        Insert.IntoTable("provider").Row(new { provider_id_table = "5887000047", providername = "Medical Center MS",type="Institutional", provideraddress = "2196  Locust Court", zipcode = "59901", state = "MT", city = "Kalispell" });
+        Insert.IntoTable("provider").Row(new { provider_id_table = "if (/^\\d+$/.test(input) && input.length <= 5) {\r\n      setInstitutionalClaimCode(input);\r\n      setError('');\r\n      // Disable and clean Professional Claim code\r\n      setProfessionalClaimCode('');\r\n    } else {\r\n      setError('Should have max 5 numeric characters');\r\n    }", providername = "Medical Center MS",type="Institutional", provideraddress = "2196  Locust Court", zipcode = "59901", state = "MT", city = "Kalispell" });
         Insert.IntoTable("provider").Row(new { provider_id_table = "5887000048", providername = "Dr Robert Walt", type = "Professional", provideraddress = "391  Post Farm Road", zipcode = "90804", state = "CA", city = "Long Beach" });
         Insert.IntoTable("provider").Row(new { provider_id_table = "5887000049", providername = "MCS Center", type = "Institutional", provideraddress = "1991  Walnut Hill Drive", zipcode = "31780", state = "GA", city = "PLAINS" });
         Insert.IntoTable("provider").Row(new { provider_id_table = "5887000050", providername = "Hospital Federal", type = "Institutional", provideraddress = "3894  Carson Street", zipcode = "45204", state = "OH", city = "Portland" });

@@ -20,7 +20,7 @@ function App() {
 	const location = useLocation()
 	return (
 		<>
-			<div className="App">
+			<div className="my-app">
 				{location.pathname === routes.LOGIN ? null : <Header />}
 				<div className="content">
 					{location.pathname === routes.LOGIN ? null : <Navbar />}

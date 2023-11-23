@@ -2,6 +2,7 @@
 using JCE.Data.Data.Interfaces;
 using JCE.Data.Entities;
 using JCE.Data.Repository.Interfaces;
+using System.Data;
 
 namespace JCE.Data.Repository;
 
@@ -13,6 +14,10 @@ public class ProviderRepository : IProviderRepository
     {
         _context = context;
     }
+
+    public IDbConnection Database => throw new NotImplementedException();
+
+    public object database => throw new NotImplementedException();
 
     public async Task<List<Provider>> GetList()
     {

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\JCE.Business\JCE.Business.csproj" />
     <ProjectReference Include="..\..\src\JCE.Data\JCE.Data.csproj" />
   </ItemGroup>
 

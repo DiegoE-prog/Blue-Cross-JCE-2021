@@ -114,8 +114,8 @@ public class AuthServiceTests
         mockAuthRepository.Setup(repo => repo.Login(It.IsAny<User>()))
             .ReturnsAsync(new User
             {
-                Username = "ExistingUser",
-                Password = "password",
+                Username = "adrian",
+                Password = "chalala92",
                 ExpireDate = DateTimeOffset.UtcNow.AddYears(1),
                 UserStatus = "0"
             });
