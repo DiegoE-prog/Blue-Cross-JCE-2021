@@ -13,6 +13,7 @@ public class ProfileRepository : IProfileRepository
         _context = context;
     }
 
+    #nullable enable
     public async Task<User?> GetUserProfileById(int userid)
     {
         using var connection = _context.CreateConnection();
@@ -23,6 +24,7 @@ public class ProfileRepository : IProfileRepository
 
         return await connection.QueryFirstOrDefaultAsync<User>(sql, new {userid});
     }
+    #nullable disable
 
     public async Task<List<User>> GetUserProfilesByFilter(User filter)
     {
