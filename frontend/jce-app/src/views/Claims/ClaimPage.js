@@ -147,7 +147,8 @@ function ClaimPage() {
 			})
 			
 		try {
-			const response = await getListConditionPayor(claim.payor.id);			
+			const response = await getListConditionPayor(claim.payor.id);	
+			console.log(response.data);		
 			const errorcondition = handleConditions(claim,response)		
 			if (errorcondition !== undefined)
 				setErrorMessageConditions({
@@ -156,7 +157,7 @@ function ClaimPage() {
 				})	
 			
 		} catch (error) {
-			alert('Validate Payor Information please...');
+			// alert('Validate Payor Information please...');
 		}
 			
 	}
