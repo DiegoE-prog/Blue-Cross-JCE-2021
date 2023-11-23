@@ -10,6 +10,7 @@ import Test from "./views/test"
 import ClaimPage from "./views/Claims/ClaimPage"
 import Profile from "./views/Profile/Profile"
 import AddUser from "./views/Profile/AddUser"
+import ResetPassword from "./views/Profile/ResetPassword"
 import Login from "./views/Login/Login"
 import Footer from "./nav/Footer/Footer"
 import Header from "./nav/Header/Header"
@@ -30,6 +31,7 @@ function App() {
 						<Route exact element={<Home title="Home" />} />
 						<Route path={routes.PROFILE} element={<Profile title="Profile" />} />
 						<Route path={routes.ADDUSER} element={<AddUser title="Create User" />} />
+						<Route path={routes.RESETPASSWORD} element={<ResetPassword title="Reset Password" />} />
 						<Route path={routes.CLAIMPAGE} element={<ClaimPage title="ClaimPage" />} />
 						<Route path={routes.TEST} element={<Test title="Test" />} />
 						<Route path={routes.NEWERROR} element={<NewError title="NewError" />} />s
