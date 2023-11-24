@@ -9,6 +9,7 @@ import Home from "./views/home"
 import ClaimPage from "./views/Claims/ClaimPage"
 import Profile from "./views/Profile/Profile"
 import AddUser from "./views/Profile/AddUser"
+import ResetPassword from "./views/Profile/ResetPassword"
 import Login from "./views/Login/Login"
 import NewError from "./views/ErrorsViews/NewError"
 import ErrorManager from "./views/ErrorsViews/ErrorManager"
@@ -27,6 +28,7 @@ function App() {
 			<div className="App">
 				<div className="content">
 					<Routes>
+    
 						<Route path="/" element={<ProtectedRoute />}>
 							<Route
 								path={routes.HOME}
@@ -92,7 +94,20 @@ function App() {
 								/>
 							</Route>
 						</Route>
+
+              <Route path={routes.RESETPASSWORD} element={<ProtectedRouteOnlyAdmin />}>
+								<Route
+									path={routes.RESETPASSWORD}
+									element={
+										  <MainLayout>
+											  <ResetPassword title="Reset Password" />
+										  </MainLayout>
+									  }
+								  />
+							  </Route>
+						  </Route>
 						<Route path={routes.LOGIN} element={<Login />} />
+
 					</Routes>
 				</div>
 			</div>

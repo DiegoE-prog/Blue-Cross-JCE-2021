@@ -3,6 +3,7 @@ export const routes = {
 	HOME: "/",
 	PROFILE: "/profile",
 	ADDUSER: "/profile/create",
+	RESETPASSWORD: "/profile/reset-password",
 	CLAIMPAGE: "/ClaimPage",
 	ERRORMANAGER: "/ErrorManager",
 	NEWERROR: "/ErrorManager/NewError",
