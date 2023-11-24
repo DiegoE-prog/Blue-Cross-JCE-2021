@@ -93,19 +93,20 @@ function App() {
 									}
 								/>
 							</Route>
-						</Route>
 
-              <Route path={routes.RESETPASSWORD} element={<ProtectedRouteOnlyAdmin />}>
+							<Route path={routes.RESETPASSWORD} element={<ProtectedRouteOnlyAdmin />}>
 								<Route
 									path={routes.RESETPASSWORD}
 									element={
 										  <MainLayout>
 											  <ResetPassword title="Reset Password" />
 										  </MainLayout>
-									  }
-								  />
-							  </Route>
-						  </Route>
+									}
+								/>
+							</Route>
+						</Route>
+
+
 						<Route path={routes.LOGIN} element={<Login />} />
 
 					</Routes>
