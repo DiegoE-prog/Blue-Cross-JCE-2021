@@ -4,9 +4,9 @@ function Home(props) {
 	useEffect(() => {
 		document.title = props.title
 	}, [props.title])
-
+	
 	return (
-		<div>
+		<div className="container">
 			<h1>Home Page</h1>
 		</div>
 	)
