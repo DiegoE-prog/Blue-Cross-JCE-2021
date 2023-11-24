@@ -6,10 +6,10 @@ export const routes = {
 	CLAIMPAGE: "/ClaimPage",
 	ERRORMANAGER: "/ErrorManager",
 	NEWERROR: "/ErrorManager/NewError",
-	NOTFOUND : "/NotFound"
+	UPDATEERROR: "/ErrorManager/UpdateError/:id",
+	NOTFOUND: "/NotFound"
 }
 
 export const apiroutes = {
 	BASEROUTE: "https://localhost:7777"
-	
 }

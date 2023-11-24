@@ -1,66 +1,41 @@
 import React, { useEffect, useState, useRef } from "react"
-import { setStatus } from "../../redux/slices/errorSlice"
-import { routes } from "../../routes"
-import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
 import { getListPayors } from "../../api/payorapi"
-import { getlastId, getListField, saveNewError } from "../../api/errorapi"
-import { useDispatch } from "react-redux"
+import { getErrorById, getListField } from "../../api/errorapi"
+import { useParams } from "react-router-dom"
 
-function NewError(props) {
-	const [errorId, setErrorId] = useState(null)
-	const { userId, role, username } = useSelector((state) => state.user)
-	const [payors, setPayors] = useState([])
-	const [fields, setFields] = useState([])
-	const [rightOptions, setRightOptions] = useState([])
+function UpdateError(props) {
+	const { id } = useParams()
 
-	const tbodyRef = useRef(null)
-	const [tbodyContent, setTbodyContent] = useState("")
-	const tbodyData = useRef(null)
-	const [tbodyNew, setTbodyNew] = useState("")
-
-	const navigate = useNavigate()
-	const dispatch = useDispatch()
-
-	const [newError, setnewError] = useState({
+	const [error, setError] = useState({
 		errorid: "",
-		createdby: [0, username],
+		createdby: [0],
 		message: "",
 		description: ""
 	})
 
 	const handleChange = (e) => {
 		const value = e.target.value
-		setnewError({
-			...newError,
+		setError({
+			...error,
 			[e.target.name]: value
 		})
 	}
+	const [leftOptions, setLeftOptions] = useState([])
+	const [rightOptions, setRightOptions] = useState([])
+
+	const [selectedLeft, setSelectedLeft] = useState([])
+	const [selectedRight, setSelectedRight] = useState([])
+
+	const [fields, setFields] = useState([])
+	const tbodyRef = useRef(null)
 
 	useEffect(() => {
-		const getlastIdApi = async () => {
-			try {
-				const response = await getlastId()
-				if (response.data.success) {
-					setErrorId(response.data.data.errorid)
-					setnewError({
-						...newError,
-						errorid: response.data.data.errorid
-					})
-				} else {
-					alert(response.data.message)
-				}
-			} catch (error) {
-				console.error("Error:", error)
-			}
-		}
-		getlastIdApi()
-
 		const fetchPayors = async () => {
 			try {
 				const payorsList = await getListPayors()
 				if (payorsList.data.success) {
 					const payorsArray = Array.isArray(payorsList.data.data) ? payorsList.data.data : [] // Verificar si es un array
+
 					setRightOptions(payorsArray)
 				} else {
 					alert(payorsList.data.message)
@@ -87,13 +62,35 @@ function NewError(props) {
 		}
 
 		fetchFields()
+
+		const fetchError = async () => {
+			try {
+				const response = await getErrorById(id)
+				if (response.data.success) {
+					const payors = Array.isArray(response.data.data.payors) ? response.data.data.payors : []
+					setError({
+						errorid: response.data.data.errorId,
+						createdby: response.data.data.createdBy,
+						description: response.data.data.description,
+						message: response.data.data.message
+					})
+					setLeftOptions(payors)
+
+					const payorIdsToRemove = payors.map((payor) => payor.payorid)
+
+					const newRight = rightOptions.filter((opt) => !payorIdsToRemove.includes(opt.payorid))
+
+					setRightOptions(newRight)
+				}
+			} catch (error) {
+				console.error("Error fetching error", error)
+			}
+		}
+
+		fetchError()
+
 		document.title = props.title
 	}, [props.title])
-
-	///// Start List Payor /////
-	const [leftOptions, setLeftOptions] = useState([])
-	const [selectedLeft, setSelectedLeft] = useState([])
-	const [selectedRight, setSelectedRight] = useState([])
 
 	const moveToRight = () => {
 		const newLeft = leftOptions.filter((opt) => !selectedLeft.includes(opt.payorid))
@@ -153,48 +150,9 @@ function NewError(props) {
 		setConditionRows(updatedRows)
 	}
 
-	///// End New Tr  /////
-	///// Start Save New Error  /////
-
-	const submitNewError = async () => {
-		try {
-			const errorId = newError.errorid
-			const createdby = newError.createdby[1]
-			const message = newError.message
-			const description = newError.description
-			const selectedLeft = leftOptions.map((opt) => opt.payorid)
-			const conditionRowsValues = conditionRows.map((row) => ({
-				selectedField: row.selectedField,
-				selectedValue: row.selectedValue,
-				fieldValue: row.fieldValue
-			}))
-
-			const errorsave = {
-				errorid: errorId,
-				userId: userId,
-				createdby: createdby,
-				message: message,
-				description: description,
-				payors: selectedLeft,
-				condition: conditionRowsValues
-			}
-			console.log(errorsave)
-			const response = await saveNewError(errorsave)
-			console.log(response)
-			dispatch(setStatus({ status: 200, msn: "Ok" }))
-			navigate(routes.ERRORMANAGER)
-		} catch (error) {
-			console.error("Error:", error)
-		}
-	}
-	///// End Save New Error  /////
-	const cancelErrorManager = async () => {
-		navigate(routes.ERRORMANAGER)
-	}
-
 	return (
 		<div style={{ margin: "20px" }}>
-			<h1 className="header-jce">Create New Error</h1>
+			<h1 className="header-jce">Update Error</h1>
 			<div style={{ margin: "20px" }}>
 				<div className="content mb-4">
 					<div className="row">
@@ -202,13 +160,13 @@ function NewError(props) {
 							<h5 className="general-jce text-end">Error ID</h5>
 						</div>
 						<div className="col-3">
-							<input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" value={newError.errorid} readOnly />
+							<input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" value={error.errorid} readOnly />
 						</div>
 						<div className="col-3">
 							<h5 className="general-jce text-end">Created by</h5>
 						</div>
 						<div className="col-2">
-							<input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" value={newError.createdby[1]} disabled />
+							<input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" value={error.createdby} disabled />
 						</div>
 
 						<div className="col-2"></div>
@@ -218,7 +176,7 @@ function NewError(props) {
 							<h5 className="general-jce text-end">Message</h5>
 						</div>
 						<div className="col-3">
-							<input className="general-jce w-100 text-start" type="text" id="message" name="message" value={newError.message} onChange={handleChange} />
+							<input className="general-jce w-100 text-start" type="text" id="message" name="message" value={error.message} onChange={handleChange} />
 						</div>
 						<div className="col-3"></div>
 						<div className="col-2"></div>
@@ -232,7 +190,7 @@ function NewError(props) {
 					<div className="row">
 						<div className="col-2"></div>
 						<div className="col-8">
-							<textarea className="form-control general-jce" id="description" name="description" rows="3" value={newError.description} onChange={handleChange}></textarea>
+							<textarea className="form-control general-jce" id="description" name="description" rows="3" value={error.description} onChange={handleChange}></textarea>
 						</div>
 						<div className="col-2"></div>
 					</div>
@@ -385,7 +343,7 @@ function NewError(props) {
 					</div>
 					<div className="row">
 						<p>
-							<a href="#tbodydata" id="addConditon" onClick={addConditionRow}>
+							<a id="addConditon" onClick={addConditionRow}>
 								Add Condition
 							</a>
 						</p>
@@ -396,14 +354,10 @@ function NewError(props) {
 					<div className="row">
 						<div className="col-8"></div>
 						<div className="col-2">
-							<a classclassName="nav-link btn btn-blue" href="#" onClick={cancelErrorManager}>
-								Cancel
-							</a>
+							<a className="nav-link btn btn-blue">Cancel</a>
 						</div>
 						<div className="col-2">
-							<a classclassName="nav-link btn btn-blue" href="#" onClick={submitNewError}>
-								Save
-							</a>
+							<a className="nav-link btn btn-blue">Save</a>
 						</div>
 					</div>
 				</div>
@@ -412,4 +366,4 @@ function NewError(props) {
 	)
 }
 
-export default NewError
+export default UpdateError

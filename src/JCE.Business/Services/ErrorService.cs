@@ -1,5 +1,6 @@
 ﻿using JCE.Business.Dtos.AuthDtos;
 using JCE.Business.Dtos.ErrorDtos;
+using JCE.Business.Dtos.PayorDtos;
 using JCE.Business.Services.Interfaces;
 using JCE.Data.Entities;
 using JCE.Data.Repository;
@@ -11,10 +12,12 @@ namespace JCE.Business.Services;
 public class ErrorService : IErrorService
 {
     private readonly IErrorRepository _errorRepository;
+    private readonly IPayorRepository _payorRepository;
 
-    public ErrorService(IErrorRepository errorRepository)
+    public ErrorService(IErrorRepository errorRepository, IPayorRepository payorRepository)
     {
         _errorRepository = errorRepository;
+        _payorRepository = payorRepository;
     }
 
     public async Task<List<GetConditionPayorDto>> GetConditionPayor(string payorId)
@@ -131,5 +134,31 @@ public class ErrorService : IErrorService
         }
 
         throw new Exception(message: "No se encontraron Errores en la base de datos");
+    }
+
+    // Diego's Methods
+    public async Task<GetErrorToUpdateDto> GetErrorByIdAsync(string errorId)
+    {
+        var error = await _errorRepository.GetErrorByIdAsync(errorId);
+        var payors = await _payorRepository.GetPayorsByErrorId(errorId);
+
+        List<GetPayorForErrorToUpdateDto> payorsDto = payors.Select(payor => new GetPayorForErrorToUpdateDto
+        {
+            payorid = payor.payorid,
+            payor_id_table = payor.payor_id_table
+        }).ToList();
+
+        if (error is not null)
+        {
+            return new GetErrorToUpdateDto {
+                ErrorId = error.ErrorId,
+                CreatedBy = error.UserName,
+                Message = error.Message,
+                Description = error.Description,
+                Payors = payorsDto
+            };
+        }
+
+        throw new Exception(message: "Error not found");
     }
 }

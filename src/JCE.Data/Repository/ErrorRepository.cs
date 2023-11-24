@@ -56,7 +56,7 @@ public class ErrorRepository : IErrorRepository
 
         foreach (var condition in errorSave.Condition)
         {
-            var sqlconditiongroup= $"insert into conditiongroup (grouperrorid,fieldid,conditionid,value) values ((select max(grouperrorid) from grouperror), {condition.selectedField}, {condition.selectedValue}, '{condition.fieldValue}')";
+            var sqlconditiongroup = $"insert into conditiongroup (grouperrorid,fieldid,conditionid,value) values ((select max(grouperrorid) from grouperror), {condition.selectedField}, {condition.selectedValue}, '{condition.fieldValue}')";
             var letra = sqlconditiongroup;
             var affectedRows2 = await connection.ExecuteAsync(sqlconditiongroup);
         }
@@ -119,5 +119,17 @@ public class ErrorRepository : IErrorRepository
         var errors = await connection.QueryAsync<SearchError>(sql);
 
         return errors.ToList();
+    }
+
+    // Diego's Methods
+
+    public async Task<SearchError> GetErrorByIdAsync(string errorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"SELECT errorid, username, message, description FROM error WHERE errorid = @errorid";
+
+        var error = await connection.QueryAsync<SearchError>(sql, new {errorid = errorId});
+
+        return error.FirstOrDefault();
     }
 }
