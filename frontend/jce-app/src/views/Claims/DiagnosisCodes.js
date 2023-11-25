@@ -26,7 +26,7 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 	}
 	const maxLengthValidation = (e, inputName, maxLength)=>{
 		const inputValue=e.target.value;
-		const errorText='Should have max 6 alphanumeric characters'
+		const errorText="Should have 6 Alphanumeric characters"
 	    console.log(inputName);
         if(inputValue.length>maxLength){
 			switch(inputName){
@@ -78,13 +78,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Principal Diagnosis</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="principalDiagnosis" id="principalDiagnosis" value={diagnosisCodes.principalDiagnosis} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'principalDiagnosis',6)}></input>
+						<input className="w-100" name="principalDiagnosis" id="principalDiagnosis" value={diagnosisCodes.principalDiagnosis} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'principalDiagnosis',6)}maxLength='7'></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Admiting Diagnosis</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="admitingDiagnosis" id="admitingDiagnosis" value={diagnosisCodes.admitingDiagnosis} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'admitingDiagnosis',6)}></input>
+						<input className="w-100" name="admitingDiagnosis" id="admitingDiagnosis" value={diagnosisCodes.admitingDiagnosis} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'admitingDiagnosis',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -117,13 +117,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Patient Reason For Visit</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="patientReasonForVisit" id="patientReasonForVisit" value={diagnosisCodes.patientReasonForVisit} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'patientReasonForVisit',6)}></input>
+						<input className="w-100" name="patientReasonForVisit" id="patientReasonForVisit" value={diagnosisCodes.patientReasonForVisit} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'patientReasonForVisit',6)}maxLength='7'></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">External Causes Of Injury</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="externalCausesOfInjury" id="externalCausesOfInjury" value={diagnosisCodes.externalCausesOfInjury} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'externalCausesOfInjury',6)}></input>
+						<input className="w-100" name="externalCausesOfInjury" id="externalCausesOfInjury" value={diagnosisCodes.externalCausesOfInjury} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'externalCausesOfInjury',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -154,13 +154,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Diagnosis Related Group</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="diagnosisRelatedGroup" id="diagnosisRelatedGroup" value={diagnosisCodes.diagnosisRelatedGroup} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'diagnosisRelatedGroup',6)} ></input>
+						<input className="w-100" name="diagnosisRelatedGroup" id="diagnosisRelatedGroup" value={diagnosisCodes.diagnosisRelatedGroup} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'diagnosisRelatedGroup',6)}maxLength='7' ></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Other Diagnosis Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="otherDiagnosisInfo" id="otherDiagnosisInfo" value={diagnosisCodes.otherDiagnosisInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'otherDiagnosisInfo',6)}></input>
+						<input className="w-100" name="otherDiagnosisInfo" id="otherDiagnosisInfo" value={diagnosisCodes.otherDiagnosisInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'otherDiagnosisInfo',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -191,13 +191,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Principal Procedure Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="principalProcedureInfo" id="principalProcedureInfo" value={diagnosisCodes.principalProcedureInfo} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'principalProcedureInfo',6)} ></input>
+						<input className="w-100" name="principalProcedureInfo" id="principalProcedureInfo" value={diagnosisCodes.principalProcedureInfo} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'principalProcedureInfo',6)}maxLength='7' ></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Other Procedure Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="otherProcedureInfo" id="otherProcedureInfo" value={diagnosisCodes.otherProcedureInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'otherProcedureInfo',6)}></input>
+						<input className="w-100" name="otherProcedureInfo" id="otherProcedureInfo" value={diagnosisCodes.otherProcedureInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'otherProcedureInfo',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -230,13 +230,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Occurrence Spam Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="occurrenceSpamInfo" id="occurrenceSpamInfo" value={diagnosisCodes.occurrenceSpamInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'occurrenceSpamInfo',6)}></input>
+						<input className="w-100" name="occurrenceSpamInfo" id="occurrenceSpamInfo" value={diagnosisCodes.occurrenceSpamInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'occurrenceSpamInfo',6)}maxLength='7'></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Occurrence Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="ocurrenceInfo" id="ocurrenceInfo" value={diagnosisCodes.ocurrenceInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'ocurrenceInfo',6)}></input>
+						<input className="w-100" name="ocurrenceInfo" id="ocurrenceInfo" value={diagnosisCodes.ocurrenceInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'ocurrenceInfo',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -266,13 +266,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Value Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="valueInfo" id="valueInfo" value={diagnosisCodes.valueInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'valueInfo',6)}></input>
+						<input className="w-100" name="valueInfo" id="valueInfo" value={diagnosisCodes.valueInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'valueInfo',6)}maxLength='7'></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Condition Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="conditionInfo" id="conditionInfo" value={diagnosisCodes.conditionInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'conditionInfo',6)}></input>
+						<input className="w-100" name="conditionInfo" id="conditionInfo" value={diagnosisCodes.conditionInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'conditionInfo',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">
@@ -303,13 +303,13 @@ function DiagnosisCodes({ diagnosisCodes, setDiagnosisCodes }) {
 						<label className="general-jce">Treatment Code Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="treatmentCodeInfo" id="treatmentCodeInfo" value={diagnosisCodes.treatmentCodeInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'treatmentCodeInfo',6)}></input>
+						<input className="w-100" name="treatmentCodeInfo" id="treatmentCodeInfo" value={diagnosisCodes.treatmentCodeInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'treatmentCodeInfo',6)}maxLength='7'></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Claim Pricing Info</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="claimPricingInfo" id="claimPricingInfo" value={diagnosisCodes.claimPricingInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'claimPricingInfo',6)}></input>
+						<input className="w-100" name="claimPricingInfo" id="claimPricingInfo" value={diagnosisCodes.claimPricingInfo} onChange={handleChange} onKeyUp={(event)=>maxLengthValidation(event,'claimPricingInfo',6)}maxLength='7'></input>
 					</div>
 				</div>
 				<div className="row">

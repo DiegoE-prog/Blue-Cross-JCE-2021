@@ -34,29 +34,45 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 	};
 const validateFullClaimCode=(event,currentInput)=>{
 const inputValue=event.target.value;
-if(inputValue.length==4){
+
+
+if(inputValue.length>=5){
 	if(currentInput=='institutional'){
        setProfessionalClaimCodeDisabled('disabled');
 	   claimInformation.professionalClaimCode='';
 	}
 	else{
+		
 		setInstitutionalClaimCodeDisabled('disabled');
 		claimInformation.institutionalClaimCode='';
 	}
+	
+}
+ if((inputValue.length<5)){
+	if(currentInput=='institutional'){
+		setProfessionalClaimCodeDisabled('');
+		
+	 }
+	 else{
+		 setInstitutionalClaimCodeDisabled('');
+		 
+	 }
 }
 }
-	const onlyNumbersValidation=(event)=>{
+	const onlyNumbersValidation=(event, inputName)=>{
 		
 		if (!/[0-9]/.test(event.key)) {
 			event.preventDefault();
 		  }
-		
+		  
 
 	}
 
 	const maxLengthValidation = (e, inputName, maxLength)=>{
 		const inputValue=e.target.value;
-	    console.log(inputName);
+		validateFullClaimCode(e, inputName);
+
+	    
         if(inputValue.length>maxLength){
 			switch(inputName){
               case 'institutional': return setNumericInstitutionalError('Should have max 5 numeric characters');
@@ -218,16 +234,15 @@ return (
 				<div className="row">
 					<div className="col-2">
 						<label className="general-jce">Institutional Claim Code</label>
-					</div>
-					<div className="col-10">
-						<input className="w-100" name="institutionalClaimCode" id="institutionalClaimCode" value={claimInformation.institutionalClaimCode} onChange={handleChange} onKeyPress={onlyNumbersValidation} onKeyDown={(event)=>validateFullClaimCode(event,'institutional')}disabled={institutionalClaimCodeDisabled} onKeyUp={(event)=>maxLengthValidation(event,'institutional',5)}></input>
+					</div>					<div className="col-10">
+						<input className="w-100" name="institutionalClaimCode" id="institutionalClaimCode" value={claimInformation.institutionalClaimCode} onChange={handleChange} onKeyPress={(event)=>onlyNumbersValidation(event, 'institutional')} disabled={institutionalClaimCodeDisabled} onKeyUp={(event)=>maxLengthValidation(event,'institutional',5)} maxLength='6'></input>
 					</div>
 					{numericInstitutionalError ? <div className="col-12" style={{ color: 'red' }}>{numericInstitutionalError}</div> : null}
 					<div className="col-2">
 						<label className="general-jce">Professional Claim Code</label>
 					</div>
 					<div className="col-10">
-						<input className="w-100" name="professionalClaimCode" id="professionalClaimCode" value={claimInformation.professionalClaimCode} onKeyPress={onlyNumbersValidation} onChange={handleChange}onKeyDown={(event)=>validateFullClaimCode(event,'professional')} disabled={professionalClaimCodeDisabled}onKeyUp={(event)=>maxLengthValidation(event,'professional',5)}></input>
+						<input className="w-100" name="professionalClaimCode" id="professionalClaimCode" value={claimInformation.professionalClaimCode} onKeyPress={(event)=>onlyNumbersValidation(event,'professional' )} onChange={handleChange} disabled={professionalClaimCodeDisabled}onKeyUp={(event)=>maxLengthValidation(event,'professional',5)} maxLength='6'></input>
 					</div>
 					{numericProfessionalError ? <div className="col-12" style={{ color: 'red' }}>{numericProfessionalError}</div> : null}
 					<div className="col-2">

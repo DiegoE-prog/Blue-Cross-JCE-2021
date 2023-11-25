@@ -27,6 +27,10 @@ function NewError(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [valueLengthError, setValueLengthError]=useState('')
+
+  const [valueIsDisabled, setValueIsDisabled]=useState(false);
+
   const [newError, setnewError] = useState({
     errorid: "",
     createdby: [0,username],
@@ -70,7 +74,6 @@ function NewError(props) {
     });
   };
 
-
   const handleChange2 = (e) => {
     const value2 = e.target.value;
     //const alphanumericRegex2 = /^[a-zA-Z0-9\s]*$/;  // Regex to allow only alphanumeric characters and spaces
@@ -98,7 +101,17 @@ function NewError(props) {
   };
 
 
-  
+  const validateValueLength=(e)=>{
+    const inputValue=e.target.value;
+    const errorMessage="The field Value is mandatory when condition is different than Is Entered or is Not Entered and should have max 150 characters (alphanumeric and special characters)"
+    console.log(inputValue.length);
+    if(inputValue.length>150){
+        setValueLengthError(errorMessage);
+    }
+    else{
+      setValueLengthError('');
+    }
+ }
   
   
   
@@ -122,6 +135,8 @@ function NewError(props) {
       }      
     };
     getlastIdApi();
+
+    
 
     const fetchPayors = async () => {
       try {
@@ -213,6 +228,17 @@ const handleSelectChange = (value, index, field) => {
     updatedRows[index].selectedField = value;
   }
   setConditionRows(updatedRows);
+ if(value==11 || value==12){
+   setValueIsDisabled(true);
+   conditionRows.map((row, index)=>{
+     row.fieldValue='';
+     console.log(row.fieldValue);
+   })
+}
+ else{
+  setValueIsDisabled(false);
+ }
+  
 };
 
 
@@ -364,7 +390,7 @@ const checkSpecialChar =(e)=>{
                 </select>
               </div>
               <div className="col-5 text-center">
-                <p className="fw-normal text-danger">Error Message AREA</p>
+              {valueLengthError ? <p className='fw-normal text-danger'>{valueLengthError}</p> : null}
               </div>
               <div className="col-2">
                 <p><a href="#">Remove Group</a></p>
@@ -423,7 +449,7 @@ const checkSpecialChar =(e)=>{
                             <h5 className="general-jce text-end">Value</h5>
                           </div>
                           <div className="col-9 text-start">
-                            <input className="general-jce w-100 text-start" type="text" value={row.fieldValue} id="error_id" name="error_id"  onChange={(e) => handleInputChange(e.target.value, index)} />  
+                            <input className="general-jce w-100 text-start" maxLength='151' type="text" value={row.fieldValue} id="error_id" onKeyUp={(e)=>validateValueLength(e)} name="error_id"  onChange={(e) => handleInputChange(e.target.value, index)} disabled={valueIsDisabled} />  
                           </div>
                         </div>                    
                     </td>

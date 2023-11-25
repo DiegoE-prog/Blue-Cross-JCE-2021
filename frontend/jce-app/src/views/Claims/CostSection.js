@@ -9,8 +9,11 @@ function CostSection({ costs, setCosts }) {
 
   const decimalValidation = (e, inputName) => {
     const inputValue = e.target.value;
-    const isValidFormat = /^\d{6}\.\d{2}$/;
+    const isValidFormat = /^\d{1,6}\.\d{2}$/;
     const errorMessage = "Money format needed";
+    if (/^\d{7}$/.test(inputValue)) {
+     e.target.value=e.target.value.substring(0,inputValue.length-1);
+    }
     if (inputValue&&!isValidFormat.test(inputValue)) {
       switch (inputName) {
         case "costForService":
@@ -56,6 +59,7 @@ function CostSection({ costs, setCosts }) {
               name="costForService"
               id="costForService"
               value={costs.costForService}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "costForService")}
             ></input>
@@ -71,6 +75,7 @@ function CostSection({ costs, setCosts }) {
               name="costOfMaterial"
               id="costOfMaterial"
               value={costs.costOfMaterial}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "costOfMaterial")}
             ></input>
@@ -86,6 +91,7 @@ function CostSection({ costs, setCosts }) {
               name="costForMedicine"
               id="costForMedicine"
               value={costs.costForMedicine}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) =>
                 decimalValidation(event, "costForMedicine")
@@ -103,6 +109,7 @@ function CostSection({ costs, setCosts }) {
               name="providerCost"
               id="providerCost"
               value={costs.providerCost}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "providerCost")}
             ></input>
@@ -118,6 +125,7 @@ function CostSection({ costs, setCosts }) {
               name="totalAmount"
               id="totalAmount"
               value={costs.totalAmount}
+              maxLength='10'
               onChange={handleChange}
 			  readOnly
             ></input>
