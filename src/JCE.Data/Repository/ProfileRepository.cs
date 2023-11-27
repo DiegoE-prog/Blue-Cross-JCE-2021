@@ -26,6 +26,15 @@ public class ProfileRepository : IProfileRepository
     }
     #nullable disable
 
+    public async Task<User> GetUserProfileByUsername(string username)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"SELECT * FROM user WHERE username = @username AND isDeleted = 0";
+
+        return await connection.QueryFirstOrDefaultAsync<User>(sql, new {username});
+    }
+
     public async Task<List<User>> GetUserProfilesByFilter(User filter)
     {
         using var connection = _context.CreateConnection();
@@ -63,6 +72,17 @@ public class ProfileRepository : IProfileRepository
             username = user.Username, password = user.Password, role = user.Role, 
             expiredate = user.ExpireDate,  name = user.Name,  lastname = user.LastName,  
             dob = user.Dob, phone = user.Phone, email = user.Email});
+
+        return affectedRows > 0;
+    }
+
+    public async Task<bool> ResetUserPassword(int userid, string password)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"UPDATE user SET password = @password WHERE userid = @userid AND isdeleted = 0";
+
+        var affectedRows = await connection.ExecuteAsync(sql, new {userid, password});
 
         return affectedRows > 0;
     }

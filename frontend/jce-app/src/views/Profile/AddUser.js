@@ -8,7 +8,7 @@ import { addUserValidator , userNameValidator } from "../../validations/addUserV
 import { arrayEquals } from "../../validations/objectArrayEquals";
 
 //List of user Roles
-//import { userRoles } from "../../userRoles";
+import { userRoles } from "../../userRoles";
 
 //API calls
 import { createUserProfile } from "../../api/profileapi";
@@ -125,7 +125,6 @@ const saveNewUser = async (event) =>
 
     //Validate if there are no errors
     if(arrayEquals(userValidations, initialErrorState)){
-        console.log(newUserInputs)
 
         try
         {
@@ -133,7 +132,6 @@ const saveNewUser = async (event) =>
             const response = await createUserProfile(newUserInputs);
 
             //Show a message verifying the user creation algon with the temporal Password
-            console.log(response.data)
             setCreateUserMessage(<h5 className="general-jce s-message mt-2">The new user was saved, the temporal password is {response.data.data.password}</h5>);
 
         }catch(error)
@@ -179,10 +177,10 @@ const clearFields = () =>
                                 <h5 className="general-jce">Role</h5>
                                 <select className="w-100" id="role" name="role" value={newUserInputs.role} onChange={handleInputChange}>
                                     <option value={""} disabled>Select a role</option>
-                                    <option value={1} >Member</option>
-                                    <option value={2} >Provider</option>
-                                    <option value={3} >Payor</option>
-                                    <option value={4} >Admin</option>
+                                    <option value={1} >{userRoles[1]}</option>
+                                    <option value={2} >{userRoles[2]}</option>
+                                    <option value={3} >{userRoles[3]}</option>
+                                    <option value={4} >{userRoles[4]}</option>
                                 </select>
                                 <h4 className="general-jce f-message mt-2">{errorMessage.role}</h4>
                             </div>
