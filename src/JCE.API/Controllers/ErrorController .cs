@@ -3,6 +3,7 @@ using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services;
 using JCE.Business.Services.Interfaces;
+using JCE.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCE.API.Controllers
@@ -156,6 +157,27 @@ namespace JCE.API.Controllers
                 response.Success = false;
                 response.Message = ex.Message;
                 return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("DeleteError/{errorId}")]
+        public async Task<ActionResult<Response<bool>>> DeleteError(int errorId)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                var errorUpdate = await _errorService.DeleteError(errorId);
+                response.Data = errorUpdate;
+                response.Success = errorUpdate;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
             }
 
             return Ok(response);
