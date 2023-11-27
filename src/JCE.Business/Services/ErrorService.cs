@@ -132,4 +132,14 @@ public class ErrorService : IErrorService
 
         throw new Exception(message: "No se encontraron Errores en la base de datos");
     }
+
+    public async Task<bool> DeleteError(int errorId)
+    {
+        var success = await _errorRepository.DeleteError(errorId);
+
+        if (!success)
+            throw new Exception(message: "Failed to delete the error");
+
+        return success;
+    }
 }

@@ -11,4 +11,5 @@ public interface IErrorService
     Task<List<GetSearchErrorDto>> GetListSearchError(SearchConditonErrorDto conditonErrorDto);
     Task<List<GetConditionPayorDto>> GetConditionPayor(String payorId);
     Task<List<GetSearchErrorDto>> GetListAllError();
+    Task<bool> DeleteError(int errorId);
 }

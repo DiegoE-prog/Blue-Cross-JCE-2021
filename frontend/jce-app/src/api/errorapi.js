@@ -29,4 +29,8 @@ const getListAllErrors = async () => {
 	return await axios.get(`${apiroutes.BASEROUTE}/api/error/GetListAllErrors`)
 }
 
-export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError,getListAllErrors}
+const deleteError = async (errorId) => {	
+	return await axios.get(`${apiroutes.BASEROUTE}/api/error/DeleteError/${errorId}`)
+}
+
+export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError, getListAllErrors, deleteError}
