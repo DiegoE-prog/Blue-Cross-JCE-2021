@@ -30,22 +30,52 @@ function UpdateError(props) {
 	const tbodyRef = useRef(null)
 
 	useEffect(() => {
-		const fetchPayors = async () => {
-			try {
-				const payorsList = await getListPayors()
-				if (payorsList.data.success) {
-					const payorsArray = Array.isArray(payorsList.data.data) ? payorsList.data.data : [] // Verificar si es un array
-
-					setRightOptions(payorsArray)
-				} else {
-					alert(payorsList.data.message)
-				}
-			} catch (error) {
-				console.error("Error fetching payors:", error)
-			}
+		const fetchPayors = () => {
+			const payorsList = getListPayors()
+			payorsList
+				.then((response) => {
+					if (response.data.success) {
+						const payorsArray = Array.isArray(response.data.data) ? response.data.data : [] // Verificar si es un array
+						return payorsArray
+					} else {
+						alert(payorsList.data.message)
+					}
+				})
+				.then((payorsArray) => {
+					fetchError(payorsArray)
+				})
+				.catch((error) => {
+					console.error("Error fetching payors:", error)
+				})
 		}
 
-		fetchPayors()
+		const fetchError = (payorsArray) => {
+			const error = getErrorById(id)
+			error
+				.then((response) => {
+					if (response.data.success) {
+						const payors = Array.isArray(response.data.data.payors) ? response.data.data.payors : []
+						setError({
+							errorid: response.data.data.errorId,
+							createdby: response.data.data.createdBy,
+							description: response.data.data.description,
+							message: response.data.data.message
+						})
+						setLeftOptions(payors)
+
+						if (payorsArray.length > 0) {
+							const payorIdsToRemove = payors.map((payor) => payor.payorid)
+
+							const newRight = payorsArray.filter((opt) => !payorIdsToRemove.includes(opt.payorid))
+
+							setRightOptions(newRight)
+						}
+					}
+				})
+				.catch((error) => {
+					console.error("Error fetching error", error)
+				})
+		}
 
 		const fetchFields = async () => {
 			try {
@@ -61,33 +91,8 @@ function UpdateError(props) {
 			}
 		}
 
+		fetchPayors()
 		fetchFields()
-
-		const fetchError = async () => {
-			try {
-				const response = await getErrorById(id)
-				if (response.data.success) {
-					const payors = Array.isArray(response.data.data.payors) ? response.data.data.payors : []
-					setError({
-						errorid: response.data.data.errorId,
-						createdby: response.data.data.createdBy,
-						description: response.data.data.description,
-						message: response.data.data.message
-					})
-					setLeftOptions(payors)
-
-					const payorIdsToRemove = payors.map((payor) => payor.payorid)
-
-					const newRight = rightOptions.filter((opt) => !payorIdsToRemove.includes(opt.payorid))
-
-					setRightOptions(newRight)
-				}
-			} catch (error) {
-				console.error("Error fetching error", error)
-			}
-		}
-
-		fetchError()
 
 		document.title = props.title
 	}, [props.title])
