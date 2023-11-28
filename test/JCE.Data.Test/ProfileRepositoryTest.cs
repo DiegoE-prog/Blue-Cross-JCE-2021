@@ -227,4 +227,48 @@ public class ProfileRepositoryTest
         Assert.False(result);
     }
 
+    [Fact]
+    public async Task Should_ReturnTrue_WhenThePasswordIsResetSuccessfully()
+    {
+        //Arrange
+        var mockDataContext = new Mock<IDataContext>();
+        var mockDbConnection = new Mock<IDbConnection>();
+        mockDataContext.Setup(c=> c.CreateConnection()).Returns(mockDbConnection.Object);
+        var profileRepository = new ProfileRepository(mockDataContext.Object);
+
+        var existingUserid = 1;
+        var newPassword = "resetPass1";
+        
+        mockDbConnection.SetupDapperAsync(c => c.ExecuteAsync(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+            .ReturnsAsync(1);
+
+        //Act
+        var result = await profileRepository.ResetUserPassword(existingUserid, newPassword);
+
+        //Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public async Task Should_ReturnFalse_WhenThePasswordResetFails()
+    {
+        //Arrange
+        var mockDataContext = new Mock<IDataContext>();
+        var mockDbConnection = new Mock<IDbConnection>();
+        mockDataContext.Setup(c=> c.CreateConnection()).Returns(mockDbConnection.Object);
+        var profileRepository = new ProfileRepository(mockDataContext.Object);
+
+        var nonExistantUserid = 254;
+        var newPassword = "resetPass1";
+        
+        mockDbConnection.SetupDapperAsync(c => c.ExecuteAsync(It.IsAny<string>(), It.IsAny<object>(), null, null, null))
+            .ReturnsAsync(0);
+
+        //Act
+        var result = await profileRepository.ResetUserPassword(nonExistantUserid, newPassword);
+
+        //Assert
+        Assert.False(result);
+    }
+
 }

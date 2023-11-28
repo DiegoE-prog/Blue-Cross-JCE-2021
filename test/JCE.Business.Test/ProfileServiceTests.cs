@@ -363,5 +363,123 @@ public class ProfileServiceTests
         //Assert
         Assert.Equal("Failed to delete the user", result.Message);
     }
+
+    [Fact]
+    public async Task Should_ReturnSuccesfullyResetPasswordDto_WhenTheUsersPasswordIsResetSuccessfully()
+    {
+        //Arrange
+        var mockProfileRepository = new Mock<IProfileRepository>();
+        var profileService = new ProfileService(mockProfileRepository.Object);
+
+        var existingUserid = 1;
+
+        var existingUser = new User
+        {
+            Username = "T.Stark85267",
+            Password = "oldExistingPassword",
+            Role = "3",
+            Name = "Tony",
+            LastName = "Stark",
+            Dob = DateTime.Parse("1963-03-01"),
+            Phone = "4773152223",
+            Email = "tonyrules@mail.com"
+
+        };
+
+        //Expected values
+        var expectedPasswordRegex = new Regex("^TempTS[@#$%&]2223$");
+        
+        mockProfileRepository.Setup(repo => repo.GetUserProfileById(It.IsAny<int>()))
+            .ReturnsAsync(existingUser);
+
+        mockProfileRepository.Setup(repo => repo.ResetUserPassword(It.IsAny<int>(), It.IsAny<string>()))
+            .ReturnsAsync(true);
+
+        //Act
+        var result = await profileService.ResetUserPassword(existingUserid);
+
+        //Assert
+        Assert.NotNull(result);
+        Assert.Equal(existingUser.Username, result.Username);
+        Assert.Matches(expectedPasswordRegex, result.Password);
+    }
+
+    [Fact]
+    public async Task Should_ReturnAnExceptionWithMessage_WhenTheUserToHaveItsPasswordResetWithTheUseridSpecifiedDoesntExist()
+    {
+        //Arrange
+        var mockProfileRepository = new Mock<IProfileRepository>();
+        var profileService = new ProfileService(mockProfileRepository.Object);
+
+        var nonExistantUserid = 254;
+
+        var existingUser = new User
+        {
+            Username = "T.Stark85267",
+            Password = "oldExistingPassword",
+            Role = "3",
+            Name = "Tony",
+            LastName = "Stark",
+            Dob = DateTime.Parse("1963-03-01"),
+            Phone = "4773152223",
+            Email = "tonyrules@mail.com"
+
+        };
+
+        //Expected values
+        var expectedPasswordRegex = new Regex("^TempTS[@#$%&]2223$");
+        
+        mockProfileRepository.Setup(repo => repo.GetUserProfileById(It.IsAny<int>()))
+            .ReturnsAsync((User?)null);
+
+        mockProfileRepository.Setup(repo => repo.ResetUserPassword(It.IsAny<int>(), It.IsAny<string>()))
+            .ReturnsAsync(false);
+
+        //Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await profileService.ResetUserPassword(nonExistantUserid));
+
+        //Assert
+        Assert.Equal("The User with Id '" + nonExistantUserid + "' does not exist", result.Message);
+    }
+
+    [Fact]
+    public async Task Should_ReturnAnExceptionWithMessage_WhenThePasswordResetFails()
+    {
+        //Arrange
+        var mockProfileRepository = new Mock<IProfileRepository>();
+        var profileService = new ProfileService(mockProfileRepository.Object);
+
+        var nonExistantUserid = 254;
+
+        var existingUser = new User
+        {
+            Username = "T.Stark85267",
+            Password = "oldExistingPassword",
+            Role = "3",
+            Name = "Tony",
+            LastName = "Stark",
+            Dob = DateTime.Parse("1963-03-01"),
+            Phone = "4773152223",
+            Email = "tonyrules@mail.com"
+
+        };
+
+        //Expected values
+        var expectedPasswordRegex = new Regex("^TempTS[@#$%&]2223$");
+        
+        mockProfileRepository.Setup(repo => repo.GetUserProfileById(It.IsAny<int>()))
+            .ReturnsAsync(existingUser);
+
+        mockProfileRepository.Setup(repo => repo.ResetUserPassword(It.IsAny<int>(), It.IsAny<string>()))
+            .ReturnsAsync(false);
+
+        //Act
+        var result = await Assert.ThrowsAsync<Exception>
+            (async () => await profileService.ResetUserPassword(nonExistantUserid));
+
+        //Assert
+        Assert.Equal("Failed to reset the password of the user", result.Message);
+    }
     
 }

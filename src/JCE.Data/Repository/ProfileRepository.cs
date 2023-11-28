@@ -20,8 +20,6 @@ public class ProfileRepository : IProfileRepository
 
         var sql = $"SELECT * FROM user WHERE userid = @userid AND isdeleted = 0";
 
-        var param = new {userid};
-
         return await connection.QueryFirstOrDefaultAsync<User>(sql, new {userid});
     }
     #nullable disable
