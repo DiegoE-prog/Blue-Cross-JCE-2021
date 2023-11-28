@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useRef } from "react"
 import { getListPayors } from "../../api/payorapi"
-import { getErrorById, getListField } from "../../api/errorapi"
+import { getErrorById, getListField, updateError } from "../../api/errorapi"
 import { useParams } from "react-router-dom"
+import { setStatus } from "../../redux/slices/errorSlice"
+import { routes } from "../../routes"
+import { useNavigate } from "react-router"
+import { useDispatch } from "react-redux"
 
 function UpdateError(props) {
 	const { id } = useParams()
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	const [error, setError] = useState({
 		errorid: "",
@@ -55,12 +61,15 @@ function UpdateError(props) {
 				.then((response) => {
 					if (response.data.success) {
 						const payors = Array.isArray(response.data.data.payors) ? response.data.data.payors : []
+						const conditions = Array.isArray(response.data.data.conditions) ? response.data.data.conditions : []
+
 						setError({
 							errorid: response.data.data.errorId,
 							createdby: response.data.data.createdBy,
 							description: response.data.data.description,
 							message: response.data.data.message
 						})
+
 						setLeftOptions(payors)
 
 						if (payorsArray.length > 0) {
@@ -69,6 +78,16 @@ function UpdateError(props) {
 							const newRight = payorsArray.filter((opt) => !payorIdsToRemove.includes(opt.payorid))
 
 							setRightOptions(newRight)
+						}
+
+						if (conditions.length > 0) {
+							setConditionRows(
+								conditions.map((condition) => ({
+									fieldValue: condition.value,
+									selectedValue: condition.condition,
+									selectedField: condition.field
+								}))
+							)
 						}
 					}
 				})
@@ -153,6 +172,32 @@ function UpdateError(props) {
 			updatedRows[index].selectedField = value
 		}
 		setConditionRows(updatedRows)
+	}
+
+	const handleSubmit = async () => {
+		try {
+			const errorId = error.errorid
+			const payors = leftOptions.map((opt) => opt.payorid)
+			const conditions = conditionRows.map((row) => ({
+				selectedField: row.selectedField,
+				selectedValue: row.selectedValue,
+				fieldValue: row.fieldValue
+			}))
+
+			const errorToUpdate = {
+				errorId: errorId,
+				payors: payors,
+				conditions: conditions
+			}
+
+			const response = await updateError(errorToUpdate)
+			if (response.data.success) {
+				dispatch(setStatus({ status: 200, msn: "Ok" }))
+				navigate(routes.ERRORMANAGER)
+			}
+		} catch (error) {
+			console.error("Error:", error)
+		}
 	}
 
 	return (
@@ -362,7 +407,9 @@ function UpdateError(props) {
 							<a className="nav-link btn btn-blue">Cancel</a>
 						</div>
 						<div className="col-2">
-							<a className="nav-link btn btn-blue">Save</a>
+							<a className="nav-link btn btn-blue" onClick={handleSubmit}>
+								Save
+							</a>
 						</div>
 					</div>
 				</div>

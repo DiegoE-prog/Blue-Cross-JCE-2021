@@ -8,4 +8,5 @@ public class GetErrorToUpdateDto
     public string Message { get; set; }
     public string Description { get; set; }
     public List<GetPayorForErrorToUpdateDto> Payors { get; set; }
+    public List<GetConditionsFoErrorToUpdateDto> Conditions { get; set; }
 }

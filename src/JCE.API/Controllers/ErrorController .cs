@@ -181,5 +181,22 @@ namespace JCE.API.Controllers
             return Ok(response);
         }
 
+        [HttpPut]
+        [Route("UpdateError")]
+        public async Task<ActionResult<Response<bool>>> UpdateError(ErrorUpdateDto errorUpdateDto)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                response.Success = await _errorService.UpdateError(errorUpdateDto);
+            }
+            catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

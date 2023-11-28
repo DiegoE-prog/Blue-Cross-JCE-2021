@@ -32,4 +32,8 @@ const getErrorById = async (errorId) => {
 	return await axios.get(`${apiroutes.BASEROUTE}/api/error/GetErrorById/${errorId}`)
 }
 
-export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError, getListAllErrors, getErrorById }
+const updateError = async (error) => {
+	return await axios.put(`${apiroutes.BASEROUTE}/api/error/UpdateError`, error)
+}
+
+export { getlastId, getListField, saveNewError, getListConditionPayor, getListSearchError, getListAllErrors, getErrorById, updateError }

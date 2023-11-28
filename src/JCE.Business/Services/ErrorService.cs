@@ -1,11 +1,8 @@
-﻿using JCE.Business.Dtos.AuthDtos;
-using JCE.Business.Dtos.ErrorDtos;
+﻿using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Dtos.PayorDtos;
 using JCE.Business.Services.Interfaces;
 using JCE.Data.Entities;
-using JCE.Data.Repository;
 using JCE.Data.Repository.Interfaces;
-using Microsoft.VisualBasic;
 
 namespace JCE.Business.Services;
 
@@ -140,25 +137,49 @@ public class ErrorService : IErrorService
     public async Task<GetErrorToUpdateDto> GetErrorByIdAsync(string errorId)
     {
         var error = await _errorRepository.GetErrorByIdAsync(errorId);
-        var payors = await _payorRepository.GetPayorsByErrorId(errorId);
-
-        List<GetPayorForErrorToUpdateDto> payorsDto = payors.Select(payor => new GetPayorForErrorToUpdateDto
-        {
-            payorid = payor.payorid,
-            payor_id_table = payor.payor_id_table
-        }).ToList();
 
         if (error is not null)
         {
+            var payors = await _payorRepository.GetPayorsByErrorId(errorId);
+            var conditions = await _errorRepository.GetConditionsForError(errorId);
+
+            List<GetPayorForErrorToUpdateDto> payorsDto = payors.Select(payor => new GetPayorForErrorToUpdateDto
+            {
+                payorid = payor.payorid,
+                payor_id_table = payor.payor_id_table
+            }).ToList();
+
+            List<GetConditionsFoErrorToUpdateDto> conditionsDto = conditions.Select(condition => new GetConditionsFoErrorToUpdateDto
+            {
+                Condition = condition.Condition,
+                Field = condition.Field,
+                Value = condition.Value
+            }).ToList();
+
             return new GetErrorToUpdateDto {
                 ErrorId = error.ErrorId,
                 CreatedBy = error.UserName,
                 Message = error.Message,
                 Description = error.Description,
-                Payors = payorsDto
+                Payors = payorsDto,
+                Conditions = conditionsDto
             };
         }
 
         throw new Exception(message: "Error not found");
+    }
+
+    public Task<bool> UpdateError(ErrorUpdateDto errorUpdateDto)
+    {
+        var errorToUpdate = new ErrorUpdate()
+        {
+            ErrorId = errorUpdateDto.ErrorId,
+            Payors = errorUpdateDto.Payors,
+            Condition = errorUpdateDto.Conditions
+        };
+
+        var success = _errorRepository.UpdateError(errorToUpdate);
+
+        return success;
     }
 }

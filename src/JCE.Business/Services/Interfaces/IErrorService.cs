@@ -13,4 +13,5 @@ public interface IErrorService
     Task<List<GetSearchErrorDto>> GetListAllError();
 
     Task<GetErrorToUpdateDto> GetErrorByIdAsync(string errorId);
+    Task<bool> UpdateError(ErrorUpdateDto errorUpdateDto);
 }
