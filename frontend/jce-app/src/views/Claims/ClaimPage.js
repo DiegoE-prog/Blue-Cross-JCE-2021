@@ -11,6 +11,7 @@ import { useEffect } from "react"
 import { GetAllMembers } from "../../api/memberapi"
 import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
+import axios from "axios"
 
 function ClaimPage() {
 	const [member, setMember] = useState({

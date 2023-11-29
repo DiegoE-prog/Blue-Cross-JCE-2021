@@ -1,6 +1,6 @@
-import { Time } from "phaser";
+
 import React, {useState} from "react"
-import Axios from "axios";
+import xios from "axios";
 
 
 function ClaimInformation({ claimInformation, setClaimInformation }) {
