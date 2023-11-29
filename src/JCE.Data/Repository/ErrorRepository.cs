@@ -56,7 +56,7 @@ public class ErrorRepository : IErrorRepository
 
         foreach (var condition in errorSave.Condition)
         {
-            var sqlconditiongroup= $"insert into conditiongroup (grouperrorid,fieldid,conditionid,value) values ((select max(grouperrorid) from grouperror), {condition.selectedField}, {condition.selectedValue}, '{condition.fieldValue}')";
+            var sqlconditiongroup = $"insert into conditiongroup (grouperrorid,fieldid,conditionid,value) values ((select max(grouperrorid) from grouperror), {condition.selectedField}, {condition.selectedValue}, '{condition.fieldValue}')";
             var letra = sqlconditiongroup;
             var affectedRows2 = await connection.ExecuteAsync(sqlconditiongroup);
         }
@@ -122,5 +122,71 @@ public class ErrorRepository : IErrorRepository
         var affectedRows = await connection.ExecuteAsync(sql, new { errorId });
 
         return affectedRows > 0;
+    }
+
+    // Diego's Methods
+
+    public async Task<SearchError> GetErrorByIdAsync(string errorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"SELECT errorid, username, message, description FROM error WHERE errorid = @errorid";
+
+        var error = await connection.QueryAsync<SearchError>(sql, new { errorid = errorId });
+
+        return error.FirstOrDefault();
+    }
+
+    public async Task<List<ConditionUpdate>> GetConditionsForError(string errorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"SELECT err.errorid, fi.fieldid AS 'field', c.conditionid AS 'condition', cg.value AS 'value' FROM error err " +
+                  $"INNER JOIN grouperror gro ON err.errorid = gro.errorid " +
+                  $"INNER JOIN conditiongroup cg ON gro.grouperrorid = cg.grouperrorid " +
+                  $"INNER JOIN field fi ON fi.fieldid = cg.fieldid " +
+                  $"INNER JOIN `condition` c ON c.conditionid = cg.conditionid " +
+                  $"WHERE err.errorid = @errorid";
+
+        var error = await connection.QueryAsync<ConditionUpdate>(sql, new { errorid = errorId });
+
+        return error.ToList();
+    }
+
+    public async Task<bool> UpdateError(ErrorUpdate errorUpdate)
+    {
+        using var connection = _context.CreateConnection();
+        var errorid = errorUpdate.ErrorId;
+
+        var sqlDeletePayors = $"DELETE FROM payorlist " +
+                              $"WHERE errorid = @errorid;";
+        await connection.ExecuteAsync(sqlDeletePayors, new { errorid });
+
+        var sqlDeleteConditions = $"DELETE FROM conditiongroup " +
+                                  $"WHERE grouperrorid =  " +
+                                  $"(SELECT grouperrorid FROM grouperror WHERE errorid= @errorid); ";
+        await connection.ExecuteAsync(sqlDeleteConditions, new { errorid });
+
+        var sqlDeleteGroups = $"DELETE FROM grouperror WHERE errorid = @errorid;";
+        await connection.ExecuteAsync(sqlDeleteGroups, new { errorid });
+
+        // Insertar en tabla grouperror
+        var sqlgrouperror = $"INSERT INTO grouperror (errorid,selectid, textselect) VALUES " +
+                            $"(@errorid,0,'NO GROUP')";
+        var affectedRows1 = await connection.ExecuteAsync(sqlgrouperror, new { errorid });
+
+        foreach (var payor in errorUpdate.Payors)
+        {
+            var sqlpayorlist = $"INSERT INTO payorlist (errorid, payorid) VALUES " +
+                               $"(@errorid, @payor)";
+            await connection.ExecuteAsync(sqlpayorlist, new { errorid, payor });
+        }
+
+        foreach (var condition in errorUpdate.Condition)
+        {
+            var sqlconditiongroup = $"INSERT INTO conditiongroup (grouperrorid,fieldid,conditionid,value) VALUES " +
+                                    $"((select max(grouperrorid) from grouperror), {condition.selectedField}, {condition.selectedValue}, '{condition.fieldValue}')";
+            await connection.ExecuteAsync(sqlconditiongroup);
+        }
+
+        return affectedRows1 > 0;
     }
 }

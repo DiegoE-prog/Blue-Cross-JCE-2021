@@ -21,6 +21,7 @@ import MainLayout from "./views/Home/MainLayout"
 import ProtectedRouteClaimPage from "./protectedRoutes/ProtectedRouteClaimPage"
 import ProtectedRouteErrorManager from "./protectedRoutes/ProtectedRouteErrorManager"
 import ProtectedRouteOnlyAdmin from "./protectedRoutes/ProtectedRouteOnlyAdmin"
+import UpdateError from "./views/ErrorsViews/UpdateError"
 
 function App() {
 	return (
@@ -79,6 +80,14 @@ function App() {
 									element={
 										<MainLayout>
 											<NewError title="NewError" />
+										</MainLayout>
+									}
+								/>
+								<Route
+									path={routes.UPDATEERROR}
+									element={
+										<MainLayout>
+											<UpdateError title="Update Error" />
 										</MainLayout>
 									}
 								/>

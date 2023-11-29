@@ -1,144 +1,100 @@
 import React, { useEffect, useState, useRef } from "react"
+import { getListPayors } from "../../api/payorapi"
+import { getErrorById, getListField, updateError } from "../../api/errorapi"
+import { useParams } from "react-router-dom"
 import { setStatus } from "../../redux/slices/errorSlice"
 import { routes } from "../../routes"
 import { useNavigate } from "react-router"
-import { useSelector } from "react-redux"
-import { getListPayors } from "../../api/payorapi"
-import { getlastId, getListField, saveNewError } from "../../api/errorapi"
 import { useDispatch } from "react-redux"
 
-function NewError(props) {
-	const [errorId, setErrorId] = useState(null)
-	const { userId, role, username } = useSelector((state) => state.user)
-	const [payors, setPayors] = useState([])
-	const [fields, setFields] = useState([])
-	const [rightOptions, setRightOptions] = useState([])
-
-	const tbodyRef = useRef(null)
-	const [tbodyContent, setTbodyContent] = useState("")
-	const tbodyData = useRef(null)
-	const [tbodyNew, setTbodyNew] = useState("")
-
+function UpdateError(props) {
+	const { id } = useParams()
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
-	const [valueLengthError, setValueLengthError] = useState("")
-
-	const [valueIsDisabled, setValueIsDisabled] = useState(false)
-
-	const [newError, setnewError] = useState({
+	const [error, setError] = useState({
 		errorid: "",
-		createdby: [0, username],
+		createdby: [0],
 		message: "",
 		description: ""
 	})
 
 	const handleChange = (e) => {
 		const value = e.target.value
-		const alphanumericRegex = /^[a-zA-Z0-9\s]*$/ // Regex to allow only alphanumeric characters and spaces
-		const maxLength = 50
-
-		// Validation
-		let errorMessage = ""
-
-		if (!value.trim()) {
-			errorMessage = 'The field "Message" is mandatory.'
-		} else if (!alphanumericRegex.test(value)) {
-			errorMessage = 'The field "Message" should only contain alphanumeric characters.'
-		} else if (value.length > maxLength) {
-			errorMessage = `The field "Message" should have a maximum of ${maxLength} characters.`
-		}
-
-		// Check if the current input character is a special character
-		const currentChar = e.data || e.key
-		const isSpecialChar = !alphanumericRegex.test(currentChar)
-
-		// Prevent adding the character if it's a special character
-		if (isSpecialChar) {
-			e.preventDefault()
-		}
-
-		// Update the input field value
-		e.target.value = value
-
-		// Set the new error message
-		setnewError({
-			...newError,
-			[e.target.name]: value,
-			errorMessage: errorMessage
+		setError({
+			...error,
+			[e.target.name]: value
 		})
 	}
+	const [leftOptions, setLeftOptions] = useState([])
+	const [rightOptions, setRightOptions] = useState([])
 
-	const handleChange2 = (e) => {
-		const value2 = e.target.value
-		//const alphanumericRegex2 = /^[a-zA-Z0-9\s]*$/;  // Regex to allow only alphanumeric characters and spaces
-		const maxLength2 = 300
+	const [selectedLeft, setSelectedLeft] = useState([])
+	const [selectedRight, setSelectedRight] = useState([])
 
-		// Validation
-		let errorMessage2 = ""
-
-		if (!value2.trim()) {
-			errorMessage2 = 'The field "Description" is mandatory.'
-		} else if (value2.length > maxLength2) {
-			errorMessage2 = `The field "Description" should have a maximum of ${maxLength2} characters (alphanumeric and special characters).`
-		}
-
-		// Update the input field value
-		e.target.value = value2
-
-		// Set the new error message
-		setnewError({
-			...newError,
-			[e.target.name]: value2,
-			errorMessage2: errorMessage2
-		})
-	}
-
-	const validateValueLength = (e) => {
-		const inputValue = e.target.value
-		const errorMessage = "The field Value is mandatory when condition is different than Is Entered or is Not Entered and should have max 150 characters (alphanumeric and special characters)"
-		console.log(inputValue.length)
-		if (inputValue.length > 150) {
-			setValueLengthError(errorMessage)
-		} else {
-			setValueLengthError("")
-		}
-	}
+	const [fields, setFields] = useState([])
+	const tbodyRef = useRef(null)
 
 	useEffect(() => {
-		const getlastIdApi = async () => {
-			try {
-				const response = await getlastId()
-				if (response.data.success) {
-					setErrorId(response.data.data.errorid)
-					setnewError({
-						...newError,
-						errorid: response.data.data.errorid
-					})
-				} else {
-					alert(response.data.message)
-				}
-			} catch (error) {
-				console.error("Error:", error)
-			}
-		}
-		getlastIdApi()
-
-		const fetchPayors = async () => {
-			try {
-				const payorsList = await getListPayors()
-				if (payorsList.data.success) {
-					const payorsArray = Array.isArray(payorsList.data.data) ? payorsList.data.data : [] // Verificar si es un array
-					setRightOptions(payorsArray)
-				} else {
-					alert(payorsList.data.message)
-				}
-			} catch (error) {
-				console.error("Error fetching payors:", error)
-			}
+		const fetchPayors = () => {
+			const payorsList = getListPayors()
+			payorsList
+				.then((response) => {
+					if (response.data.success) {
+						const payorsArray = Array.isArray(response.data.data) ? response.data.data : [] // Verificar si es un array
+						return payorsArray
+					} else {
+						alert(payorsList.data.message)
+					}
+				})
+				.then((payorsArray) => {
+					fetchError(payorsArray)
+				})
+				.catch((error) => {
+					console.error("Error fetching payors:", error)
+				})
 		}
 
-		fetchPayors()
+		const fetchError = (payorsArray) => {
+			const error = getErrorById(id)
+			error
+				.then((response) => {
+					if (response.data.success) {
+						const payors = Array.isArray(response.data.data.payors) ? response.data.data.payors : []
+						const conditions = Array.isArray(response.data.data.conditions) ? response.data.data.conditions : []
+
+						setError({
+							errorid: response.data.data.errorId,
+							createdby: response.data.data.createdBy,
+							description: response.data.data.description,
+							message: response.data.data.message
+						})
+
+						setLeftOptions(payors)
+
+						if (payorsArray.length > 0) {
+							const payorIdsToRemove = payors.map((payor) => payor.payorid)
+
+							const newRight = payorsArray.filter((opt) => !payorIdsToRemove.includes(opt.payorid))
+
+							setRightOptions(newRight)
+						}
+
+						if (conditions.length > 0) {
+							setConditionRows(
+								conditions.map((condition) => ({
+									fieldValue: condition.value,
+									selectedValue: condition.condition,
+									selectedField: condition.field
+								}))
+							)
+						}
+					}
+				})
+				.catch((error) => {
+					console.error("Error fetching error", error)
+				})
+		}
 
 		const fetchFields = async () => {
 			try {
@@ -154,14 +110,11 @@ function NewError(props) {
 			}
 		}
 
+		fetchPayors()
 		fetchFields()
+
 		document.title = props.title
 	}, [props.title])
-
-	///// Start List Payor /////
-	const [leftOptions, setLeftOptions] = useState([])
-	const [selectedLeft, setSelectedLeft] = useState([])
-	const [selectedRight, setSelectedRight] = useState([])
 
 	const moveToRight = () => {
 		const newLeft = leftOptions.filter((opt) => !selectedLeft.includes(opt.payorid))
@@ -219,66 +172,37 @@ function NewError(props) {
 			updatedRows[index].selectedField = value
 		}
 		setConditionRows(updatedRows)
-		if (value == 11 || value == 12) {
-			setValueIsDisabled(true)
-			conditionRows.map((row, index) => {
-				row.fieldValue = ""
-				console.log(row.fieldValue)
-			})
-		} else {
-			setValueIsDisabled(false)
-		}
 	}
 
-	///// End New Tr  /////
-	///// Start Save New Error  /////
-
-	const submitNewError = async () => {
+	const handleSubmit = async () => {
 		try {
-			const errorId = newError.errorid
-			const createdby = newError.createdby[1]
-			const message = newError.message
-			const description = newError.description
-			const selectedLeft = leftOptions.map((opt) => opt.payorid)
-			const conditionRowsValues = conditionRows.map((row) => ({
+			const errorId = error.errorid
+			const payors = leftOptions.map((opt) => opt.payorid)
+			const conditions = conditionRows.map((row) => ({
 				selectedField: row.selectedField,
 				selectedValue: row.selectedValue,
 				fieldValue: row.fieldValue
 			}))
 
-			const errorsave = {
-				errorid: errorId,
-				userId: userId,
-				createdby: createdby,
-				message: message,
-				description: description,
-				payors: selectedLeft,
-				condition: conditionRowsValues
+			const errorToUpdate = {
+				errorId: errorId,
+				payors: payors,
+				conditions: conditions
 			}
-			console.log(errorsave)
-			const response = await saveNewError(errorsave)
-			console.log(response)
-			dispatch(setStatus({ status: 200, msn: "Ok" }))
-			navigate(routes.ERRORMANAGER)
+
+			const response = await updateError(errorToUpdate)
+			if (response.data.success) {
+				dispatch(setStatus({ status: 200, msn: "Ok" }))
+				navigate(routes.ERRORMANAGER)
+			}
 		} catch (error) {
 			console.error("Error:", error)
 		}
 	}
 
-	const checkSpecialChar = (e) => {
-		if (!/[0-9a-zA-Z]/.test(e.key)) {
-			e.preventDefault()
-		}
-	}
-
-	///// End Save New Error  /////
-	const cancelErrorManager = async () => {
-		navigate(routes.ERRORMANAGER)
-	}
-
 	return (
 		<div style={{ margin: "20px" }}>
-			<h1 className="header-jce">Create New Error</h1>
+			<h1 className="header-jce">Update Error</h1>
 			<div style={{ margin: "20px" }}>
 				<div className="content mb-4">
 					<div className="row">
@@ -286,13 +210,13 @@ function NewError(props) {
 							<h5 className="general-jce text-end">Error ID</h5>
 						</div>
 						<div className="col-3">
-							<input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" value={newError.errorid} readOnly />
+							<input className="general-jce w-100 text-start" type="text" id="error_id" name="error_id" value={error.errorid} readOnly />
 						</div>
 						<div className="col-3">
 							<h5 className="general-jce text-end">Created by</h5>
 						</div>
 						<div className="col-2">
-							<input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" value={newError.createdby[1]} disabled />
+							<input className="general-jce w-100 text-start" type="text" id="created_by" name="created_by" value={error.createdby} disabled />
 						</div>
 
 						<div className="col-2"></div>
@@ -302,9 +226,7 @@ function NewError(props) {
 							<h5 className="general-jce text-end">Message</h5>
 						</div>
 						<div className="col-3">
-							<input className="general-jce w-100 text-start" maxLength={51} type="text" id="message" name="message" value={newError.message} onChange={handleChange} onKeyPress={(e) => checkSpecialChar(e)} />
-							{/* Render error label */}
-							{newError.errorMessage && <div style={{ color: "red" }}>{newError.errorMessage}</div>}
+							<input className="general-jce w-100 text-start" type="text" id="message" name="message" value={error.message} onChange={handleChange} />
 						</div>
 						<div className="col-3"></div>
 						<div className="col-2"></div>
@@ -318,8 +240,7 @@ function NewError(props) {
 					<div className="row">
 						<div className="col-2"></div>
 						<div className="col-8">
-							<textarea className="form-control general-jce" maxLength={301} id="description" name="description" rows="3" value={newError.description} onChange={handleChange2}></textarea>
-							{newError.errorMessage2 && <div style={{ color: "red" }}>{newError.errorMessage2}</div>}
+							<textarea className="form-control general-jce" id="description" name="description" rows="3" value={error.description} onChange={handleChange}></textarea>
 						</div>
 						<div className="col-2"></div>
 					</div>
@@ -388,7 +309,9 @@ function NewError(props) {
 								<option value="1">Doesn't meet the following conditions</option>
 							</select>
 						</div>
-						<div className="col-5 text-center">{valueLengthError ? <p className="fw-normal text-danger">{valueLengthError}</p> : null}</div>
+						<div className="col-5 text-center">
+							<p className="fw-normal text-danger">Error Message AREA</p>
+						</div>
 						<div className="col-2">
 							<p>
 								<a href="#">Remove Group</a>
@@ -457,7 +380,7 @@ function NewError(props) {
 														<h5 className="general-jce text-end">Value</h5>
 													</div>
 													<div className="col-9 text-start">
-														<input className="general-jce w-100 text-start" maxLength="151" type="text" value={row.fieldValue} id="error_id" onKeyUp={(e) => validateValueLength(e)} name="error_id" onChange={(e) => handleInputChange(e.target.value, index)} disabled={valueIsDisabled} />
+														<input className="general-jce w-100 text-start" type="text" value={row.fieldValue} id="error_id" name="error_id" onChange={(e) => handleInputChange(e.target.value, index)} />
 													</div>
 												</div>
 											</td>
@@ -470,7 +393,7 @@ function NewError(props) {
 					</div>
 					<div className="row">
 						<p>
-							<a href="#tbodydata" id="addConditon" onClick={addConditionRow}>
+							<a id="addConditon" onClick={addConditionRow}>
 								Add Condition
 							</a>
 						</p>
@@ -481,12 +404,10 @@ function NewError(props) {
 					<div className="row">
 						<div className="col-8"></div>
 						<div className="col-2">
-							<a classclassName="nav-link btn btn-blue" href="#" onClick={cancelErrorManager}>
-								Cancel
-							</a>
+							<a className="nav-link btn btn-blue">Cancel</a>
 						</div>
 						<div className="col-2">
-							<a classclassName="nav-link btn btn-blue" href="#" onClick={submitNewError}>
+							<a className="nav-link btn btn-blue" onClick={handleSubmit}>
 								Save
 							</a>
 						</div>
@@ -497,4 +418,4 @@ function NewError(props) {
 	)
 }
 
-export default NewError
+export default UpdateError

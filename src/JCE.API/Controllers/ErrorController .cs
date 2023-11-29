@@ -19,12 +19,12 @@ namespace JCE.API.Controllers
             _errorService = errorService;
         }
 
-        [HttpGet ]
+        [HttpGet]
         [Route("GetLastId")]
         public async Task<ActionResult<Response<GetErrorDto>>> GetLastId()
         {
-            var response = new Response<GetErrorDto>();  
-            
+            var response = new Response<GetErrorDto>();
+
             try
             {
                 var error = await _errorService.GetLastId();
@@ -180,6 +180,44 @@ namespace JCE.API.Controllers
                 return Unauthorized(response);
             }
 
+            return Ok(response);
+        }
+
+        // Diego's methods
+        [HttpGet]
+        [Route("GetErrorById/{errorId}")]
+        public async Task<ActionResult<Response<GetErrorToUpdateDto>>> GetErrorByIdAsync(string errorId)
+        {
+            var response = new Response<GetErrorToUpdateDto>();
+            try
+            {
+                response.Data = await _errorService.GetErrorByIdAsync(errorId);
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("UpdateError")]
+        public async Task<ActionResult<Response<bool>>> UpdateError(ErrorUpdateDto errorUpdateDto)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                response.Success = await _errorService.UpdateError(errorUpdateDto);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
             return Ok(response);
         }
     }
