@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services.Interfaces;
 using JCE.Data.Entities;
@@ -21,6 +22,7 @@ public class ProfileService : IProfileService
         return new GetProfileDto
         {
             UserId = user.UserId,
+            Role = user.Role,
             Username = user.Username,
             Name = user.Name,
             LastName = user.LastName,
@@ -29,6 +31,23 @@ public class ProfileService : IProfileService
             Email = user.Email
         };
 
+    }
+
+    public async Task<GetProfileDto> GetUserProfileByUsername(string username)
+    {
+        var user = await _profileRepository.GetUserProfileByUsername(username) ?? throw new Exception(message: "The User with Username '" + username + "' was not found");
+
+        return new GetProfileDto
+        {
+            UserId = user.UserId,
+            Role = user.Role,
+            Username = user.Username,
+            Name = user.Name,
+            LastName = user.LastName,
+            Dob = user.Dob,
+            Phone = user.Phone,
+            Email = user.Email
+        };
     }
 
     public async Task<List<GetProfileDto>> GetUserProfilesByFilter(GetProfileDto filter)
@@ -125,6 +144,28 @@ public class ProfileService : IProfileService
         }else{
             throw new Exception(message: "Failed to create user");
         }
+    }
+
+    public async Task<SuccesfullyResetPasswordDto> ResetUserPassword(int userid)
+    {
+        //Get the user information first and valid if it exists
+        var user = await _profileRepository.GetUserProfileById(userid) ?? throw new Exception(message: "The User with Id '" + userid + "' does not exist");
+
+        //Generate the auto password
+        string resetPassword = GenerateAutoPassword(user.Name, user.LastName, user.Phone);
+
+        var success = await _profileRepository.ResetUserPassword(userid, resetPassword);
+
+        if(!success){
+            throw new Exception(message: "Failed to reset the password of the user");
+        }else{
+            
+            return new SuccesfullyResetPasswordDto{
+                Username = user.Username,
+                Password = resetPassword
+            };
+        }
+            
     }
 
     public async Task<bool> UpdatePhoneAndEmail(UpdatePhoneAndEmailDto update)
