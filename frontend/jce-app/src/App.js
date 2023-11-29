@@ -16,6 +16,8 @@ import ErrorManager from "./views/ErrorsViews/ErrorManager"
 import NotFoundPage from "./views/Home/NotFoundPage"
 import ProtectedRoute from "./protectedRoutes/ProtectedRoute"
 import MainLayout from "./views/Home/MainLayout"
+import ResetSQ from "./views/Profile/ResetSecurityQuestions"
+import ResetPasswordSQ from "./views/Profile/ResetPasswordSQ"
 
 // Protection for routes
 import ProtectedRouteClaimPage from "./protectedRoutes/ProtectedRouteClaimPage"
@@ -108,6 +110,8 @@ function App() {
 
 
 						<Route path={routes.LOGIN} element={<Login />} />
+						<Route path={routes.RESETSQ} element={<ResetSQ />} />
+						<Route path={routes.RESETPASSSQ} element={<ResetPasswordSQ />} />
 
 					</Routes>
 				</div>

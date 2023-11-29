@@ -23,6 +23,7 @@ public static class DataServiceRegistration
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<ISecurityQuestionsRepository, SecurityQuestionsRepository>();
-            return services;
+            services.AddScoped<IResetPasswordRepository, ResetPasswordRepository>();
+        return services;
     }
 }

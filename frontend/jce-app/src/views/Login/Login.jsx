@@ -5,6 +5,7 @@ import { routes } from "../../routes"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "../../redux/slices/userSlice"
 import { login } from "../../api/loginapi"
+import { getValidateIfHaveQuestion } from "../../api/resetpasswordapi"
 
 function Login() {
 	const [messageError, setMessageError] = useState("")
@@ -62,7 +63,19 @@ function Login() {
 		try {
 			const response = await login(credentials)
 			dispatch(setUser({userId: response.data.data.userId, username: response.data.data.username, role: response.data.data.role }))
-			navigate(routes.HOME)
+			
+			const responseHaveQuestion = await getValidateIfHaveQuestion(response.data.data.userId)
+			console.log(responseHaveQuestion.data.data);
+			if(responseHaveQuestion.data.data === 0){
+				console.log('No tengo preguntas');
+				navigate(routes.RESETSQ)
+				// Mostrar la seccion de preguntas
+				// Que el Usuario Agregue las respuestas
+				// Que actual
+				return;
+			}else{
+				navigate(routes.HOME)
+			}			
 		} catch (error) {
 			setMessageError(error.response.data.message)
 			if (error.response.data.message === "Password is incorrect") {
