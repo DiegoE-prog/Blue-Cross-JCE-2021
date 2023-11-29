@@ -100,9 +100,9 @@ function ErrorManager(props) {
 										Delete
 									</button>
 									&nbsp;
-									<button className="btn btn-blue" variant="text" color="red">
+									<Link to={`/ErrorManager/UpdateError/${row.errorId}`} className="btn btn-blue" variant="text" color="red">
 										Details
-									</button>
+									</Link>
 								</>
 							)
 						}
