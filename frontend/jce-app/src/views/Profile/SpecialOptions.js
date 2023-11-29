@@ -12,8 +12,11 @@ import {
     DialogTitle,
   } from "@mui/material";
 import { routes } from "../../routes";
+import { useSelector } from "react-redux";
 
 function SpecialOptions(props) {
+    //User Info
+    const {userId} = useSelector((state) => state.user)
 
     //Delete alert window
     const [deleteAlertState, setDeleteAlertState] = useState(false)
@@ -67,10 +70,14 @@ function SpecialOptions(props) {
                     const usersMap = usersArray.map((user) => 
                     (
                         <tr id={"userRow" + user.userId} key={"userRow" + user.userId}>
-                            <td>
+                            
+                            {userId !== user.userId &&
                                 <button type="button" className="btn btn-blue mt-2 float-right" onClick={() => deleteWindowSetUser(user.userId)}>
-                                Delete
+                                    Delete
                                 </button>
+                            }
+                            <td>
+                                
                             </td>
                             <td>{user.username}</td>
                             <td>{user.name}</td>
