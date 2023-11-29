@@ -207,6 +207,11 @@ const moveToLeft = () => {
   }
 };
 ///// End List Payor /////
+const handleRemoveRow = (index) => {
+  const updatedConditionRows = [...conditionRows];
+  updatedConditionRows.splice(index, 1);
+  setConditionRows(updatedConditionRows);
+};
 ///// Start New Tr  /////
 const [conditionRows, setConditionRows] = useState([{ fieldValue: '', selectedValue:1, selectedField:1 }]);
 const addConditionRow = () => {
@@ -284,6 +289,10 @@ const checkSpecialChar =(e)=>{
  };
 
 ///// End Save New Error  /////
+const cancelErrorManager = async () => {
+  navigate(routes.ERRORMANAGER);
+}
+
   return (
     <div style={{ margin: "20px" }}>
       <h1 className="header-jce">Create New Error</h1>
@@ -403,7 +412,11 @@ const checkSpecialChar =(e)=>{
               <tbody id="tbodydata" ref={tbodyRef}>
                  {conditionRows.map((row, index) => (
                   <tr key={index}>
-                    <th className="text-center"><p><a href="#">Remove</a></p></th>
+                  <th className="text-center">
+                    <p>
+                      {!row.isRemovable && <a href="#tbodydata" onClick={() => handleRemoveRow(index)}>Remove</a>}
+                    </p>
+                  </th>
                     <td>
                       <div className="row">                      
                         <div className="col-3">                      
@@ -470,7 +483,7 @@ const checkSpecialChar =(e)=>{
           <div className="row">
             <div className="col-8"></div>
             <div className="col-2">
-                <a classclassName="nav-link btn btn-blue" href="/home">Cancel</a>
+                <a classclassName="nav-link btn btn-blue" href="#" onClick={cancelErrorManager}>Cancel</a>
             </div>
             <div className="col-2">
               <a classclassName="nav-link btn btn-blue" href="#" onClick={submitNewError}>Save</a>

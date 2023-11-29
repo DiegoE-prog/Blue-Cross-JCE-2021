@@ -3,6 +3,7 @@ using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services;
 using JCE.Business.Services.Interfaces;
+using JCE.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCE.API.Controllers
@@ -78,10 +79,99 @@ namespace JCE.API.Controllers
 
                 if (!save)
                 {
-                    response.Message = "Failed to update the phone and email of the user";
+                    response.Message = "Failed";
                     return BadRequest(response);
                 }
 
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetListSearchError")]
+        public async Task<ActionResult<Response<GetSearchErrorDto>>> GetListSearchError(SearchConditonErrorDto conditonErrorDto)
+        {
+            var response = new Response<List<GetSearchErrorDto>>();
+            try
+            {
+                var getSearchErrors = await _errorService.GetListSearchError(conditonErrorDto);
+                response.Success = true;
+                response.Data = getSearchErrors;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("GetListConditionPayor/{payorId}")]
+        public async Task<ActionResult<Response<GetConditionPayorDto>>> GetListConditionPayor(String payorId)
+        {
+            var response = new Response<List<GetConditionPayorDto>>();
+
+            try
+            {
+                var conditionPayor = await _errorService.GetConditionPayor(payorId);
+                response.Success = true;
+                response.Data = conditionPayor;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("GetListAllErrors")]
+        public async Task<ActionResult<Response<GetSearchErrorDto>>> GetListAllErrors()
+        {
+            var response = new Response<List<GetSearchErrorDto>>();
+
+            try
+            {
+                var allErrors = await _errorService.GetListAllError();
+                response.Success = true;
+                response.Data = allErrors;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("DeleteError/{errorId}")]
+        public async Task<ActionResult<Response<bool>>> DeleteError(int errorId)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                var errorUpdate = await _errorService.DeleteError(errorId);
+                response.Data = errorUpdate;
+                response.Success = errorUpdate;
             }
             catch (Exception ex)
             {

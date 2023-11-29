@@ -47,18 +47,20 @@ builder.Services.AddFluentMigratorCore()
                         .ScanIn(typeof(CreateProviders).Assembly).For.Migrations()
                         .ScanIn(typeof(CreateMembers).Assembly).For.Migrations()
                         .ScanIn(typeof(CreateNewErrorFix).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateSecurityQuestions).Assembly).For.Migrations()
+                        .ScanIn(typeof(AddSoftDeleteToUserTable).Assembly).For.Migrations()
                         );
 
 //// ... otros servicios que puedas necesitar
 
 //var serviceProvider = builder.Services.BuildServiceProvider();
 
-//// Ejecución del rollback
+//// Ejecuciï¿½n del rollback
 //using var scope = serviceProvider.CreateScope();
 //var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
 
-//// Ejecutar el rollback para una migración específica
-//runner.MigrateDown(1); // Revierte una migración
+//// Ejecutar el rollback para una migraciï¿½n especï¿½fica
+//runner.MigrateDown(1); // Revierte una migraciï¿½n
 
 
 var app = builder.Build();

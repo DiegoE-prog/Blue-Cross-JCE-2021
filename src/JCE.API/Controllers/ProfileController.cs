@@ -1,4 +1,5 @@
 ﻿using JCE.API.Models;
+using JCE.Business;
 using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -25,9 +26,51 @@ namespace JCE.API.Controllers
 
             try
             {
-                var profile = await _profileService.GetUserProfile(userid);
+                var profile = await _profileService.GetUserProfileById(userid);
                 response.Success = true;
                 response.Data = profile;
+
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public async Task<ActionResult<Response<GetProfileDto>>> GetUserProfilesByFilter([FromQuery] GetProfileDto filter)
+        {
+            var response = new Response<List<GetProfileDto>>();
+            try
+            {
+                var users = await _profileService.GetUserProfilesByFilter(filter);
+                response.Success = true;
+                response.Data = users;
+
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public async Task<ActionResult<Response<SuccesfulCreatedProfileDto>>> CreateUserProfile(CreateProfileDto user)
+        {
+            var response = new Response<SuccesfulCreatedProfileDto>();
+            try
+            {
+                var createdUser = await _profileService.CreateUserProfile(user);
+                response.Data = createdUser;
+                response.Success = true;
 
             }catch(Exception ex)
             {
@@ -51,10 +94,27 @@ namespace JCE.API.Controllers
                 response.Data = profileUpdate;
                 response.Success = profileUpdate;
 
-                if(!profileUpdate){
-                    response.Message = "Failed to update the phone and email of the user";
-                    return BadRequest(response);
-                }
+            }catch(Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("{userid}")]
+        public async Task<ActionResult<Response<bool>>> DeleteUserProfile(int userid )
+        {
+            var response = new Response<bool>();
+
+            try
+            {
+                var profileUpdate = await _profileService.DeleteUserProfile(userid);
+                response.Data = profileUpdate;
+                response.Success = profileUpdate;
 
             }catch(Exception ex)
             {

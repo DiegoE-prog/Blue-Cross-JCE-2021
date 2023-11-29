@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import BlueCrossLogo from "../../logos/BlueCrossHeader.png"
 import { useNavigate } from "react-router"
 import { routes } from "../../routes"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "../../redux/slices/userSlice"
 import { login } from "../../api/loginapi"
 
@@ -30,6 +30,14 @@ function Login() {
 			blockuser: false
 		}))
 	}, [credentials.username])
+
+	const { isAuthenticated, username } = useSelector((state) => state.user)
+
+	useEffect(() => {
+		if (isAuthenticated && username !== null) {
+			navigate(routes.HOME)
+		}
+	},[])
 
 	const handleChange = (e) => {
 		const value = e.target.value

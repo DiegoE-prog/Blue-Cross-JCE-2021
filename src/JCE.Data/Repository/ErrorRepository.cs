@@ -15,7 +15,7 @@ public class ErrorRepository : IErrorRepository
     {
         _context = context;
     }
-    
+
     public async Task<Error> GetLastId()
     {
         using var connection = _context.CreateConnection();
@@ -29,7 +29,7 @@ public class ErrorRepository : IErrorRepository
     public async Task<List<Field>> GetListField()
     {
         using var connection = _context.CreateConnection();
-        var sql = $"Select * From field where status = 1";
+        var sql = $"Select * From field where status = 1 ORDER BY name Asc";
 
         var fields = await connection.QueryAsync<Field>(sql);
 
@@ -63,5 +63,64 @@ public class ErrorRepository : IErrorRepository
 
         return true;
     }
+    public async Task<List<SearchError>> GetListSearchError(SearchConditonError searchConditonError)
+    {
+        using var connection = _context.CreateConnection();
 
+        var conditions = new List<string>();
+
+        // Agregar condiciones básicas
+        if (searchConditonError.ErrorId != null)
+            conditions.Add($"errorid = {searchConditonError.ErrorId}");
+        if (!string.IsNullOrEmpty(searchConditonError.Message))
+            conditions.Add($"err.message = '{searchConditonError.Message}'");
+        if (!string.IsNullOrEmpty(searchConditonError.Description))
+            conditions.Add($"err.description = '{searchConditonError.Description}'");
+        if (!string.IsNullOrEmpty(searchConditonError.CreateBy))
+            conditions.Add($"err.username = '{searchConditonError.CreateBy}'");
+        if (!string.IsNullOrEmpty(searchConditonError.Payor))
+            conditions.Add($"p.payor_id_table = '{searchConditonError.Payor}'");
+        if (!string.IsNullOrEmpty(searchConditonError.Field))
+            conditions.Add($"f.name = '{searchConditonError.Field}'");
+
+        var sql = $@"
+        SELECT err.errorid, err.username, err.message, err.description 
+        FROM error err
+        {(conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "")} And err.status = 1 ORDER BY err.errorid DESC";
+
+        // Ejecutar la consulta
+        var searchErrors = await connection.QueryAsync<SearchError>(sql);
+
+        return searchErrors.ToList();
+    }
+
+    public async Task<List<ConditionPayor>> GetConditionPayor(string payorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"select DISTINCT f.name fieldClaim, c.name nameCondition, cg.value value, er.message message, er.description description from grouperror gp inner join error er on gp.errorid = er.errorid inner join conditiongroup cg on gp.grouperrorid = cg.grouperrorid inner join field f on  cg.fieldid = f.fieldid inner join `condition` c on c.conditionid = cg.conditionid Where gp.errorid in (select pl.errorid from payorlist pl inner join payor p on p.payorid = pl.payorid Where p.payor_id_table = '{payorId}') ";
+
+        var conditions = await connection.QueryAsync<ConditionPayor>(sql);
+
+        return conditions.ToList();
+    }
+
+    public async Task<List<SearchError>> GetListAllError()
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $" select errorid, username, message,description from error where status = 1 ORDER BY errorid desc";
+
+        var errors = await connection.QueryAsync<SearchError>(sql);
+
+        return errors.ToList();
+    }
+    public async Task<bool> DeleteError(int errorId)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"Update error set status = 0 Where errorid = @errorId";
+
+        var affectedRows = await connection.ExecuteAsync(sql, new { errorId });
+
+        return affectedRows > 0;
+    }
 }

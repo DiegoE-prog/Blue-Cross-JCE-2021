@@ -1,11 +1,13 @@
 export const routes = {
-	LOGIN: "/",
-	HOME: "/home",
+	LOGIN: "/login",
+	HOME: "/",
 	PROFILE: "/profile",
+	ADDUSER: "/profile/create",
+	RESETPASSWORD: "/profile/reset-password",
 	CLAIMPAGE: "/ClaimPage",
-	TEST: "/test",
 	ERRORMANAGER: "/ErrorManager",
-	NEWERROR: "/NewError"
+	NEWERROR: "/ErrorManager/NewError",
+	NOTFOUND : "/NotFound"
 }
 
 export const apiroutes = {
