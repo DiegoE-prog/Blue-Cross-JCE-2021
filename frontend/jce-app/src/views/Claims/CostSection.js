@@ -2,10 +2,30 @@ import React from "react";
 import { useState } from "react";
 
 function CostSection({ costs, setCosts }) {
-  const [costForServiceError, setCostForServiceError] = useState("");
-  const [costOfMaterialError, setCostForMaterialError] = useState("");
-  const [costForMedicineError, setCostForMedicineError] = useState("");
-  const [providerCostError, setProviderCostError] = useState("");
+  const [costForServiceError, setCostForServiceError] = useState('');
+  const [costOfMaterialError, setCostForMaterialError] = useState('');
+  const [costForMedicineError, setCostForMedicineError] = useState('');
+  const [providerCostError, setProviderCostError] = useState('');
+  const[totalValue, setTotalValue]=useState('');
+
+
+  const sumValues=(e)=>{
+    const costOfService=costs.costForService || 0;
+    const costOfMaterial=costs.costOfMaterial || 0;
+    const costForMedicine=costs.costForMedicine|| 0;
+    const providerCost=costs.providerCost || 0;
+    const totalAm=Number(costOfService)+Number(costOfMaterial)+Number(costForMedicine)+Number(providerCost);
+    setTotalValue(totalAm);
+  }
+  
+  const onKeyValidation=(e)=>{
+    if(e.key=='Tab' || e.key=='Enter'){
+      sumValues(e);
+       
+      }
+
+
+  }
 
   const decimalValidation = (e, inputName) => {
     const inputValue = e.target.value;
@@ -56,6 +76,8 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+              onKeyDown={onKeyValidation}
               name="costForService"
               id="costForService"
               value={costs.costForService}
@@ -72,6 +94,8 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+            onKeyDown={onKeyValidation}
               name="costOfMaterial"
               id="costOfMaterial"
               value={costs.costOfMaterial}
@@ -88,6 +112,8 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+            onKeyDown={onKeyValidation}
               name="costForMedicine"
               id="costForMedicine"
               value={costs.costForMedicine}
@@ -106,6 +132,8 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+              onKeyDown={onKeyValidation}
               name="providerCost"
               id="providerCost"
               value={costs.providerCost}
@@ -124,7 +152,7 @@ function CostSection({ costs, setCosts }) {
             <input
               name="totalAmount"
               id="totalAmount"
-              value={costs.totalAmount}
+              value={costs.totalAmount || totalValue}
               maxLength='10'
               onChange={handleChange}
 			  readOnly

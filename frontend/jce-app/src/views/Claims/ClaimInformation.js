@@ -1,6 +1,6 @@
 import { Time } from "phaser";
 import React, {useState} from "react"
-
+import Axios from "axios";
 
 
 function ClaimInformation({ claimInformation, setClaimInformation }) {
@@ -41,7 +41,7 @@ if(inputValue.length>=5){
        setProfessionalClaimCodeDisabled('disabled');
 	   claimInformation.professionalClaimCode='';
 	}
-	else{
+	if(currentInput=='professional'){
 		
 		setInstitutionalClaimCodeDisabled('disabled');
 		claimInformation.institutionalClaimCode='';
@@ -59,7 +59,7 @@ if(inputValue.length>=5){
 	 }
 }
 }
-	const onlyNumbersValidation=(event, inputName)=>{
+	const onlyNumbersValidation=(event)=>{
 		
 		if (!/[0-9]/.test(event.key)) {
 			event.preventDefault();
@@ -187,7 +187,7 @@ return (
 				</div>
 
 				<div className="col-10">
-					<input className="w-100" name="claimNumber" id="claimNumber" value={claimInformation.claimNumber} onChange={handleChange} readOnly></input>
+					<input className="w-100" readOnly name="claimNumber" id="claimNumber" value={claimInformation.claimNumber} onChange={handleChange}></input>
 				</div>
 
 				<div className="col-2">
@@ -250,14 +250,14 @@ return (
 					</div>
 
 					<div className="col-2">
-						<input className="w-100" name="typeOfBill" id="typeOfBill" value={claimInformation.typeOfBill} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'typeOfBill',5)}></input>
+						<input className="w-100" name="typeOfBill" id="typeOfBill" value={claimInformation.typeOfBill} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'typeOfBill',5)} maxLength='6'></input>
 					</div>
 
 					<div className="col-2">
 						<label className="general-jce">Referal Num</label>
 					</div>
 					<div className="col-6">
-						<input className="w-100" name="referalNum" id="referalNum" value={claimInformation.referalNum} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'referalNumber',6)}></input>
+						<input className="w-100" maxLength='7' name="referalNum" id="referalNum" value={claimInformation.referalNum} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'referalNumber',6)}></input>
 					</div>
 					<div className="row">
   {numerictypeOfBillError && numericReferalNumberError ? (
@@ -284,7 +284,7 @@ return (
 					</div>
 
 					<div className="col-2">
-						<input className="w-100" name="serviceCode" id="serviceCode" value={claimInformation.serviceCode} onKeyPress={onlyNumbersValidation} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'serviceCode',6)}></input>
+						<input className="w-100" maxLength='7' name="serviceCode" id="serviceCode" value={claimInformation.serviceCode} onKeyPress={onlyNumbersValidation} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'serviceCode',6)}></input>
 					</div>
 
 					<div className="col-2">
@@ -292,7 +292,7 @@ return (
 					</div>
 
 					<div className="col-4">
-						<input className="w-100" name="authCode" id="authCode" value={claimInformation.authCode} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'authCode',6)}></input>
+						<input className="w-100" maxLength='7' name="authCode" id="authCode" value={claimInformation.authCode} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'authCode',6)}></input>
 					</div>
 				
 					<div className="row">
@@ -320,7 +320,7 @@ return (
 							<label className="general-jce">Medical Record Number</label>
 						</div>
 						<div className="col-2">
-							<input className="w-100" name="medicalRecordNumber" id="medicalRecordNumber" value={claimInformation.medicalRecordNumber} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'medicalRecordNumber',6)}></input>
+							<input className="w-100" maxLength='7' name="medicalRecordNumber" id="medicalRecordNumber" value={claimInformation.medicalRecordNumber} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'medicalRecordNumber',6)}></input>
 						</div>
 
 						<div className="col-2">
@@ -328,7 +328,7 @@ return (
 						</div>
 
 						<div className="col-2">
-							<input className="w-100" name="payerClaimControlNum" id="payerClaimControlNum" value={claimInformation.payerClaimControlNum} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'payorClaim',6)}></input>
+							<input className="w-100" maxLength='7' name="payerClaimControlNum" id="payerClaimControlNum" value={claimInformation.payerClaimControlNum} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'payorClaim',6)}></input>
 						</div>
 						<div className="row">
   {numericMedicalRecordError  && numericPayorClaimError ? (
@@ -355,13 +355,13 @@ return (
 								<label className="general-jce">Auto Accident State</label>
 							</div>
 							<div className="col-2">
-								<input className="w-100" name="autoAccidentState" id="autoAccidentState" value={claimInformation.autoAccidentState} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'autoAccidentState',6)}></input>
+								<input className="w-100" maxLength='7' name="autoAccidentState" id="autoAccidentState" value={claimInformation.autoAccidentState} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'autoAccidentState',6)}></input>
 							</div>
 							<div className="col-2">
 								<label className="general-jce">File Inf</label>
 							</div>
 							<div className="col-2">
-								<input className="w-100" name="fileInf" id="fileInf" value={claimInformation.fileInf} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'fileInfo',6)}></input>
+								<input className="w-100" maxLength='7' name="fileInf" id="fileInf" value={claimInformation.fileInf} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'fileInfo',6)}></input>
 							</div>
 							
 							<div className="row">
@@ -389,7 +389,7 @@ return (
 									<label className="general-jce">Claim Note</label>
 								</div>
 								<div className="col-10">
-									<input className="w-100" style={{ height: "50px" }} name="claimNote" id="claimNote" value={claimInformation.claimNote} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'claimNote',300)}></input>
+									<input className="w-100" maxLength='301' style={{ height: "50px" }} name="claimNote" id="claimNote" value={claimInformation.claimNote} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'claimNote',300)}></input>
 								</div>
 							</div>
 							{numericClaimNoteError ? <div className="col-12" style={{ color: 'red' }}>{numericClaimNoteError}</div> : null}
@@ -398,7 +398,7 @@ return (
 									<label className="general-jce">Billing Note</label>
 								</div>
 								<div className="col-10">
-									<input className="w-100" style={{ height: "50px" }} name="billingNote" id="billingNote" value={claimInformation.billingNote} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'billingNote',300)}></input>
+									<input className="w-100" maxLength='301' style={{ height: "50px" }} name="billingNote" id="billingNote" value={claimInformation.billingNote} onChange={handleChange}onKeyUp={(event)=>maxLengthValidation(event,'billingNote',300)}></input>
 								</div>
 							</div>
 							{numericBillingNoteError ? <div className="col-12" style={{ color: 'red' }}>{numericBillingNoteError}</div> : null}

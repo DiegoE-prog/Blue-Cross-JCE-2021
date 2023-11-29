@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function PayorInformation({ payor, setPayor, payors }) {
 	const [idSeted,setId]=useState('');
+	const [payorIdLengthError, setPayorIdLengthError]=useState('');
 	const handleChange = (e) => {
 		const value = e.target.value
 		setPayor({
@@ -41,7 +42,26 @@ function PayorInformation({ payor, setPayor, payors }) {
 		}
 		
 	}
+	const onlyNumbersValidation=(event)=>{
+		
+		if (!/[0-9]/.test(event.key)) {
+			event.preventDefault();
+		  }
+		  
+       
+	}
 
+	const maxLengthValidation = (e, maxLength)=>{
+		const inputValue=e.target.value;
+		
+
+	    
+        if(inputValue.length>maxLength){
+			setPayorIdLengthError('Only 10 numeric characters are allowed.');
+		}else{
+			setPayorIdLengthError('');
+		}
+	}
 	return (
 		<div className="row">
 			<label className="section-jce">Payor Information</label>
@@ -51,7 +71,7 @@ function PayorInformation({ payor, setPayor, payors }) {
 						<label className="general-jce">Payor ID</label>
 					</div>
 					<div className="col-2">
-						<input className="w-100" name="id" id="id" value={payor.id} onChange={handleChange} onKeyDown={onKeyDown}></input>
+						<input className="w-100"maxLength='11' onKeyPress={onlyNumbersValidation} name="id" id="id" value={payor.id} onChange={handleChange} onKeyDown={onKeyDown}onKeyUp={(e)=>maxLengthValidation(e,10)} ></input>
 					</div>
 					<div className="col-2">
 						<label className="general-jce">Payor Name</label>
@@ -59,6 +79,7 @@ function PayorInformation({ payor, setPayor, payors }) {
 					<div className="col-2">
 						<input className="w-100" name="name" id="name" value={payor.name} onChange={handleChange} readOnly={payor.name}></input>
 					</div>
+					{payorIdLengthError?<div style={{ color: 'red' }} className="col-8">{payorIdLengthError}</div>:null}
 				</div>
 			</div>
 			<div className="col-2">

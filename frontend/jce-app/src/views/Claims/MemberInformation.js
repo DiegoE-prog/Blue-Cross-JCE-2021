@@ -1,6 +1,8 @@
 import React from "react"
+import { useState } from "react"
 
 function MemberInformation({ member, setMember, members }) {
+	const [memberIdLengthError, setMemberIdLengthError]=useState('');
 	const handleChange = (e) => {
 		
 		const value = e.target.value
@@ -44,7 +46,28 @@ function MemberInformation({ member, setMember, members }) {
 	}
 		
 		  
+	const onlyNumbersValidation=(event)=>{
+		
+		if (!/[0-9]/.test(event.key)) {
+			event.preventDefault();
+		  }
 		  
+
+	}	  
+
+	const maxLengthValidation = (e, maxLength)=>{
+		const inputValue=e.target.value;
+		
+
+	    
+        if(inputValue.length>maxLength){
+			setMemberIdLengthError('Only 10 numeric characters are allowed.');
+			
+		}else{
+			setMemberIdLengthError('');
+
+		}
+	}
 
 	return (
 		<div className="row">
@@ -55,10 +78,10 @@ function MemberInformation({ member, setMember, members }) {
 				<div className="row">
 					<div className="col-2">
 						<label className="general-jce">Member ID</label>
+					</div>					<div className="col-2">
+						<input className="w-100" maxLength='11' name="id" id="id" value={member.id} onChange={handleChange} onKeyDown={onKeyDown}onKeyUp={(e)=>maxLengthValidation(e,10)} onKeyPress={onlyNumbersValidation}></input>
 					</div>
-					<div className="col-2">
-						<input className="w-100" name="id" id="id" value={member.id} onChange={handleChange} onKeyDown={onKeyDown}></input>
-					</div>
+					{memberIdLengthError?<div style={{ color: 'red' }} className="col-8">{memberIdLengthError}</div>:null}
 				</div>
 			</div>
 			<div className="col-2">
