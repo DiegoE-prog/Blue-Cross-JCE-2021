@@ -1,6 +1,5 @@
 
 import React, {useState} from "react"
-import xios from "axios";
 
 
 function ClaimInformation({ claimInformation, setClaimInformation }) {
