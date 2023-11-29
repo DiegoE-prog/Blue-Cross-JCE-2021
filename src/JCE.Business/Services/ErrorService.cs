@@ -38,13 +38,13 @@ public class ErrorService : IErrorService
         throw new Exception(message: "ConditionPayor not in the database");
     }
 
-    public async Task<GetErrorDto> GetLastId() 
+    public async Task<GetErrorDto> GetLastId()
     {
         var error = await _errorRepository.GetLastId();
 
         if (error != null)
         {
-            return new GetErrorDto { Errorid = error.Errorid};
+            return new GetErrorDto { Errorid = error.Errorid };
         }
 
         throw new Exception(message: "ErrorId not in the database");
@@ -72,45 +72,46 @@ public class ErrorService : IErrorService
 
     async Task<bool> IErrorService.SaveError(ErrorSaveDto errorSaveDto)
     {
-        var success = await _errorRepository.SaveError(new ErrorSave 
-                                                                    { 
-                                                                        ErrorId = errorSaveDto.ErrorId,
-                                                                        UserId = errorSaveDto.UserId,
-                                                                        CreatedBy = errorSaveDto.CreatedBy,
-                                                                        Message = errorSaveDto.Message,
-                                                                        Description = errorSaveDto.Description,
-                                                                        Payors = errorSaveDto.Payors,
-                                                                        Condition = errorSaveDto.Condition
-                                                                      });
+        var success = await _errorRepository.SaveError(new ErrorSave
+        {
+            ErrorId = errorSaveDto.ErrorId,
+            UserId = errorSaveDto.UserId,
+            CreatedBy = errorSaveDto.CreatedBy,
+            Message = errorSaveDto.Message,
+            Description = errorSaveDto.Description,
+            Payors = errorSaveDto.Payors,
+            Condition = errorSaveDto.Condition
+        });
         return success;
 
     }
 
     public async Task<List<GetSearchErrorDto>> GetListSearchError(SearchConditonErrorDto conditonErrorDto)
     {
-        var searchError = await _errorRepository.GetListSearchError(new SearchConditonError {
-                                                                        ErrorId = conditonErrorDto.ErrorId,
-                                                                        Payor = conditonErrorDto.Payor,
-                                                                        Message = conditonErrorDto.Message,
-                                                                        Field = conditonErrorDto.Field, 
-                                                                        Description = conditonErrorDto.Description,
-                                                                        CreateBy = conditonErrorDto.CreateBy
-                                                                        });
+        var searchError = await _errorRepository.GetListSearchError(new SearchConditonError
+        {
+            ErrorId = conditonErrorDto.ErrorId,
+            Payor = conditonErrorDto.Payor,
+            Message = conditonErrorDto.Message,
+            Field = conditonErrorDto.Field,
+            Description = conditonErrorDto.Description,
+            CreateBy = conditonErrorDto.CreateBy
+        });
 
         if (searchError.Any())
         {
             List<GetSearchErrorDto> searchErrorDtos = searchError.Select(field => new GetSearchErrorDto
             {
-               ErrorId = field.ErrorId,
-               UserName = field.UserName,
-               Message  = field.Message,
-               Description  = field.Description,
+                ErrorId = field.ErrorId,
+                UserName = field.UserName,
+                Message = field.Message,
+                Description = field.Description,
             }).ToList();
 
             return searchErrorDtos;
-         }
+        }
 
-         throw new Exception(message: "No se encontraron searchError en la base de datos");
+        throw new Exception(message: "No se encontraron searchError en la base de datos");
     }
 
     public async Task<List<GetSearchErrorDto>> GetListAllError()
@@ -131,6 +132,16 @@ public class ErrorService : IErrorService
         }
 
         throw new Exception(message: "No se encontraron Errores en la base de datos");
+    }
+
+    public async Task<bool> DeleteError(int errorId)
+    {
+        var success = await _errorRepository.DeleteError(errorId);
+
+        if (!success)
+            throw new Exception(message: "Failed to delete the error");
+
+        return success;
     }
 
     // Diego's Methods
@@ -156,7 +167,8 @@ public class ErrorService : IErrorService
                 Value = condition.Value
             }).ToList();
 
-            return new GetErrorToUpdateDto {
+            return new GetErrorToUpdateDto
+            {
                 ErrorId = error.ErrorId,
                 CreatedBy = error.UserName,
                 Message = error.Message,

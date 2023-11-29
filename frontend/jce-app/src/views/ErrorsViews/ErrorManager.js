@@ -6,9 +6,11 @@ import Paper from "@mui/material/Paper"
 import { SortingState, IntegratedSorting } from "@devexpress/dx-react-grid"
 import { Grid, Table, TableHeaderRow } from "@devexpress/dx-react-grid-material-ui"
 import { useSelector } from "react-redux"
-import { getListSearchError, getListAllErrors } from "../../api/errorapi"
+import { getListSearchError, getListAllErrors, deleteError } from "../../api/errorapi"
 import { setStatus } from "../../redux/slices/errorSlice"
 import { useDispatch } from "react-redux"
+//Alert components
+import { Dialog, DialogActions, DialogTitle } from "@mui/material"
 
 const table = <Table borderColor="red" />
 
@@ -44,6 +46,10 @@ function ErrorManager(props) {
 	const [data, setData] = useState([])
 	const [pageSize, setPageSize] = useState(10)
 	const [pageIndex, setPageIndex] = useState(0)
+	const [open, setOpen] = useState(false)
+	const [errorIdDelete, seterrorIdDelete] = useState(false)
+	const [errorID, setErrorID] = useState(null)
+	const [errorMsnDelete, setErrorMsnDelete] = useState(0)
 
 	const handleChange = (e) => {
 		const value = e.target.value
@@ -65,6 +71,60 @@ function ErrorManager(props) {
 		dispatch(setStatus({ status: 0, msn: "" }))
 		setErrorMsn("")
 		setData([])
+		setErrorMsnDelete(0)
+	}
+
+	const handleDeleteError = async () => {
+		try {
+			console.log(`Deleting error ID ${errorID}`)
+			const response = await deleteError(errorID)
+			if (response) {
+				//Ejecutar consulta otra ver
+				try {
+					const response = await getListAllErrors()
+					if (response.data.success) {
+						const data = response.data.data
+						for (const row of data) {
+							const errorID = row.errorId
+							row.undefined = (
+								<>
+									<button
+										className="btn btn-blue"
+										variant="text"
+										color="red"
+										onClick={() => {
+											setErrorID(errorID)
+											setOpen(true)
+										}}
+									>
+										Delete
+									</button>
+									&nbsp;
+									<button className="btn btn-blue" variant="text" color="red">
+										Details
+									</button>
+								</>
+							)
+						}
+						setData(data)
+					} else {
+						console.log(response.data.message)
+					}
+				} catch (error) {
+					// setErrorMsn(404);
+					setOpen(false)
+					return
+				}
+				setErrorMsnDelete(200)
+				setOpen(false)
+			} else {
+				setErrorMsnDelete(400)
+				console.log(`Error deleting error ID ${errorID}:`, response)
+			}
+		} catch (error) {
+			setErrorMsnDelete(500)
+			console.log(`Unexpected error deleting error ID ${errorID}:`, error)
+		}
 	}
 
 	useEffect(() => {
@@ -75,11 +135,25 @@ function ErrorManager(props) {
 				if (response.data.success) {
 					const data = response.data.data
 					for (const row of data) {
-						console.log(row)
+						const errorID = row.errorId
 						row.undefined = (
-							<Link to={`/ErrorManager/UpdateError/${row.errorId}`} className="btn btn-blue" variant="text" color="red">
-								Details
-							</Link>
+							<>
+								<button
+									className="btn btn-blue"
+									variant="text"
+									color="red"
+									onClick={() => {
+										setErrorID(errorID)
+										setOpen(true)
+									}}
+								>
+									Delete
+								</button>
+								&nbsp;
+								<Link to={`/ErrorManager/UpdateError/${row.errorId}`} className="btn btn-blue" variant="text" color="red">
+									Details
+								</Link>
+							</>
 						)
 					}
 					setData(data)
@@ -92,7 +166,7 @@ function ErrorManager(props) {
 			}
 		}
 		searchError()
-	}, [props.title])
+	}, [errorID, props.title])
 
 	const validateErrorManager = (errorManager) => {
 		if (!errorManager.errorid || !errorManager.payor || !errorManager.message || !errorManager.field || !errorManager.description || !errorManager.createdby) {
@@ -110,9 +184,23 @@ function ErrorManager(props) {
 				console.log(data)
 				for (const row of data) {
 					row.undefined = (
-						<button className="btn btn-blue" variant="text" color="red">
-							Details
-						</button>
+						<>
+							<button
+								className="btn btn-blue"
+								variant="text"
+								color="red"
+								onClick={() => {
+									setErrorID(row.errorId)
+									setOpen(true)
+								}}
+							>
+								Delete
+							</button>
+							&nbsp;
+							<Link to={`/ErrorManager/UpdateError/${row.errorId}`} className="btn btn-blue" variant="text" color="red">
+								Details
+							</Link>
+						</>
 					)
 				}
 				setData(data)
@@ -127,6 +215,10 @@ function ErrorManager(props) {
 
 	const handlePageChange = (e) => {
 		setPageIndex(e.pageIndex)
+	}
+
+	const handleClose = () => {
+		setOpen(false)
 	}
 
 	return (
@@ -210,6 +302,7 @@ function ErrorManager(props) {
 						<div className="col-4 text-center">
 							{status === 200 && <p className="fw-normal text-success">The Error was saved</p>}
 							{errorMsn === 404 && <p className="fw-normal text-danger">No Results Found</p>}
+							{errorMsnDelete === 200 && <p className="fw-normal text-success">Error was deleted</p>}
 						</div>
 						<div className="col-4"></div>
 					</div>
@@ -234,6 +327,18 @@ function ErrorManager(props) {
 					</div>
 				</div>
 			</div>
+
+			<Dialog open={open} onClose={handleClose} aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-description">
+				<DialogTitle id="delete-dialog-title">This action will delete permanently the selected record, please confirm if you want to continue.</DialogTitle>
+				<DialogActions>
+					<button className="btn btn-danger" onClick={handleDeleteError} autoFocus>
+						Yes
+					</button>
+					<button className="btn btn-classic" onClick={handleClose}>
+						No
+					</button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	)
 }

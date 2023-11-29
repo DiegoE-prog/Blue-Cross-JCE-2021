@@ -3,6 +3,7 @@ using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Dtos.ProfileDtos;
 using JCE.Business.Services;
 using JCE.Business.Services.Interfaces;
+using JCE.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JCE.API.Controllers
@@ -18,12 +19,12 @@ namespace JCE.API.Controllers
             _errorService = errorService;
         }
 
-        [HttpGet ]
+        [HttpGet]
         [Route("GetLastId")]
         public async Task<ActionResult<Response<GetErrorDto>>> GetLastId()
         {
-            var response = new Response<GetErrorDto>();  
-            
+            var response = new Response<GetErrorDto>();
+
             try
             {
                 var error = await _errorService.GetLastId();
@@ -161,6 +162,27 @@ namespace JCE.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("DeleteError/{errorId}")]
+        public async Task<ActionResult<Response<bool>>> DeleteError(int errorId)
+        {
+            var response = new Response<bool>();
+            try
+            {
+                var errorUpdate = await _errorService.DeleteError(errorId);
+                response.Data = errorUpdate;
+                response.Success = errorUpdate;
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return Unauthorized(response);
+            }
+
+            return Ok(response);
+        }
+
         // Diego's methods
         [HttpGet]
         [Route("GetErrorById/{errorId}")]
@@ -172,7 +194,7 @@ namespace JCE.API.Controllers
                 response.Data = await _errorService.GetErrorByIdAsync(errorId);
                 response.Success = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = ex.Message;
@@ -190,7 +212,7 @@ namespace JCE.API.Controllers
             {
                 response.Success = await _errorService.UpdateError(errorUpdateDto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.Success = false;
                 response.Message = ex.Message;

@@ -63,13 +63,6 @@ public class ErrorRepository : IErrorRepository
 
         return true;
     }
-    //public async Task<List<SearchError>> GetListSearchError(SearchConditonError searchConditonError)
-    //{
-    //    using var connection = _context.CreateConnection();
-    //    var sql = $"select DISTINCT * From (select errorid, username, message, description from error Where errorid = {searchConditonError.ErrorId} UNION ALL select errorid, username, message, description from error Where message = '{searchConditonError.Message}'  UNION ALL select errorid, username, message, description from error Where description = '{searchConditonError.Description}' UNION ALL select errorid, username, message, description from error Where username = '{searchConditonError.CreateBy}'  UNION ALL  select err.errorid, err.username, err.message, err.description from error err inner join grouperror gro on err.errorid = gro.errorid inner join conditiongroup cg on gro.grouperrorid = cg.grouperrorid inner join field fi on fi.fieldid = cg.fieldid Where fi.name = '{searchConditonError.Field}' UNION ALL  select err.errorid, err.username, err.message, err.description from error err inner join payor pa on err.errorid = pa.payorid Where pa.payor_id_table in ('{searchConditonError.Payor}'))AS CombinedData";
-    //    var searchErrors = await connection.QueryAsync<SearchError>(sql);
-    //    return searchErrors.ToList();
-    //}
     public async Task<List<SearchError>> GetListSearchError(SearchConditonError searchConditonError)
     {
         using var connection = _context.CreateConnection();
@@ -93,7 +86,7 @@ public class ErrorRepository : IErrorRepository
         var sql = $@"
         SELECT err.errorid, err.username, err.message, err.description 
         FROM error err
-        {(conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "")}";
+        {(conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "")} And err.status = 1 ORDER BY err.errorid DESC";
 
         // Ejecutar la consulta
         var searchErrors = await connection.QueryAsync<SearchError>(sql);
@@ -114,11 +107,21 @@ public class ErrorRepository : IErrorRepository
     public async Task<List<SearchError>> GetListAllError()
     {
         using var connection = _context.CreateConnection();
-        var sql = $" select errorid, username, message,description from error ORDER BY errorid desc";
+        var sql = $" select errorid, username, message,description from error where status = 1 ORDER BY errorid desc";
 
         var errors = await connection.QueryAsync<SearchError>(sql);
 
         return errors.ToList();
+    }
+    public async Task<bool> DeleteError(int errorId)
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"Update error set status = 0 Where errorid = @errorId";
+
+        var affectedRows = await connection.ExecuteAsync(sql, new { errorId });
+
+        return affectedRows > 0;
     }
 
     // Diego's Methods
@@ -128,7 +131,7 @@ public class ErrorRepository : IErrorRepository
         using var connection = _context.CreateConnection();
         var sql = $"SELECT errorid, username, message, description FROM error WHERE errorid = @errorid";
 
-        var error = await connection.QueryAsync<SearchError>(sql, new {errorid = errorId});
+        var error = await connection.QueryAsync<SearchError>(sql, new { errorid = errorId });
 
         return error.FirstOrDefault();
     }
@@ -143,7 +146,7 @@ public class ErrorRepository : IErrorRepository
                   $"INNER JOIN `condition` c ON c.conditionid = cg.conditionid " +
                   $"WHERE err.errorid = @errorid";
 
-        var error = await connection.QueryAsync<ConditionUpdate>(sql, new {errorid = errorId});
+        var error = await connection.QueryAsync<ConditionUpdate>(sql, new { errorid = errorId });
 
         return error.ToList();
     }
@@ -155,26 +158,26 @@ public class ErrorRepository : IErrorRepository
 
         var sqlDeletePayors = $"DELETE FROM payorlist " +
                               $"WHERE errorid = @errorid;";
-        await connection.ExecuteAsync(sqlDeletePayors, new {errorid});
+        await connection.ExecuteAsync(sqlDeletePayors, new { errorid });
 
         var sqlDeleteConditions = $"DELETE FROM conditiongroup " +
                                   $"WHERE grouperrorid =  " +
                                   $"(SELECT grouperrorid FROM grouperror WHERE errorid= @errorid); ";
-        await connection.ExecuteAsync(sqlDeleteConditions, new {errorid});
+        await connection.ExecuteAsync(sqlDeleteConditions, new { errorid });
 
         var sqlDeleteGroups = $"DELETE FROM grouperror WHERE errorid = @errorid;";
-        await connection.ExecuteAsync(sqlDeleteGroups, new {errorid});
+        await connection.ExecuteAsync(sqlDeleteGroups, new { errorid });
 
         // Insertar en tabla grouperror
         var sqlgrouperror = $"INSERT INTO grouperror (errorid,selectid, textselect) VALUES " +
                             $"(@errorid,0,'NO GROUP')";
-        var affectedRows1 = await connection.ExecuteAsync(sqlgrouperror, new {errorid});
+        var affectedRows1 = await connection.ExecuteAsync(sqlgrouperror, new { errorid });
 
         foreach (var payor in errorUpdate.Payors)
         {
             var sqlpayorlist = $"INSERT INTO payorlist (errorid, payorid) VALUES " +
                                $"(@errorid, @payor)";
-            await connection.ExecuteAsync(sqlpayorlist, new {errorid, payor});
+            await connection.ExecuteAsync(sqlpayorlist, new { errorid, payor });
         }
 
         foreach (var condition in errorUpdate.Condition)

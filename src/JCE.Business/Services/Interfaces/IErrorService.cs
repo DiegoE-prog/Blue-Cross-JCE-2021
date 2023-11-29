@@ -14,4 +14,5 @@ public interface IErrorService
 
     Task<GetErrorToUpdateDto> GetErrorByIdAsync(string errorId);
     Task<bool> UpdateError(ErrorUpdateDto errorUpdateDto);
+    Task<bool> DeleteError(int errorId);
 }
