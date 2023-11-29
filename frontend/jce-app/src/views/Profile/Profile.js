@@ -9,7 +9,7 @@ import SpecialOptions from "./SpecialOptions";
 import { userRoles } from "../../userRoles";
 
 //API calls
-import { getUserProfile, updatePhoneAndEmail } from "../../api/profileapi";
+import { getUserProfileById, updatePhoneAndEmail } from "../../api/profileapi";
 
 function Profile(props) {
 
@@ -33,7 +33,7 @@ function Profile(props) {
     async function fetchProfile(){
       try
       {
-        const response = await getUserProfile(userId)
+        const response = await getUserProfileById(userId)
         response.data.data.dob = String(response.data.data.dob).substring(0, 10)
         setPersonalInfo(response.data.data)
 
@@ -58,8 +58,8 @@ function Profile(props) {
 
     if(userId !== null){
       //Assign variables for the update
-      const phone = event.target.elements.phone.value;
-      const email = event.target.elements.email.value;
+      const phone = event.target.elements.uphone.value;
+      const email = event.target.elements.uemail.value;
 
       const updateInfo = 
       {
@@ -118,17 +118,17 @@ function Profile(props) {
 
             <div className="col-4">
               <h5 className="general-jce">Name</h5>
-              <input className="general-jce w-100" type="text" id="name" name="name" readOnly defaultValue={ personalInfo.name || undefined }/>
+              <input className="general-jce w-100" type="text" id="uname" name="uname" readOnly defaultValue={ personalInfo.name || undefined }/>
             </div>
 
             <div className="col-4">
               <h5 className="general-jce">Last name</h5>
-              <input className="general-jce w-100" type="text" id="lastname" name="lastname" readOnly defaultValue={ personalInfo.lastName || undefined }/>
+              <input className="general-jce w-100" type="text" id="ulastname" name="ulastname" readOnly defaultValue={ personalInfo.lastName || undefined }/>
             </div>
 
             <div className="col-4">
               <h5 className="general-jce">DOB</h5>
-              <input className="general-jce w-100" type="date" id="dob" name="dob" readOnly defaultValue={ personalInfo.dob|| undefined }/>
+              <input className="general-jce w-100" type="date" id="udob" name="udob" readOnly defaultValue={ personalInfo.dob|| undefined }/>
             </div>
 
             <form onSubmit={updateProfileInfo}>
@@ -136,12 +136,12 @@ function Profile(props) {
                 <div className="row">
                   <div className="col-4">
                     <h5 className="general-jce">Phone number</h5>
-                    <input className="general-jce w-100" type="number" id="phone"name="phone" defaultValue={ personalInfo.phone || undefined }/>
+                    <input className="general-jce w-100" type="number" id="uphone" name="uphone" max={10} defaultValue={ personalInfo.phone || undefined }/>
                   </div>
 
                   <div className="col-8">
                     <h5 className="general-jce">E-mail</h5>
-                    <input className="general-jce w-100" type="email" id="email" name="email" defaultValue={ personalInfo.email || undefined }/>
+                    <input className="general-jce w-100" type="email" id="uemail" name="uemail" defaultValue={ personalInfo.email || undefined }/>
                   </div>
                 </div>
                 

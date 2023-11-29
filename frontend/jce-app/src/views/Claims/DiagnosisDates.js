@@ -114,7 +114,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {onsetOfSymptomError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -144,7 +144,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {initialTreatmentError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -172,7 +172,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {lastSentDateError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -202,7 +202,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {acuteManifestationError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -230,7 +230,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {accidentError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -260,7 +260,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {lastMenstrualDateError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -288,7 +288,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {lastXRayError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -318,7 +318,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {hearingVisionPrescError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -348,7 +348,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {disabilityDatesError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -376,7 +376,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {lastWorkedError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -406,7 +406,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {authorizedReturnWorkError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -435,7 +435,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {assumedRelinqError ? (
             <div className="col-6" style={{ color: "red" }}>
@@ -465,7 +465,7 @@ function DiagnosisDates({ diagnosisDates, setDiagnosisDates }) {
             ></input>
           </div>
           <div className="col-2">
-            <label className="general-jce">DD/MM/YYY</label>
+            <label className="general-jce">DD/MM/YYYY</label>
           </div>
           {repricerReceivedError ? (
             <div className="col-6" style={{ color: "red" }}>

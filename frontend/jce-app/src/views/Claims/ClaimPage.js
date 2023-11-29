@@ -16,6 +16,7 @@ import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi"
 import { routes } from "../../routes"
+import axios from "axios"
 
 function ClaimPage(props) {
 	const [member, setMember] = useState({
