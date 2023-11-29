@@ -14,9 +14,8 @@ import { GetAllMembers } from "../../api/memberapi"
 import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
-import { getListConditionPayor } from "../../api/errorapi";
+import { getListConditionPayor } from "../../api/errorapi"
 import { routes } from "../../routes"
-
 
 function ClaimPage(props) {
 	const [member, setMember] = useState({
@@ -40,7 +39,7 @@ function ClaimPage(props) {
 		state: "",
 		city: ""
 	})
-	
+
 	const [provider, setProvider] = useState({
 		id: "",
 		name: "",
@@ -142,80 +141,70 @@ function ClaimPage(props) {
 		}
 
 		resetErrorMessage()
-		const error = handleValidations(claim)		
+		/*const error = handleValidations(claim)		
 		if (error !== undefined)
 			setErrorMessage({
 				title: error.title,
 				description: error.description
-			})
-			
+			})*/
+
 		try {
-			const response = await getListConditionPayor(claim.payor.id);	
-			console.log(response.data);		
-			const errorcondition = handleConditions(claim,response)		
+			const response = await getListConditionPayor(claim.payor.id)
+			console.log(response.data)
+			const errorcondition = handleConditions(claim, response)
 			if (errorcondition !== undefined)
 				setErrorMessageConditions({
 					title: errorcondition.title,
 					description: errorcondition.description
-				})	
-			
+				})
 		} catch (error) {
 			// alert('Validate Payor Information please...');
 		}
-			
 	}
-	const [responseFromMemberAPI,setResponseFromMemberAPI]=useState();
-	useEffect(()=>{
-		async function fetchMember(){
-			try{
-			  const response=await GetAllMembers();
-			  setResponseFromMemberAPI(response.data.data);
-			 
-			}catch(error){
-				console.log(error);
-
+	const [responseFromMemberAPI, setResponseFromMemberAPI] = useState()
+	useEffect(() => {
+		async function fetchMember() {
+			try {
+				const response = await GetAllMembers()
+				setResponseFromMemberAPI(response.data.data)
+			} catch (error) {
+				console.log(error)
 			}
 		}
-		fetchMember();
-	},[])
-
-	const [responseFromPayorAPI,setResponseFromPayorAPI]=useState();
-	useEffect(()=>{
-		async function fetchPayor(){
-			try{
-			  const response=await getListPayors();
-			  setResponseFromPayorAPI(response.data.data);
-			 
-			}catch(error){
-				console.log(error);
-
-			}
-		}
-		fetchPayor();
-	},[])
-
-	const [responseFromProviderAPI,setResponseFromProviderAPI]=useState();
-	useEffect(()=>{
-		async function fetchProvider(){
-			try{
-			  const response=await GetAllProviders();
-			  setResponseFromProviderAPI(response.data.data);
-			 
-			}catch(error){
-				console.log(error);
-
-			}
-		}
-		fetchProvider();
+		fetchMember()
 	}, [])
-	
 
+	const [responseFromPayorAPI, setResponseFromPayorAPI] = useState()
+	useEffect(() => {
+		async function fetchPayor() {
+			try {
+				const response = await getListPayors()
+				setResponseFromPayorAPI(response.data.data)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		fetchPayor()
+	}, [])
+
+	const [responseFromProviderAPI, setResponseFromProviderAPI] = useState()
+	useEffect(() => {
+		async function fetchProvider() {
+			try {
+				const response = await GetAllProviders()
+				setResponseFromProviderAPI(response.data.data)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+		fetchProvider()
+	}, [])
 
 	return (
 		<div className="container">
 			<MemberInformation member={member} setMember={setMember} members={responseFromMemberAPI} />
 			<hr />
-			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI}/>
+			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI} />
 			<hr />
 			<ProviderInformation provider={provider} setProvider={setProvider} providers={responseFromProviderAPI} />
 			<hr />
@@ -231,9 +220,15 @@ function ClaimPage(props) {
 			<br></br>
 			<div className="row">
 				<span style={{ textAlign: "center" }} className="border border-danger mt-5">
-					<label className="text-danger">{errorMessage.title}{errorMessageConditions.title}</label>
+					<label className="text-danger">
+						{errorMessage.title}
+						{errorMessageConditions.title}
+					</label>
 					<br />
-					<label className="text-danger">{errorMessage.description}{errorMessageConditions.description}</label>
+					<label className="text-danger">
+						{errorMessage.description}
+						{errorMessageConditions.description}
+					</label>
 					<br />
 				</span>
 			</div>
