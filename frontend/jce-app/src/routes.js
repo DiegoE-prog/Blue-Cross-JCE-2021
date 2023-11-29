@@ -12,5 +12,4 @@ export const routes = {
 
 export const apiroutes = {
 	BASEROUTE: "https://localhost:7777"
-	
-}
+	}

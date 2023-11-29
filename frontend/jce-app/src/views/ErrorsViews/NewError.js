@@ -27,6 +27,10 @@ function NewError(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [valueLengthError, setValueLengthError]=useState('')
+
+  const [valueIsDisabled, setValueIsDisabled]=useState(false);
+
   const [newError, setnewError] = useState({
     errorid: "",
     createdby: [0,username],
@@ -35,12 +39,83 @@ function NewError(props) {
   });
 
   const handleChange = (e) => {
-		const value = e.target.value
-		setnewError({
-			...newError,
-			[e.target.name]: value
-		})
-	}
+    const value = e.target.value;
+    const alphanumericRegex = /^[a-zA-Z0-9\s]*$/;  // Regex to allow only alphanumeric characters and spaces
+    const maxLength = 50;
+  
+    // Validation
+    let errorMessage = '';
+  
+    if (!value.trim()) {
+      errorMessage = 'The field "Message" is mandatory.';
+    } else if (!alphanumericRegex.test(value)) {
+      errorMessage = 'The field "Message" should only contain alphanumeric characters.';
+    } else if (value.length > maxLength) {
+      errorMessage = `The field "Message" should have a maximum of ${maxLength} characters.`;
+    }
+  
+    // Check if the current input character is a special character
+    const currentChar = e.data || e.key;
+    const isSpecialChar = !alphanumericRegex.test(currentChar);
+  
+    // Prevent adding the character if it's a special character
+    if (isSpecialChar) {
+      e.preventDefault();
+    }
+  
+    // Update the input field value
+    e.target.value = value;
+  
+    // Set the new error message
+    setnewError({
+      ...newError,
+      [e.target.name]: value,
+      errorMessage: errorMessage,
+    });
+  };
+
+  const handleChange2 = (e) => {
+    const value2 = e.target.value;
+    //const alphanumericRegex2 = /^[a-zA-Z0-9\s]*$/;  // Regex to allow only alphanumeric characters and spaces
+    const maxLength2 = 300;
+  
+    // Validation
+    let errorMessage2 = '';
+  
+    if (!value2.trim()) {
+      errorMessage2 = 'The field "Description" is mandatory.';
+    } else if (value2.length > maxLength2) {
+      errorMessage2 = `The field "Description" should have a maximum of ${maxLength2} characters (alphanumeric and special characters).`;
+    }
+  
+  
+    // Update the input field value
+    e.target.value = value2;
+  
+    // Set the new error message
+    setnewError({
+      ...newError,
+      [e.target.name]: value2,
+      errorMessage2: errorMessage2,
+    });
+  };
+
+
+  const validateValueLength=(e)=>{
+    const inputValue=e.target.value;
+    const errorMessage="The field Value is mandatory when condition is different than Is Entered or is Not Entered and should have max 150 characters (alphanumeric and special characters)"
+    console.log(inputValue.length);
+    if(inputValue.length>150){
+        setValueLengthError(errorMessage);
+    }
+    else{
+      setValueLengthError('');
+    }
+ }
+  
+  
+  
+  
 
   useEffect(() => {
     const getlastIdApi = async () => {
@@ -60,6 +135,8 @@ function NewError(props) {
       }      
     };
     getlastIdApi();
+
+    
 
     const fetchPayors = async () => {
       try {
@@ -156,6 +233,17 @@ const handleSelectChange = (value, index, field) => {
     updatedRows[index].selectedField = value;
   }
   setConditionRows(updatedRows);
+ if(value==11 || value==12){
+   setValueIsDisabled(true);
+   conditionRows.map((row, index)=>{
+     row.fieldValue='';
+     console.log(row.fieldValue);
+   })
+}
+ else{
+  setValueIsDisabled(false);
+ }
+  
 };
 
 
@@ -193,6 +281,13 @@ const submitNewError = async () => {
     console.error('Error:', error);
   }
 };
+
+const checkSpecialChar =(e)=>{
+  if(!/[0-9a-zA-Z]/.test(e.key)){
+   e.preventDefault();
+  }
+ };
+
 ///// End Save New Error  /////
 const cancelErrorManager = async () => {
   navigate(routes.ERRORMANAGER);
@@ -224,7 +319,11 @@ const cancelErrorManager = async () => {
                 <h5 className="general-jce text-end">Message</h5>
               </div>
               <div className="col-3">              
-                <input className="general-jce w-100 text-start" type="text" id="message" name="message" value={newError.message} onChange={handleChange} />
+                <input className="general-jce w-100 text-start" maxLength={51} type="text" id="message" name="message" value={newError.message} onChange={handleChange} onKeyPress={(e)=>checkSpecialChar(e)}/>
+                {/* Render error label */}
+{newError.errorMessage && (
+  <div style={{ color: 'red' }}>{newError.errorMessage}</div>
+)}
               </div>
               <div className="col-3"></div>
               <div className="col-2"></div>
@@ -238,7 +337,10 @@ const cancelErrorManager = async () => {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8">
-              <textarea className="form-control general-jce" id="description" name="description" rows="3" value={newError.description} onChange={handleChange}></textarea>
+              <textarea className="form-control general-jce" maxLength={301} id="description" name="description" rows="3" value={newError.description} onChange={handleChange2}></textarea>
+              {newError.errorMessage2 && (
+  <div style={{ color: 'red' }}>{newError.errorMessage2}</div>
+)}
             </div>
             <div className="col-2"></div>
           </div><br/>
@@ -297,7 +399,7 @@ const cancelErrorManager = async () => {
                 </select>
               </div>
               <div className="col-5 text-center">
-                <p className="fw-normal text-danger">Error Message AREA</p>
+              {valueLengthError ? <p className='fw-normal text-danger'>{valueLengthError}</p> : null}
               </div>
               <div className="col-2">
                 <p><a href="#">Remove Group</a></p>
@@ -360,7 +462,7 @@ const cancelErrorManager = async () => {
                             <h5 className="general-jce text-end">Value</h5>
                           </div>
                           <div className="col-9 text-start">
-                            <input className="general-jce w-100 text-start" type="text" value={row.fieldValue} id="error_id" name="error_id"  onChange={(e) => handleInputChange(e.target.value, index)} />  
+                            <input className="general-jce w-100 text-start" maxLength='151' type="text" value={row.fieldValue} id="error_id" onKeyUp={(e)=>validateValueLength(e)} name="error_id"  onChange={(e) => handleInputChange(e.target.value, index)} disabled={valueIsDisabled} />  
                           </div>
                         </div>                    
                     </td>

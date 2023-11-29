@@ -1,6 +1,7 @@
-import React from "react"
+import React,{useState} from "react"
 
 function ProviderInformation({ provider, setProvider, providers }) {
+	const [providerIdLengthError, setProviderIdLengthError]=useState('');
 	const handleChange = (e) => {
 		const value = e.target.value
 		setProvider({
@@ -39,7 +40,26 @@ function ProviderInformation({ provider, setProvider, providers }) {
 	}
 	
 }
+const onlyNumbersValidation=(event)=>{
+		
+	if (!/[0-9]/.test(event.key)) {
+		event.preventDefault();
+	  }
+	  
 
+}
+
+const maxLengthValidation = (e, maxLength)=>{
+	const inputValue=e.target.value;
+	
+
+	
+	if(inputValue.length>maxLength){
+		setProviderIdLengthError('Only 10 numeric characters are allowed.');
+	}else{
+		setProviderIdLengthError('');
+	}
+}
 	return (
 		<div className="row">
 			<label className="section-jce">Provider Information</label>
@@ -48,7 +68,7 @@ function ProviderInformation({ provider, setProvider, providers }) {
 				<label className="general-jce">Provider ID</label>
 			</div>
 			<div className="col-2">
-				<input className="w-100" name="id" id="id" value={provider.id} onChange={handleChange} onKeyDown={onKeyDown}></input>
+				<input className="w-100" maxLength='11' name="id" id="id" value={provider.id} onChange={handleChange} onKeyDown={onKeyDown}onKeyPress={onlyNumbersValidation}onKeyUp={(e)=>maxLengthValidation(e,10)} ></input>
 			</div>
 
 			<div className="col-2">
@@ -64,7 +84,7 @@ function ProviderInformation({ provider, setProvider, providers }) {
 			<div className="col-2">
 				<input className="w-100" name="type" id="type" value={provider.type} onChange={handleChange} readOnly={provider.type}></input>
 			</div>
-
+{providerIdLengthError?<div style={{ color: 'red' }} className="col-8">{providerIdLengthError}</div>:null}
 			<div className="col-2">
 				<label className="general-jce">Address</label>
 			</div>
@@ -94,6 +114,7 @@ function ProviderInformation({ provider, setProvider, providers }) {
 				<input className="w-100" name="city" id="city" value={provider.city} onChange={handleChange} readOnly={provider.city}></input>
 			</div>
 		</div>
+		
 	)
 }
 

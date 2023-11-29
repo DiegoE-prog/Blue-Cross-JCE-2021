@@ -2,15 +2,38 @@ import React from "react";
 import { useState } from "react";
 
 function CostSection({ costs, setCosts }) {
-  const [costForServiceError, setCostForServiceError] = useState("");
-  const [costOfMaterialError, setCostForMaterialError] = useState("");
-  const [costForMedicineError, setCostForMedicineError] = useState("");
-  const [providerCostError, setProviderCostError] = useState("");
+  const [costForServiceError, setCostForServiceError] = useState('');
+  const [costOfMaterialError, setCostForMaterialError] = useState('');
+  const [costForMedicineError, setCostForMedicineError] = useState('');
+  const [providerCostError, setProviderCostError] = useState('');
+  const[totalValue, setTotalValue]=useState('');
+
+
+  const sumValues=(e)=>{
+    const costOfService=costs.costForService || 0;
+    const costOfMaterial=costs.costOfMaterial || 0;
+    const costForMedicine=costs.costForMedicine|| 0;
+    const providerCost=costs.providerCost || 0;
+    const totalAm=Number(costOfService)+Number(costOfMaterial)+Number(costForMedicine)+Number(providerCost);
+    setTotalValue(totalAm);
+  }
+  
+  const onKeyValidation=(e)=>{
+    if(e.key=='Tab' || e.key=='Enter'){
+      sumValues(e);
+       
+      }
+
+
+  }
 
   const decimalValidation = (e, inputName) => {
     const inputValue = e.target.value;
-    const isValidFormat = /^\d{6}\.\d{2}$/;
+    const isValidFormat = /^\d{1,6}\.\d{2}$/;
     const errorMessage = "Money format needed";
+    if (/^\d{7}$/.test(inputValue)) {
+     e.target.value=e.target.value.substring(0,inputValue.length-1);
+    }
     if (inputValue&&!isValidFormat.test(inputValue)) {
       switch (inputName) {
         case "costForService":
@@ -53,9 +76,12 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+              onKeyDown={onKeyValidation}
               name="costForService"
               id="costForService"
               value={costs.costForService}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "costForService")}
             ></input>
@@ -68,9 +94,12 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+            onKeyDown={onKeyValidation}
               name="costOfMaterial"
               id="costOfMaterial"
               value={costs.costOfMaterial}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "costOfMaterial")}
             ></input>
@@ -83,9 +112,12 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+            onKeyDown={onKeyValidation}
               name="costForMedicine"
               id="costForMedicine"
               value={costs.costForMedicine}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) =>
                 decimalValidation(event, "costForMedicine")
@@ -100,9 +132,12 @@ function CostSection({ costs, setCosts }) {
           </div>
           <div className="col-6">
             <input
+            onBlur={sumValues}
+              onKeyDown={onKeyValidation}
               name="providerCost"
               id="providerCost"
               value={costs.providerCost}
+              maxLength='10'
               onChange={handleChange}
               onKeyUp={(event) => decimalValidation(event, "providerCost")}
             ></input>
@@ -117,7 +152,8 @@ function CostSection({ costs, setCosts }) {
             <input
               name="totalAmount"
               id="totalAmount"
-              value={costs.totalAmount}
+              value={costs.totalAmount || totalValue}
+              maxLength='10'
               onChange={handleChange}
 			  readOnly
             ></input>
