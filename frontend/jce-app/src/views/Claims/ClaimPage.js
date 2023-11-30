@@ -144,17 +144,18 @@ function ClaimPage(props) {
 		}
 
 		resetErrorMessage()
-		/*const error = handleValidations(claim)		
-		if (error !== undefined)
-			setErrorMessage({
-				title: error.title,
-				description: error.description
-			})*/
+		// const error = handleValidations(claim)		
+		// if (error !== undefined)
+		// 	setErrorMessage({
+		// 		title: error.title,
+		// 		description: error.description
+		// 	})
 
 		try {
 			const response = await getListConditionPayor(claim.payor.id)
 			console.log(response.data)
-			const errorcondition = handleConditions(claim, response)
+			// const errorcondition = handleConditions(claim, response)
+			const errorcondition = handleValidations(claim)
 			if (errorcondition !== undefined)
 				setErrorMessageConditions({
 					title: errorcondition.title,
