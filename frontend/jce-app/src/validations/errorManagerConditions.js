@@ -23,6 +23,87 @@ const handleConditions = (claim,response) => {
 				return handlingClaimsDiagnosisDirect(claim, data);
 			}								
 		}
+		if('Member State' === data.fieldClaim){
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}								
+		}
+		if('Member ZipCode' === data.fieldClaim){
+			if (data.nameCondition === 'In List' || data.nameCondition === 'Not in List') {
+				return handlingClaimsDiagnosisList(claim, data);
+			}								
+		}
+		if('Provider State' === data.fieldClaim){
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}
+			if (data.nameCondition === 'In List' || data.nameCondition === 'Not in List') {
+				return handlingClaimsDiagnosisList(claim, data);
+			}									
+		}
+		if('Provider ZipCode' === data.fieldClaim){
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}			
+			if (data.nameCondition === 'In List' || data.nameCondition === 'Not in List') {
+				return handlingClaimsDiagnosisList(claim, data);
+			}					
+		}
+		if('Member State' === data.fieldClaim){
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}								
+		}
+		if('Member ZipCode' === data.fieldClaim){
+			if (data.nameCondition === 'In List' || data.nameCondition === 'Not in List') {
+				return handlingClaimsDiagnosisList(claim, data);
+			}								
+		}
+		if('Principal Procedure Info' === data.fieldClaim){
+			if (response.data.data.includes("Is Entered") || response.data.data.includes("Is Entered")) {
+				return handlingClaimsAdminDiagnosis(claim, data, response);
+			}							
+		}
+		if('Member Sex' === data.fieldClaim){
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}							
+		}
+		if('Date - Last Menstrual Date' === data.fieldClaim){
+			if (response.data.data.includes("Is Entered") || response.data.data.includes("Is Entered")) {
+				return handlingClaimsAdminDiagnosis(claim, data, response);
+			}
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}						
+		}
+		if('Date - Last X-Ray' === data.fieldClaim){
+			if (response.data.data.includes("Is Entered") || response.data.data.includes("Is Entered")) {
+				return handlingClaimsAdminDiagnosis(claim, data, response);
+			}
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}						
+		}
+		if('Service Code' === data.fieldClaim){
+			if (response.data.data.includes("Is Entered") || response.data.data.includes("Is Entered")) {
+				return handlingClaimsAdminDiagnosis(claim, data, response);
+			}
+			if (data.nameCondition === 'Equal to' || data.nameCondition === 'Not equals to') {			
+				return handlingClaimsDiagnosisDirect(claim, data);
+			}						
+		}
+		if('Authorized Return Work' === data.fieldClaim){
+			if (response.data.data.includes("Is Entered") || response.data.data.includes("Is Entered")) {
+				return handlingClaimsAdminDiagnosis(claim, data, response);
+			}						
+		}							
+		//Evaluar los campos del claims 
+		 
+
 	}      
   } catch (error) {
     // console.error('Error:', error);

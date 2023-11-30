@@ -177,58 +177,61 @@ function NewError(props) {
 		}
 	}
 
-	const moveToLeft = () => {
-		// Update the state of the selectedLeft and selectedRight variables
-		const newRight = rightOptions.filter((opt) => !selectedRight.includes(opt.payorid))
-		const toMove = rightOptions.filter((opt) => selectedRight.includes(opt.payorid))
-		setLeftOptions([...leftOptions, ...toMove])
-		setRightOptions(newRight)
-		setSelectedRight([])
-		// Log the values of the selectedLeft and selectedRight variables
-		// console.log('selectedLeft:', selectedLeft);
-		// console.log('selectedRight:', selectedRight.length);
-		if (selectedRight.length === 0) {
-			alert("Please select one item from Payer List.")
-			return
-		}
-	}
-	///// End List Payor /////
-	const handleRemoveRow = (index) => {
-		const updatedConditionRows = [...conditionRows]
-		updatedConditionRows.splice(index, 1)
-		setConditionRows(updatedConditionRows)
-	}
-	///// Start New Tr  /////
-	const [conditionRows, setConditionRows] = useState([{ fieldValue: "", selectedValue: 1, selectedField: 1 }])
-	const addConditionRow = () => {
-		setConditionRows([
-			...conditionRows,
-			{ fieldValue: conditionRows[conditionRows.length - 1].fieldValue, selectedValue: conditionRows[conditionRows.length - 1].selectedValue, selectedField: conditionRows[conditionRows.length - 1].selectedField } // Nuevo campo con el valor del último input
-		])
-	}
-	const handleInputChange = (value, index) => {
-		const updatedRows = [...conditionRows]
-		updatedRows[index].fieldValue = value
-		setConditionRows(updatedRows)
-	}
-	const handleSelectChange = (value, index, field) => {
-		const updatedRows = [...conditionRows]
-		if (field === "selectedValue") {
-			updatedRows[index].selectedValue = value
-		} else {
-			updatedRows[index].selectedField = value
-		}
-		setConditionRows(updatedRows)
-		if (value == 11 || value == 12) {
-			setValueIsDisabled(true)
-			conditionRows.map((row, index) => {
-				row.fieldValue = ""
-				console.log(row.fieldValue)
-			})
-		} else {
-			setValueIsDisabled(false)
-		}
-	}
+const moveToLeft = () => {
+  // Update the state of the selectedLeft and selectedRight variables
+  const newRight = rightOptions.filter(opt => !selectedRight.includes(opt.payorid));
+  const toMove = rightOptions.filter(opt => selectedRight.includes(opt.payorid));
+  setLeftOptions([...leftOptions, ...toMove]);
+  setRightOptions(newRight);
+  setSelectedRight([]);
+  // Log the values of the selectedLeft and selectedRight variables
+  // console.log('selectedLeft:', selectedLeft);
+  // console.log('selectedRight:', selectedRight.length);
+  if (selectedRight.length === 0) {
+    alert('Please select one item from Payer List.');
+    return;
+  }
+};
+///// End List Payor /////
+const handleRemoveRow = (index) => {
+  const updatedConditionRows = [...conditionRows];
+  updatedConditionRows.splice(index, 1);
+  setConditionRows(updatedConditionRows);
+};
+///// Start New Tr  /////
+const [conditionRows, setConditionRows] = useState([{ fieldValue: '', selectedValue:1, selectedField:1 }]);
+const addConditionRow = () => {
+  setConditionRows([
+    ...conditionRows,
+    { fieldValue: conditionRows[conditionRows.length - 1].fieldValue, selectedValue: conditionRows[conditionRows.length - 1].selectedValue, selectedField: conditionRows[conditionRows.length - 1].selectedField }, // Nuevo campo con el valor del último input
+  ]);
+};
+const handleInputChange = (value, index) => {
+  const updatedRows = [...conditionRows];
+  updatedRows[index].fieldValue = value;
+  setConditionRows(updatedRows);
+};
+const handleSelectChange = (value, index, field) => {
+  const updatedRows = [...conditionRows];
+  if (field === 'selectedValue') {
+    updatedRows[index].selectedValue = value;
+  } else {
+    updatedRows[index].selectedField = value;
+  }
+  setConditionRows(updatedRows);
+//  if(value==11 || value==12){
+//    setValueIsDisabled(true);
+//    conditionRows.map((row, index)=>{
+//      row.fieldValue='';
+//      console.log(row.fieldValue);
+//    })
+// }
+//  else{
+  setValueIsDisabled(false);
+//  }
+  
+};
+
 
 	///// End New Tr  /////
 	///// Start Save New Error  /////
