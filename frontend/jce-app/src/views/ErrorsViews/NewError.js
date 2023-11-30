@@ -233,16 +233,16 @@ const handleSelectChange = (value, index, field) => {
     updatedRows[index].selectedField = value;
   }
   setConditionRows(updatedRows);
- if(value==11 || value==12){
-   setValueIsDisabled(true);
-   conditionRows.map((row, index)=>{
-     row.fieldValue='';
-     console.log(row.fieldValue);
-   })
-}
- else{
+//  if(value==11 || value==12){
+//    setValueIsDisabled(true);
+//    conditionRows.map((row, index)=>{
+//      row.fieldValue='';
+//      console.log(row.fieldValue);
+//    })
+// }
+//  else{
   setValueIsDisabled(false);
- }
+//  }
   
 };
 
