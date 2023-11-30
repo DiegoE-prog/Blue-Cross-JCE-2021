@@ -17,6 +17,7 @@ import { handleConditions, test } from "../../validations/errorManagerConditions
 import { getListConditionPayor } from "../../api/errorapi"
 import { routes } from "../../routes"
 import axios from "axios"
+import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils"
 
 function ClaimPage(props) {
 	const [member, setMember] = useState({
@@ -139,6 +140,7 @@ function ClaimPage(props) {
 			diagnosisDates: diagnosisDates,
 			diagnosisCodes: diagnosisCodes,
 			costs: costs
+
 		}
 
 		resetErrorMessage()
@@ -237,7 +239,7 @@ function ClaimPage(props) {
 			<button className="btn btn-blue m-1">Search</button>
 			<button className="btn btn-blue m-1">Clean</button>
 			<button className="btn btn-blue m-1">Reset</button>
-			<button className="btn btn-blue m-4" onClick={handleSubmit}>
+			<button id="botonSubmit" className="btn btn-blue m-4" onClick={handleSubmit}>
 				Submit
 			</button>
 			<hr></hr>

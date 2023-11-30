@@ -11,4 +11,7 @@ public interface IErrorRepository
     Task<List<ConditionPayor>> GetConditionPayor(String payorId);
     Task<List<SearchError>> GetListAllError();
     Task<bool> DeleteError(int errorId);
+    Task<SearchError> GetErrorByIdAsync(string errorId);
+    Task<List<ConditionUpdate>> GetConditionsForError(string errorId);
+    Task<bool> UpdateError(ErrorUpdate errorUpdate);
 }

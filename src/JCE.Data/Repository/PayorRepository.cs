@@ -23,4 +23,17 @@ public class PayorRepository : IPayorRepository
 
         return payors.ToList();
     }
+
+    public async Task<List<Payor>> GetPayorsByErrorId(string errorId)
+    {
+        using var connection = _context.CreateConnection();
+        var sql = $"SELECT payor.payorid, payor.payor_id_table FROM payor " +
+                  $"INNER JOIN payorlist ON payor.payorid = payorlist.payorid " +
+                  $"INNER JOIN error ON error.errorid = payorlist.errorid " +
+                  $"WHERE error.errorid = @errorid";
+
+        var payors = await connection.QueryAsync<Payor>(sql, new {errorid = errorId});
+
+        return payors.ToList();
+    }
 }
