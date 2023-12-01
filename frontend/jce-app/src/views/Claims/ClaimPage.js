@@ -19,7 +19,8 @@ import { createclaim, getlastclaimid } from "../../api/claimapi"
 
 function ClaimPage(props) {
 	const [isDisable, setIsDisable] = useState(false)
-	const[successMesage, setSuccessMessage]=useState("")
+	const [successMesage, setSuccessMessage] = useState("")
+
 	const [member, setMember] = useState({
 		id: "",
 		name: "",
@@ -105,8 +106,6 @@ function ClaimPage(props) {
 		claimPricingInfo: ""
 	})
 
-
-
 	const [costs, setCosts] = useState({
 		costForService: "",
 		costOfMaterial: "",
@@ -115,9 +114,7 @@ function ClaimPage(props) {
 		totalAmount: ""
 	})
 
-	useEffect(()=>{
-      
-	});
+	useEffect(() => {})
 
 	const [errorMessage, setErrorMessage] = useState({
 		title: "",
@@ -135,6 +132,11 @@ function ClaimPage(props) {
 			description: ""
 		})
 	}
+
+	// Automatically scrolls to top when the claim is saved
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [successMesage])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -231,8 +233,10 @@ function ClaimPage(props) {
 		var response = createclaim(claimToSend)
 		response
 			.then((response) => {
-				console.log(response)
-				if (response.data.success) setIsDisable(true)
+				if (response.data.success) {
+					setIsDisable(true)
+					setSuccessMessage(`Claim information was successfully saved, your claim number is ${claimInformation.claimNumber}`)
+				}
 			})
 			.catch((error) => {
 				console.error("Error creating claim", error)
@@ -276,29 +280,24 @@ function ClaimPage(props) {
 			}
 		}
 		fetchProvider()
-		async function fetchClaimId(){
-			const response= getlastclaimid()
-			response.then((response)=>{
-				if(response.data.success){
-					setClaimInformation(
-					{claimNumber : response.data.data})
+		async function fetchClaimId() {
+			const response = getlastclaimid()
+			response.then((response) => {
+				if (response.data.success) {
+					setClaimInformation({ ...claimInformation, claimNumber: response.data.data })
 				}
 			})
 		}
 		fetchClaimId()
 	}, [])
 
-
-
 	return (
 		<div className="container">
 			{successMesage !== "" ? (
-					<div className="col-4" style={{ color: "green" }}>
-						{successMesage}
-					</div>
-				) : (
-					<div className="col-4" style={{ color: "green" }}></div>
-				)}
+				<div className="col-12" style={{ color: "green" }}>
+					{successMesage}
+				</div>
+			) : null}
 			<MemberInformation member={member} setMember={setMember} members={responseFromMemberAPI} />
 			<hr />
 			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI} />
