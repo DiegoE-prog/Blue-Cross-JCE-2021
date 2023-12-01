@@ -20,6 +20,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 	const [numericFileInfoError, setNumericFileInfoError] = useState("")
 	const [numericClaimNoteError, setNumericClaimNoteError] = useState("")
 	const [numericBillingNoteError, setNumericBillingNoteError] = useState("")
+	
 
 	const handleChange = (e) => {
 		const value = e.target.value
@@ -59,6 +60,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 	    
         if(inputValue.length>maxLength){
 			switch(inputName){
+			  case 'claimInformation': return setSuccessMessage("Claim information was successfully saved, your claim number is"+claimNumber);
               case 'institutional': return setNumericInstitutionalError('Should have 5 numeric characters');
 			  case 'professional': return setNumericProfessionalError('Should have 5 numeric characters');
 			  case 'typeOfBill': return setNumericTypeOfBillError('Should have 5 numeric characters');
@@ -164,6 +166,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 			<div className="col-2">
 				<label className="section-jce">Claim Information</label>
 			</div>
+			
 			<div className="row">
 				<div className="col-2">
 					<label className="general-jce">Claim Number</label>

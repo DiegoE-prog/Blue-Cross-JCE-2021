@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 
 namespace JCE.Data.Data.Migrations;
 
-[Migration(91120230145)]
+[Migration(91120230146)]
 public class CreateClaim : Migration
 {
     public override void Up()

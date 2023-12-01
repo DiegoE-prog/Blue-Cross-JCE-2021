@@ -11,11 +11,21 @@ public class ClaimService : IClaimService
 {
     private readonly IClaimRepository _claimRepository;
 
+
+
     public ClaimService(IClaimRepository claimRepository)
     {
         _claimRepository = claimRepository;
 
     }
+
+    public async Task<int> GetLastClaim()
+    {
+        var success = await _claimRepository.GetLastClaim();
+        return success;
+    }
+
+
 
     public async Task<bool> AddClaim(CreateClaimDto claim)
     {

@@ -15,11 +15,11 @@ import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi"
-import { createclaim } from "../../api/claimapi"
+import { createclaim, getlastclaimid } from "../../api/claimapi"
 
 function ClaimPage(props) {
 	const [isDisable, setIsDisable] = useState(false)
-
+	const[successMesage, setSuccessMessage]=useState("")
 	const [member, setMember] = useState({
 		id: "",
 		name: "",
@@ -105,6 +105,8 @@ function ClaimPage(props) {
 		claimPricingInfo: ""
 	})
 
+
+
 	const [costs, setCosts] = useState({
 		costForService: "",
 		costOfMaterial: "",
@@ -112,6 +114,10 @@ function ClaimPage(props) {
 		providerCost: "",
 		totalAmount: ""
 	})
+
+	useEffect(()=>{
+      
+	});
 
 	const [errorMessage, setErrorMessage] = useState({
 		title: "",
@@ -270,10 +276,29 @@ function ClaimPage(props) {
 			}
 		}
 		fetchProvider()
+		async function fetchClaimId(){
+			const response= getlastclaimid()
+			response.then((response)=>{
+				if(response.data.success){
+					setClaimInformation(
+					{claimNumber : response.data.data})
+				}
+			})
+		}
+		fetchClaimId()
 	}, [])
+
+
 
 	return (
 		<div className="container">
+			{successMesage !== "" ? (
+					<div className="col-4" style={{ color: "green" }}>
+						{successMesage}
+					</div>
+				) : (
+					<div className="col-4" style={{ color: "green" }}></div>
+				)}
 			<MemberInformation member={member} setMember={setMember} members={responseFromMemberAPI} />
 			<hr />
 			<PayorInformation payor={payor} setPayor={setPayor} payors={responseFromPayorAPI} />

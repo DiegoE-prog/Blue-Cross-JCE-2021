@@ -13,6 +13,18 @@ public class ClaimRepository : IClaimRepository
     {
         _context = context;
     }
+
+    public async Task<int> GetLastClaim()
+    {
+        using var connection = _context.CreateConnection();
+
+        var sql = $"select max(claimnumber)+1 from claims";
+
+        var claims = await connection.QueryAsync<int>(sql);
+
+        return claims.First();
+    }
+
     public async Task<bool> AddClaim(Claim claim)
     {
         using var connection = _context.CreateConnection();

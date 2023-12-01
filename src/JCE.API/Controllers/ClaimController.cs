@@ -1,5 +1,6 @@
 ﻿using JCE.API.Models;
 using JCE.Business.Dtos.ClaimDtos;
+using JCE.Business.Dtos.ErrorDtos;
 using JCE.Business.Services;
 using JCE.Business.Services.Interfaces;
 using JCE.Data.Entities;
@@ -14,9 +15,33 @@ namespace JCE.API.Controllers
     {
         private readonly IClaimService _claimService;
 
+
         public ClaimController(IClaimService claimService)
         {
             _claimService = claimService;
+        }
+
+        [HttpGet]
+        [Route("GetLastClaim")]
+        public async Task<ActionResult<Response<int>>> GetLastClaim()
+        {
+            var response = new Response<int>();
+
+            try
+            {
+                var claim = await _claimService.GetLastClaim();
+                response.Success = true;
+                response.Data = claim;
+
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
 
         [HttpPost]
