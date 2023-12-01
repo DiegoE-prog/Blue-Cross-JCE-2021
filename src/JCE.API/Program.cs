@@ -49,6 +49,7 @@ builder.Services.AddFluentMigratorCore()
                         .ScanIn(typeof(CreateNewErrorFix).Assembly).For.Migrations()
                         .ScanIn(typeof(CreateSecurityQuestions).Assembly).For.Migrations()
                         .ScanIn(typeof(AddSoftDeleteToUserTable).Assembly).For.Migrations()
+                        .ScanIn(typeof(CreateClaim).Assembly).For.Migrations()
                         );
 
 //// ... otros servicios que puedas necesitar

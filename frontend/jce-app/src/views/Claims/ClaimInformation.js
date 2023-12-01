@@ -30,7 +30,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 	}
 	const validateFullClaimCode = (event, currentInput) => {
 		const inputValue = event.target.value
-	
+
 		if (inputValue.length >= 5) {
 			if (currentInput == "institutional") {
 				setProfessionalClaimCodeDisabled("disabled")
@@ -46,47 +46,67 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 				setProfessionalClaimCodeDisabled("")
 			} else {
 				setInstitutionalClaimCodeDisabled("")
+			}
+		}
 	}
-	}
 
-		
-}
+	const maxLengthValidation = (e, inputName, maxLength) => {
+		const inputValue = e.target.value
+		validateFullClaimCode(e, inputName)
 
-	const maxLengthValidation = (e, inputName, maxLength)=>{
-		const inputValue=e.target.value;
-		validateFullClaimCode(e, inputName);
-
-	    
-        if(inputValue.length>maxLength){
-			switch(inputName){
-              case 'institutional': return setNumericInstitutionalError('Should have 5 numeric characters');
-			  case 'professional': return setNumericProfessionalError('Should have 5 numeric characters');
-			  case 'typeOfBill': return setNumericTypeOfBillError('Should have 5 numeric characters');
-			  case 'referalNumber': return setNumericReferalNumberError('Should have 6 Alphanumeric characters');
-			  case 'serviceCode': return setNumericServiceCodeError('Should have 6 numeric characters');
-			  case 'authCode': return setNumericAuthCodeError('Should have 6 Alphanumeric characters');
-			  case 'medicalRecordNumber': return setNumericMedicalRecordNumberError('Should have 6 Alphanumeric characters');
-			  case 'payorClaim': return setNumericPayorClaimError('Should have 6 Alphanumeric characters');
-			  case 'autoAccidentState': return setNumericAutoAccidentStateError('Should have 6 Alphanumeric characters');
-			  case 'fileInfo': return setNumericFileInfoError('Should have 6 Alphanumeric characters');
-			  case 'claimNote': return setNumericClaimNoteError('Should have max 300 Alphanumeric characters');
-			  case 'billingNote': return setNumericBillingNoteError('Should have maa 300 Alphanumeric characters');
-			}				
-
-		}else{
-			switch(inputName){
-				case 'institutional': return setNumericInstitutionalError('');
-				case 'professional': return setNumericProfessionalError('');
-				case 'typeOfBill': return setNumericTypeOfBillError('');
-				case 'referalNumber': return setNumericReferalNumberError('');
-				case 'serviceCode': return setNumericServiceCodeError('');
-				case 'authCode': return setNumericAuthCodeError('');
-				case 'medicalRecordNumber': return setNumericMedicalRecordNumberError('');
-				case 'payorClaim': return setNumericPayorClaimError('');
-				case 'autoAccidentState': return setNumericAutoAccidentStateError('');
-				case 'fileInfo': return setNumericFileInfoError('');
-				case 'claimNote': return setNumericClaimNoteError('');
-				case 'billingNote': return setNumericBillingNoteError('');
+		if (inputValue.length > maxLength) {
+			switch (inputName) {
+				case "institutional":
+					return setNumericInstitutionalError("Should have 5 numeric characters")
+				case "professional":
+					return setNumericProfessionalError("Should have 5 numeric characters")
+				case "typeOfBill":
+					return setNumericTypeOfBillError("Should have 5 numeric characters")
+				case "referalNumber":
+					return setNumericReferalNumberError("Should have 6 Alphanumeric characters")
+				case "serviceCode":
+					return setNumericServiceCodeError("Should have 6 numeric characters")
+				case "authCode":
+					return setNumericAuthCodeError("Should have 6 Alphanumeric characters")
+				case "medicalRecordNumber":
+					return setNumericMedicalRecordNumberError("Should have 6 Alphanumeric characters")
+				case "payorClaim":
+					return setNumericPayorClaimError("Should have 6 Alphanumeric characters")
+				case "autoAccidentState":
+					return setNumericAutoAccidentStateError("Should have 6 Alphanumeric characters")
+				case "fileInfo":
+					return setNumericFileInfoError("Should have 6 Alphanumeric characters")
+				case "claimNote":
+					return setNumericClaimNoteError("Should have max 300 Alphanumeric characters")
+				case "billingNote":
+					return setNumericBillingNoteError("Should have maa 300 Alphanumeric characters")
+			}
+		} else {
+			switch (inputName) {
+				case "institutional":
+					return setNumericInstitutionalError("")
+				case "professional":
+					return setNumericProfessionalError("")
+				case "typeOfBill":
+					return setNumericTypeOfBillError("")
+				case "referalNumber":
+					return setNumericReferalNumberError("")
+				case "serviceCode":
+					return setNumericServiceCodeError("")
+				case "authCode":
+					return setNumericAuthCodeError("")
+				case "medicalRecordNumber":
+					return setNumericMedicalRecordNumberError("")
+				case "payorClaim":
+					return setNumericPayorClaimError("")
+				case "autoAccidentState":
+					return setNumericAutoAccidentStateError("")
+				case "fileInfo":
+					return setNumericFileInfoError("")
+				case "claimNote":
+					return setNumericClaimNoteError("")
+				case "billingNote":
+					return setNumericBillingNoteError("")
 			}
 		}
 	}
@@ -95,8 +115,6 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 			event.preventDefault()
 		}
 	}
-
-	
 
 	const entryDateValidation = (e) => {
 		const inputDate = e.target.value
@@ -164,6 +182,7 @@ function ClaimInformation({ claimInformation, setClaimInformation }) {
 			<div className="col-2">
 				<label className="section-jce">Claim Information</label>
 			</div>
+
 			<div className="row">
 				<div className="col-2">
 					<label className="general-jce">Claim Number</label>
