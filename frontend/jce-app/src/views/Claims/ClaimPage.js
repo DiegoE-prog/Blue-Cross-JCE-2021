@@ -15,9 +15,7 @@ import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi"
-import { routes } from "../../routes"
-import axios from "axios"
-import { isValidInputTimeValue } from "@testing-library/user-event/dist/utils"
+import {createclaim} from "../../api/claimapi"
 
 function ClaimPage(props) {
 	const [member, setMember] = useState({
@@ -130,6 +128,8 @@ function ClaimPage(props) {
 		})
 	}
 
+	
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const claim = {
@@ -142,7 +142,12 @@ function ClaimPage(props) {
 			costs: costs
 
 		}
-
+		const claimToSend={
+			member_id_table_id: parseInt(member.id),
+			payor_id_table_id:parseInt(payor.id),
+			provider_id_table_id:parseInt(provider.id)
+		}
+         console.log(claim);
 		resetErrorMessage()
 		/*const error = handleValidations(claim)		
 		if (error !== undefined)
@@ -161,8 +166,11 @@ function ClaimPage(props) {
 					description: errorcondition.description
 				})
 		} catch (error) {
-			// alert('Validate Payor Information please...');
+			
 		}
+
+		var response=await createclaim(claimToSend)
+		console.log(response)
 	}
 	const [responseFromMemberAPI, setResponseFromMemberAPI] = useState()
 	useEffect(() => {
