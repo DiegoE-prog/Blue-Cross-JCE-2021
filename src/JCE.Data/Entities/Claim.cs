@@ -4,19 +4,19 @@ namespace JCE.Data.Entities;
 
 public class Claim
 {
-    public int claimid{ get; set; }
-    public int member_id_table_id { get; set; }
-    public int payor_id_table_id  { get; set; }
-    public int provider_id_table_id { get; set; }
+    public int claimid { get; set; }
+    public string member_id_table_id { get; set; }
+    public string payor_id_table_id { get; set; }
+    public string provider_id_table_id { get; set; }
     public int claimnumber { get; set; }
-    public string entrydate   { get; set; }
+    public string entrydate { get; set; }
     public string entryhour { get; set; }
     public string dischargedate { get; set; }
     public string dischargehour { get; set; }
     public int institutionalclaimcode { get; set; }
     public int professionalclaimcode { get; set; }
     public int typeofbill { get; set; }
-    public int referalnumber { get; set; }
+    public string referalnumber { get; set; }
     public int servicecode { get; set; }
     public string authcode { get; set; }
     public string medicalrecordnumber { get; set; }
@@ -30,7 +30,7 @@ public class Claim
     public string lastsentdate { get; set; }
     public string acutemanifestation { get; set; }
     public string accident { get; set; }
-    public string lastmenstrualdate{ get; set; }
+    public string lastmenstrualdate { get; set; }
     public string lastxray { get; set; }
     public string hearingvisionpresc { get; set; }
     public string disabilitydate { get; set; }
@@ -52,7 +52,7 @@ public class Claim
     public string conditioninfo { get; set; }
     public string treatmentcodeinfo { get; set; }
     public string claimpricinginfo { get; set; }
-    public string  costforservice { get; set; }
+    public string costforservice { get; set; }
     public string costofmaterial { get; set; }
     public string costformedicine { get; set; }
     public string providercost { get; set; }

@@ -4,9 +4,9 @@ namespace JCE.Business.Dtos.ClaimDtos;
 
 public class CreateClaimDto
 {
-    public int member_id_table_id { get; set; }
-    public int payor_id_table_id { get; set; }
-    public int provider_id_table_id { get; set; }
+    public string member_id_table_id { get; set; }
+    public string payor_id_table_id { get; set; }
+    public string provider_id_table_id { get; set; }
     public int claimnumber { get; set; }
     public string entrydate { get; set; }
     public string entryhour { get; set; }
@@ -15,7 +15,7 @@ public class CreateClaimDto
     public int institutionalclaimcode { get; set; }
     public int professionalclaimcode { get; set; }
     public int typeofbill { get; set; }
-    public int referalnumber { get; set; }
+    public string referalnumber { get; set; }
     public int servicecode { get; set; }
     public string authcode { get; set; }
     public string medicalrecordnumber { get; set; }

@@ -15,9 +15,11 @@ import { getListPayors } from "../../api/payorapi"
 import { GetAllProviders } from "../../api/providerapi"
 import { handleConditions, test } from "../../validations/errorManagerConditions"
 import { getListConditionPayor } from "../../api/errorapi"
-import {createclaim} from "../../api/claimapi"
+import { createclaim } from "../../api/claimapi"
 
 function ClaimPage(props) {
+	const [isDisable, setIsDisable] = useState(false)
+
 	const [member, setMember] = useState({
 		id: "",
 		name: "",
@@ -128,8 +130,6 @@ function ClaimPage(props) {
 		})
 	}
 
-	
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const claim = {
@@ -140,14 +140,69 @@ function ClaimPage(props) {
 			diagnosisDates: diagnosisDates,
 			diagnosisCodes: diagnosisCodes,
 			costs: costs
+		}
 
+		const claimToSend = {
+			member_id_table_id: member.id,
+			payor_id_table_id: payor.id,
+			provider_id_table_id: provider.id,
+			// Claim Information
+			claimnumber: claimInformation.claimNumber !== "" ? parseInt(claimInformation.claimNumber) : 0,
+			entrydate: claimInformation.entryDate,
+			entryhour: claimInformation.entryHour,
+			dischargedate: claimInformation.dischargeDate,
+			dischargehour: claimInformation.dischargeHour,
+			institutionalclaimcode: claimInformation.institutionalClaimCode !== "" ? parseInt(claimInformation.institutionalClaimCode) : 0,
+			professionalclaimcode: claimInformation.professionalClaimCode !== "" ? parseInt(claimInformation.professionalClaimCode) : 0,
+			typeofbill: claimInformation.typeOfBill !== "" ? parseInt(claimInformation.typeOfBill) : 0,
+			referalnumber: claimInformation.referalNum,
+			servicecode: claimInformation.serviceCode !== "" ? parseInt(claimInformation.serviceCode) : 0,
+			authcode: claimInformation.authCode,
+			medicalrecordnumber: claimInformation.medicalRecordNumber,
+			payorclaimcontrolnumber: claimInformation.payerClaimControlNum,
+			autoaccidentstate: claimInformation.autoAccidentState,
+			fileinformation: claimInformation.fileInf,
+			claimnote: claimInformation.claimNote,
+			billingnote: claimInformation.billingNote,
+			// Diagnosis dates
+			onsetofsymptom: diagnosisDates.onsetOfSymptom,
+			initialtreatment: diagnosisDates.initialTreatment,
+			lastsentdate: diagnosisDates.lastSentDate,
+			acutemanifestation: diagnosisDates.acuteManifestation,
+			accident: diagnosisDates.accident,
+			lastmenstrualdate: diagnosisDates.lastMenstrualDate,
+			lastxray: diagnosisDates.lastXRay,
+			hearingvisionpresc: diagnosisDates.hearingVisionPresc,
+			disabilitydate: diagnosisDates.disabilityDates,
+			lastworked: diagnosisDates.lastWorked,
+			authorizedreturnwork: diagnosisDates.authorizedReturnWork,
+			assumedandrelinq: diagnosisDates.assumedRelinq,
+			repricerreceived: diagnosisDates.repricerReceived,
+			// Diagnosis codes
+			principaldiagnosis: diagnosisCodes.principalDiagnosis,
+			admitingdiagnosis: diagnosisCodes.admitingDiagnosis,
+			patientreasonforvisit: diagnosisCodes.patientReasonForVisit,
+			externalcausesofinjury: diagnosisCodes.externalCausesOfInjury,
+			diagnosisrelatedgroup: diagnosisCodes.diagnosisRelatedGroup,
+			otherdiagnosisinfo: diagnosisCodes.otherDiagnosisInfo,
+			principalprocedureinfo: diagnosisCodes.principalProcedureInfo,
+			otherprocedureinfo: diagnosisCodes.otherProcedureInfo,
+			occurrencespaminfo: diagnosisCodes.occurrenceSpamInfo,
+			occurrenceinfo: diagnosisCodes.ocurrenceInfo,
+			valueinfo: diagnosisCodes.valueInfo,
+			conditioninfo: diagnosisCodes.conditionInfo,
+			treatmentcodeinfo: diagnosisCodes.treatmentCodeInfo,
+			claimpricinginfo: diagnosisCodes.claimPricingInfo,
+			// Costs section
+			costforservice: costs.costForService,
+			costofmaterial: costs.costOfMaterial,
+			costformedicine: costs.costForMedicine,
+			providercost: costs.providerCost,
+			totalamount: costs.totalAmount
 		}
-		const claimToSend={
-			member_id_table_id: parseInt(member.id),
-			payor_id_table_id:parseInt(payor.id),
-			provider_id_table_id:parseInt(provider.id)
-		}
-         console.log(claim);
+
+		console.log(claimToSend)
+
 		resetErrorMessage()
 		/*const error = handleValidations(claim)		
 		if (error !== undefined)
@@ -165,13 +220,19 @@ function ClaimPage(props) {
 					title: errorcondition.title,
 					description: errorcondition.description
 				})
-		} catch (error) {
-			
-		}
+		} catch (error) {}
 
-		var response=await createclaim(claimToSend)
-		console.log(response)
+		var response = createclaim(claimToSend)
+		response
+			.then((response) => {
+				console.log(response)
+				if (response.data.success) setIsDisable(true)
+			})
+			.catch((error) => {
+				console.error("Error creating claim", error)
+			})
 	}
+
 	const [responseFromMemberAPI, setResponseFromMemberAPI] = useState()
 	useEffect(() => {
 		async function fetchMember() {
@@ -247,7 +308,7 @@ function ClaimPage(props) {
 			<button className="btn btn-blue m-1">Search</button>
 			<button className="btn btn-blue m-1">Clean</button>
 			<button className="btn btn-blue m-1">Reset</button>
-			<button id="botonSubmit" className="btn btn-blue m-4" onClick={handleSubmit}>
+			<button id="botonSubmit" className="btn btn-blue m-4" onClick={handleSubmit} disabled={isDisable}>
 				Submit
 			</button>
 			<hr></hr>
