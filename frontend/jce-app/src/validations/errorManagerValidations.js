@@ -85,7 +85,7 @@ const handlingClaimsInMemberStateCT = (claim) => {
 	}
 }
 
-const handlingClaimsInProviderStateOH = (claim) => {
+/*const handlingClaimsInProviderStateOH = (claim) => {
 	if (claim.provider.state === "OH" &&
 		claim.diagnosisCodes.principalDiagnosis === "" &&
 		(claim.provider.zipCode !== "43001" &&
@@ -95,7 +95,7 @@ const handlingClaimsInProviderStateOH = (claim) => {
 			description: "Principal Diagnosis Code is Mandatory in Ohio, please contact MDX Services if you have any question (800-366-4451)"
 		}	
 	}
-}
+}*/
 
 const checkCodeRange = (code) => {
 	var numericPart = parseInt(code.substring(3), 10)
